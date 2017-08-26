@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1452686857 source:d:\course\new folder\pikhomework\pikcoursework\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"CourseWork.h"
+
+1452686855 source:d:\course\new folder\pikhomework\pikcoursework\coursework.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"CourseWork.h"
+
+1452629671 d:\course\new folder\pikhomework\pikcoursework\coursework.h
+

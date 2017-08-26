@@ -1,0 +1,3 @@
+http://www.suncreation.org/webacad/uploads/c.html
+http://www.codewithc.com/phonebook-management-system-project-in-c/
+https://www.cs.rit.edu/~ptt/courses/1001-364/code/phonebook.c

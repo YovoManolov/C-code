@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1449667526 source:c:\users\stefan\desktop\arraymanip\main.c
+	<stdlib.h>
+	"arraymanip.h"
+
+1449666972 c:\users\stefan\desktop\arraymanip\arraymanip.h
+
+1449667732 source:c:\users\stefan\desktop\arraymanip\razdelna kompilaciq.c
+	<stdio.h>
+	<stdlib.h>
+	"arraymanip.h"
+

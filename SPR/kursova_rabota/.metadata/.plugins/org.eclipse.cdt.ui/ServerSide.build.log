@@ -1,0 +1,339 @@
+
+**** Build of configuration Debug for project ServerSide ****
+
+make all 
+Building file: ../server.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"server.d" -MT"server.d" -o"server.o" "../server.c"
+../server.c:22:4: error: unknown type name ‘Travel’
+    Travel* next;
+    ^
+../server.c: In function ‘main’:
+../server.c:39:33: error: ‘SOCKET_STREAM’ undeclared (first use in this function)
+  socket_desc = socket(AF_INET , SOCKET_STREAM , 0);
+                                 ^
+../server.c:39:33: note: each undeclared identifier is reported only once for each function it appears in
+../server.c:48:2: error: called object is not a function or function pointer
+  server.sin_port( 8889 );
+  ^
+../server.c:50:40: error: invalid type argument of unary ‘*’ (have ‘struct sockaddr_in’)
+  if(bind(socket_desc,(struct sockaddr*)*server ,sizeof(server)) < 0){
+                                        ^
+../server.c:72:55: error: ‘connection_handler’ undeclared (first use in this function)
+         if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_sock) < 0)
+                                                       ^
+../server.c: In function ‘connection_handler’:
+../server.c:103:2: warning: missing terminating " character
+  "\n\n---------MENU---------\n
+  ^
+../server.c:103:2: error: missing terminating " character
+subdir.mk:18: recipe for target 'server.o' failed
+../server.c:104:3: error: stray ‘\320’ in program
+   1.Всички мои пътувания\n
+   ^
+../server.c:104:3: error: stray ‘\222’ in program
+../server.c:104:3: error: stray ‘\321’ in program
+../server.c:104:3: error: stray ‘\201’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\270’ in program
+../server.c:104:3: error: stray ‘\321’ in program
+../server.c:104:3: error: stray ‘\207’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\272’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\270’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\274’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\276’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\270’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\277’ in program
+../server.c:104:3: error: stray ‘\321’ in program
+../server.c:104:3: error: stray ‘\212’ in program
+../server.c:104:3: error: stray ‘\321’ in program
+../server.c:104:3: error: stray ‘\202’ in program
+../server.c:104:3: error: stray ‘\321’ in program
+../server.c:104:3: error: stray ‘\203’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\262’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\260’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\275’ in program
+../server.c:104:3: error: stray ‘\320’ in program
+../server.c:104:3: error: stray ‘\270’ in program
+../server.c:104:3: error: stray ‘\321’ in program
+../server.c:104:3: error: stray ‘\217’ in program
+../server.c:104:3: error: stray ‘\’ in program
+../server.c:104:3: error: incompatible types when initializing type ‘char *’ using type ‘double’
+../server.c:104:44: error: expected ‘,’ or ‘;’ before ‘n’
+   1.Всички мои пътувания\n
+                                            ^
+../server.c:105:3: error: stray ‘\320’ in program
+   2.Добави ново пътуване\n
+   ^
+../server.c:105:3: error: stray ‘\224’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\276’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\261’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\260’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\262’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\270’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\275’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\276’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\262’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\276’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\277’ in program
+../server.c:105:3: error: stray ‘\321’ in program
+../server.c:105:3: error: stray ‘\212’ in program
+../server.c:105:3: error: stray ‘\321’ in program
+../server.c:105:3: error: stray ‘\202’ in program
+../server.c:105:3: error: stray ‘\321’ in program
+../server.c:105:3: error: stray ‘\203’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\262’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\260’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\275’ in program
+../server.c:105:3: error: stray ‘\320’ in program
+../server.c:105:3: error: stray ‘\265’ in program
+../server.c:105:3: error: stray ‘\’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+   3.Изведи 10-те най-дълги пътувания\n
+   ^
+../server.c:106:3: error: stray ‘\230’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\267’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\262’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\265’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\264’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\270’ in program
+../server.c:106:3: error: stray ‘\321’ in program
+../server.c:106:3: error: stray ‘\202’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\265’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\275’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\260’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\271’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\264’ in program
+../server.c:106:3: error: stray ‘\321’ in program
+../server.c:106:3: error: stray ‘\212’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\273’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\263’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\270’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\277’ in program
+../server.c:106:3: error: stray ‘\321’ in program
+../server.c:106:3: error: stray ‘\212’ in program
+../server.c:106:3: error: stray ‘\321’ in program
+../server.c:106:3: error: stray ‘\202’ in program
+../server.c:106:3: error: stray ‘\321’ in program
+../server.c:106:3: error: stray ‘\203’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\262’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\260’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\275’ in program
+../server.c:106:3: error: stray ‘\320’ in program
+../server.c:106:3: error: stray ‘\270’ in program
+../server.c:106:3: error: stray ‘\321’ in program
+../server.c:106:3: error: stray ‘\217’ in program
+../server.c:106:3: error: stray ‘\’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+   4.Изчисти екарана\n
+   ^
+../server.c:107:3: error: stray ‘\230’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\267’ in program
+../server.c:107:3: error: stray ‘\321’ in program
+../server.c:107:3: error: stray ‘\207’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\270’ in program
+../server.c:107:3: error: stray ‘\321’ in program
+../server.c:107:3: error: stray ‘\201’ in program
+../server.c:107:3: error: stray ‘\321’ in program
+../server.c:107:3: error: stray ‘\202’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\270’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\265’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\272’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\260’ in program
+../server.c:107:3: error: stray ‘\321’ in program
+../server.c:107:3: error: stray ‘\200’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\260’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\275’ in program
+../server.c:107:3: error: stray ‘\320’ in program
+../server.c:107:3: error: stray ‘\260’ in program
+../server.c:107:3: error: stray ‘\’ in program
+../server.c:108:3: error: stray ‘\320’ in program
+   5.Изход\n";
+   ^
+../server.c:108:3: error: stray ‘\230’ in program
+../server.c:108:3: error: stray ‘\320’ in program
+../server.c:108:3: error: stray ‘\267’ in program
+../server.c:108:3: error: stray ‘\321’ in program
+../server.c:108:3: error: stray ‘\205’ in program
+../server.c:108:3: error: stray ‘\320’ in program
+../server.c:108:3: error: stray ‘\276’ in program
+../server.c:108:3: error: stray ‘\320’ in program
+../server.c:108:3: error: stray ‘\264’ in program
+../server.c:108:3: error: stray ‘\’ in program
+../server.c:108:17: warning: missing terminating " character
+   5.Изход\n";
+                 ^
+../server.c:108:3: error: missing terminating " character
+   5.Изход\n";
+   ^
+../server.c:112:35: error: ‘message’ undeclared (first use in this function)
+   write(sock, enterChoice ,strlen(message));
+                                   ^
+../server.c:116:9: error: ‘read_size’ undeclared (first use in this function)
+  while((read_size = recv(sock,menu_choice,sizeof(int),0)) < 0){
+         ^
+../server.c:116:31: warning: passing argument 2 of ‘recv’ makes pointer from integer without a cast [-Wint-conversion]
+  while((read_size = recv(sock,menu_choice,sizeof(int),0)) < 0){
+                               ^
+In file included from ../server.c:4:0:
+/usr/include/x86_64-linux-gnu/sys/socket.h:156:16: note: expected ‘void *’ but argument is of type ‘int’
+ extern ssize_t recv (int __fd, void *__buf, size_t __n, int __flags);
+                ^
+../server.c:122:5: error: a label can only be part of a statement and a declaration is not a statement
+     Travel* t = loadTravelInfo();
+     ^
+../server.c:122:17: warning: implicit declaration of function ‘loadTravelInfo’ [-Wimplicit-function-declaration]
+     Travel* t = loadTravelInfo();
+                 ^
+../server.c:122:17: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../server.c:126:41: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+     printf("beg longitude %lf \n" + (*t)->beginning->Lon);
+                                         ^
+../server.c:127:40: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+     printf("beg latitude %lf \n" + (*t)->beginning->Lat);
+                                        ^
+../server.c:128:35: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+     printf("beg name %s \n" + (*t)->beginning->name);
+                                   ^
+../server.c:129:35: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+     printf("beg date %s \n" + (*t)->beginning->date);
+                                   ^
+../server.c:130:41: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+     printf("dst longitude %lf \n" + (*t)->destination->Lon);
+                                         ^
+../server.c:131:40: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+     printf("dst latitude %lf \n" + (*t)->destination->Lat);
+                                        ^
+../server.c:132:35: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+     printf("dst name %s \n" + (*t)->destination->name);
+                                   ^
+../server.c:133:35: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+     printf("dst date %s \n" + (*t)->destination->date);
+                                   ^
+../server.c:102:8: warning: unused variable ‘menu’ [-Wunused-variable]
+  char* menu = 
+        ^
+../server.c:94:32: warning: unused variable ‘clent_message’ [-Wunused-variable]
+  char *greeting, *enterChoice, clent_message[2000];
+                                ^
+../server.c: At top level:
+../server.c:159:9: error: conflicting types for ‘loadTravelInfo’
+ Travel* loadTravelInfo(){
+         ^
+../server.c:122:17: note: previous implicit declaration of ‘loadTravelInfo’ was here
+     Travel* t = loadTravelInfo();
+                 ^
+../server.c: In function ‘loadTravelInfo’:
+../server.c:165:8: error: ‘sock’ undeclared (first use in this function)
+  write(sock, ascForInput,strlen(ascForInput));
+        ^
+../server.c:166:6: error: ‘read_size’ undeclared (first use in this function)
+  if((read_size = recv(sock,Lon,sizeof(double),0)) < 0){
+      ^
+../server.c:166:28: error: incompatible type for argument 2 of ‘recv’
+  if((read_size = recv(sock,Lon,sizeof(double),0)) < 0){
+                            ^
+In file included from ../server.c:4:0:
+/usr/include/x86_64-linux-gnu/sys/socket.h:156:16: note: expected ‘void *’ but argument is of type ‘double’
+ extern ssize_t recv (int __fd, void *__buf, size_t __n, int __flags);
+                ^
+../server.c:169:4: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+   t->beginning->Lon = Lon;
+    ^
+../server.c:174:28: error: incompatible type for argument 2 of ‘recv’
+  if((read_size = recv(sock,Lat,sizeof(double),0)) < 0){
+                            ^
+In file included from ../server.c:4:0:
+/usr/include/x86_64-linux-gnu/sys/socket.h:156:16: note: expected ‘void *’ but argument is of type ‘double’
+ extern ssize_t recv (int __fd, void *__buf, size_t __n, int __flags);
+                ^
+../server.c:177:4: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+   t->beginning->Lat = Lat;
+    ^
+../server.c:185:11: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+   strcpy(t->beginning->name,place_name);
+           ^
+../server.c:193:11: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+   strcpy(t->beginning->date, date);
+           ^
+../server.c:198:28: error: incompatible type for argument 2 of ‘recv’
+  if((read_size = recv(sock,Lon,sizeof(double),0)) < 0){
+                            ^
+In file included from ../server.c:4:0:
+/usr/include/x86_64-linux-gnu/sys/socket.h:156:16: note: expected ‘void *’ but argument is of type ‘double’
+ extern ssize_t recv (int __fd, void *__buf, size_t __n, int __flags);
+                ^
+../server.c:201:4: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+   t->destination->Lon = Lon;
+    ^
+../server.c:206:28: error: incompatible type for argument 2 of ‘recv’
+  if((read_size = recv(sock,Lat,sizeof(double),0)) < 0){
+                            ^
+In file included from ../server.c:4:0:
+/usr/include/x86_64-linux-gnu/sys/socket.h:156:16: note: expected ‘void *’ but argument is of type ‘double’
+ extern ssize_t recv (int __fd, void *__buf, size_t __n, int __flags);
+                ^
+../server.c:209:4: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+   t->destination->Lat = Lat;
+    ^
+../server.c:218:11: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+   strcpy(t->destination->name,place_name);
+           ^
+../server.c:227:11: error: invalid type argument of ‘->’ (have ‘Travel {aka struct travel}’)
+   strcpy(t->destination->date, date);
+           ^
+../server.c:230:9: warning: function returns address of local variable [-Wreturn-local-addr]
+  return &t;
+         ^
+../server.c: In function ‘connection_handler’:
+../server.c:157:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make: *** [server.o] Error 1

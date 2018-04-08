@@ -1,0 +1,22 @@
+!SESSION 2018-04-08 17:28:42.192 -----------------------------------------------
+eclipse.buildId=M20100909-0800
+java.version=1.8.0_162
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.linuxtools.product
+Command-line arguments:  -data /home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.linuxtools.product
+
+!ENTRY org.eclipse.ui 4 4 2018-04-08 17:28:49.732
+!MESSAGE Plugin org.eclipse.linuxtools.callgraph, extension org.eclipse.ui.perspectiveExtensions, id org.eclipse.linuxtools.callgraph.callgraphview: Attribute 'relative' not defined.  This attribute is required when relationship="stack".
+
+!ENTRY org.eclipse.ui 4 4 2018-04-08 17:28:49.753
+!MESSAGE Unable to process element: view in perspective extension: null
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-08 17:30:14.565
+!MESSAGE Indexed 'kursovaRabota' (0 sources, 35 headers) in 4.71 sec: 715 declarations; 914 references; 3 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-08 17:32:51.268
+!MESSAGE Indexed 'ServerSide' (0 sources, 35 headers) in 1.60 sec: 715 declarations; 914 references; 3 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-04-08 17:33:04.043
+!MESSAGE Indexed 'ClientSide' (0 sources, 35 headers) in 1.43 sec: 715 declarations; 914 references; 3 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)

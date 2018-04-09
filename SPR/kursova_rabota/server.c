@@ -33,7 +33,7 @@ typedef struct tourist {
 
 //the thread function
 void *connection_handler(void *);
-void loadTravelInfo(int sock,Travel* t);
+void loadTravelInfo(void* socket_desc,Travel* t);
 
 int main(int argc , char *argv[]){
 	int socket_desc, client_sock,c , *new_sock;
@@ -64,6 +64,7 @@ int main(int argc , char *argv[]){
 	puts("Waiting for incomming connections...");
 	c = sizeof(struct sockaddr_in);
 
+	//waiting client to choose form menu.
  	while( (client_sock = accept(socket_desc, 
  					(struct sockaddr *)&client, (socklen_t*)&c)) )
     {
@@ -81,7 +82,7 @@ int main(int argc , char *argv[]){
         }
          
         //Now join the thread , so that we dont terminate before the thread
-        //pthread_join( sniffer_thread , NULL);
+        pthread_join( sniffer_thread , NULL);
         puts("Handler assigned");
     }
      
@@ -102,23 +103,16 @@ void* connection_handler(void * socket_desc){
 	greeting = "Hi client! I am your connection handler\n";
 	write(sock, greeting,strlen(greeting));
 
-	
-	
-	 char* menu = "\n\n---------MENU---------\n1.Всички мои пътувания\n2.Добави ново пътуване\n3.Изведи 10-те най-дълги пътувания\n4.Изчисти екарана\n5.Изход\n";
-	 write(sock, menu ,strlen(menu));
 
-	 enterChoice = "Now enter your choice from the menu \n";
-	 write(sock, enterChoice ,strlen(enterChoice));
-	
 	//recv returns -1 on error and number of bites received on success
-	while((read_size = recv(sock,&menu_choice,sizeof(int),0)) < 0){
+	while(read_size = recv(sock,&menu_choice,sizeof(int),0)) =! -1){
 		
 		switch(menu_choice){
 			Travel t;
 			case 1:
 				break;
 			case 2: 
-				loadTravelInfo(sock,&t);
+				loadTravelInfo(socket_desc,&t);
 				
 				printf("beg longitude %lf \n",t.beginning.Lon);
 				printf("beg latitude %lf \n", t.beginning.Lat);
@@ -137,6 +131,7 @@ void* connection_handler(void * socket_desc){
 			case 5:
 				break;
 			default:
+				printf("Client choice was invalid!");
 				break;
 
 		}
@@ -153,8 +148,8 @@ void* connection_handler(void * socket_desc){
 	free(socket_desc);
 }
 
-void loadTravelInfo(int sock,Travel* t){
-	
+void loadTravelInfo(void* socket_desc,Travel* t){
+	int sock = *(int*) socket_desc;
 	double Lon, Lat;
 	int read_size;
 	char* ascForInput,place_name[50], date[12];

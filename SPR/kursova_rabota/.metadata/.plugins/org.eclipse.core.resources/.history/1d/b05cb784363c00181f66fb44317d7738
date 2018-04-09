@@ -1,23 +1,27 @@
 /*
     C ECHO client example using sockets
 */
-#include<stdio.h> //printf
-#include<string.h>    //strlen
-#include<unistd.h>
-#include<sys/socket.h>    //socket
-#include<arpa/inet.h> //inet_addr
-#define clear() printf("\033[H\033[J")
+#include "client.h"
 
 void printMenu(){
 	printf("Please enter your choice from the menu! \n");
-   	printf("\n\n---------MENU---------\n1.Всички мои пътувания\n2.Добави ново пътуване\n3.Изведи 10-те най-дълги пътувания\n4.Изчисти екарана\n5.Изход\n");
+   	printf("\n\n---------MENU---------");
+   	printf("\n1.Всички мои пътувания");
+   	printf("\n2.Добави ново пътуване");
+   	printf("\n3.Намери пътуване по дата на тръгване");
+   	printf("\n4.Изведи 10-те най-дълги пътувания");
+   	printf("\n5.Изведи 10-те най-къси пътувания");
+   	printf("\n6.Изчисти екарана");
+   	printf("\n7.Изход\n\n");
 }
  
+
+
 int main(int argc , char *argv[])
 {
-    int sock,menu_choice;
+    int sock,menu_choice,server_message_length;
     struct sockaddr_in server;
-    char server_message[1000] , server_reply[1000], place_name[50],date[12];
+    char server_message[500], place_name[50],date[12];
     double lon,lat;
 
     //Create socket
@@ -52,6 +56,17 @@ int main(int argc , char *argv[])
            return 1;
         }
 
+        if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				puts("recv failed");
+		        break;
+		}
+		if(recv(sock , server_message ,server_message_length, 0) < 0){
+       		  puts("recv failed");
+       		  break;
+       	}else{
+       		  printf("%s\n",server_message);
+       	}
+
         switch(menu_choice){
         	case 1:
 				break;
@@ -63,7 +78,11 @@ int main(int argc , char *argv[])
 				  //------------------------------------------
 			      //------------------------------------------
 
-				 if(recv(sock , server_message , 1000 , 0) < 0){
+				 if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				 	puts("recv failed");
+		            break;
+				 }
+				 if(recv(sock , server_message ,server_message_length, 0) < 0){
 		            puts("recv failed");
 		            break;
 		          }else{
@@ -77,7 +96,11 @@ int main(int argc , char *argv[])
 			      }
 			      //------------------------------------------
 			      //------------------------------------------
-			     if(recv(sock , server_message , 1000 , 0) < 0){
+			      if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				 	puts("recv failed");
+		            break;
+				  }
+			      if(recv(sock , server_message ,server_message_length, 0) < 0){
 		            puts("recv failed");
 		            break;
 		          }else{
@@ -91,8 +114,11 @@ int main(int argc , char *argv[])
 			      }
 			      //------------------------------------------
 			      //------------------------------------------
-
-			      if(recv(sock , server_message , 1000 , 0) < 0){
+			      if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				 	puts("recv failed");
+		            break;
+				  }
+			      if(recv(sock , server_message ,server_message_length, 0) < 0){
 		            puts("recv failed");
 		            break;
 		          }else{
@@ -106,7 +132,11 @@ int main(int argc , char *argv[])
 			      }
 			      //------------------------------------------
 			      //------------------------------------------
-			      if(recv(sock , server_message , 1000 , 0) < 0){
+			      if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				 	puts("recv failed");
+		            break;
+				  }
+			      if(recv(sock , server_message ,server_message_length, 0) < 0){
 		            puts("recv failed");
 		            break;
 		          }else{
@@ -124,8 +154,11 @@ int main(int argc , char *argv[])
 			      //DESTINATION
 				  //------------------------------------------
 			      //------------------------------------------
-
-			      if(recv(sock , server_message , 1000 , 0) < 0){
+			       if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				 	puts("recv failed");
+		            break;
+				  }
+			      if(recv(sock , server_message ,server_message_length, 0) < 0){
 		            puts("recv failed");
 		            break;
 		          }else{
@@ -139,7 +172,11 @@ int main(int argc , char *argv[])
 			      }
 			      //------------------------------------------
 			      //------------------------------------------
-			     if(recv(sock , server_message , 1000 , 0) < 0){
+			   	 if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				 	puts("recv failed");
+		            break;
+				  }
+			      if(recv(sock , server_message ,server_message_length, 0) < 0){
 		            puts("recv failed");
 		            break;
 		          }else{
@@ -154,7 +191,11 @@ int main(int argc , char *argv[])
 			      //------------------------------------------
 			      //------------------------------------------
 
-			      if(recv(sock , server_message , 1000 , 0) < 0){
+			     if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				 	puts("recv failed");
+		            break;
+				  }
+			      if(recv(sock , server_message ,server_message_length, 0) < 0){
 		            puts("recv failed");
 		            break;
 		          }else{
@@ -168,7 +209,11 @@ int main(int argc , char *argv[])
 			      }
 			      //------------------------------------------
 			      //------------------------------------------
-			      if(recv(sock , server_message , 1000 , 0) < 0){
+			     if(server_message_length = recv(sock , server_message ,sizeof(int), 0)<0){
+				 	puts("recv failed");
+		            break;
+				  }
+			      if(recv(sock , server_message ,server_message_length, 0) < 0){
 		            puts("recv failed");
 		            break;
 		          }else{
@@ -189,6 +234,12 @@ int main(int argc , char *argv[])
 			case 4: 
 				break;
 			case 5:
+				break;
+			case 6:
+				clear();
+				break;
+			case 7:
+				exit(0);
 				break;
 			default:
 				break;

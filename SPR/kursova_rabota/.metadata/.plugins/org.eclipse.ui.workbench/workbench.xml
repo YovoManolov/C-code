@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="18" version="2.0">
+<workbench progressCount="24" version="2.0">
 <workbenchAdvisor/>
 <window height="767" maximized="true" width="1398" x="65" y="24">
 <fastViewData fastViewLocation="1024"/>
@@ -30,24 +30,29 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
-<part id="1"/>
 <part id="2"/>
+<part id="1"/>
 <part id="3"/>
+<part id="4"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="client.c" partName="client.c" path="/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/clientSide/client.c" title="client.c" tooltip="clientSide/client.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/clientSide/client.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1601" selectionTopPixel="793"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7422" selectionTopPixel="3385"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="server.h" partName="server.h" path="/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/serverSide/server.h" title="server.h" tooltip="serverSide/server.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/serverSide/server.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="488" selectionTopPixel="207"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="client.h" partName="client.h" path="/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/clientSide/client.h" title="client.h" tooltip="clientSide/client.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/clientSide/client.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="165" selectionTopPixel="0"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="server.c" partName="server.c" path="/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/serverSide/server.c" title="server.c" tooltip="serverSide/server.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/serverSide/server.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1329" selectionTopPixel="783"/>
-</editor>
-<editor id="org.eclipse.cdt.ui.editor.CEditor" name="server.c" partName="server.c" title="server.c" tooltip="/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/server.c" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/server.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3258" selectionTopPixel="1764"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1378" selectionTopPixel="675"/>
 </editor>
 </editors>
 <views>
@@ -55,9 +60,10 @@
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
 <category IMemento.internal.id="Errors"/>
+<category IMemento.internal.id="Warnings (1 item)"/>
 <category IMemento.internal.id="Warnings"/>
 </expanded>
-<columnWidths org.eclipse.ui.ide.locationField="73" org.eclipse.ui.ide.markerType="329" org.eclipse.ui.ide.pathField="143" org.eclipse.ui.ide.resourceField="108" org.eclipse.ui.ide.severityAndDescriptionField="579"/>
+<columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -137,6 +143,7 @@
 <alwaysOnActionSet id="org.eclipse.cdt.ui.CodingActionSet"/>
 <alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.presentation"/>
 <alwaysOnActionSet id="org.eclipse.debug.ui.profileActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
 <show_view_action id="org.eclipse.ui.console.ConsoleView"/>
 <show_view_action id="org.eclipse.search.ui.views.SearchView"/>
 <show_view_action id="org.eclipse.ui.views.ContentOutline"/>
@@ -170,6 +177,7 @@
 <view id="org.eclipse.ui.views.TaskList"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.views.PropertySheet"/>
+<view id="org.eclipse.debug.ui.DebugView"/>
 <fastViewBars>
 <fastViewBar fastViewLocation="131072" id="topRight" orientation="512" selectedTabId="org.eclipse.ui.views.ContentOutline" style="0">
 <fastViews>
@@ -207,11 +215,13 @@
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="Properties"/>
+<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
+<part id="4"/>
 </presentation>
 </folder>
 </info>
@@ -267,8 +277,8 @@
 <perspective_action id="org.eclipse.cdt.ui.CPerspective"/>
 <perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
 <perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
-<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.views.TaskList"/>
 <view id="org.eclipse.ui.views.ProblemView"/>
@@ -318,7 +328,7 @@
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.44827586" ratioLeft="234" ratioRight="288" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<info part="org.eclipse.ui.editorss" ratio="0.28100777" ratioLeft="145" ratioRight="371" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
 <info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.74949765" ratioLeft="1119" ratioRight="374" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
@@ -374,11 +384,17 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="server.c" tooltip="/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/server.c">
-<persistable uri="file:/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/server.c"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="server.c" tooltip="serverSide/server.c">
 <persistable path="/serverSide/server.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="client.h" tooltip="clientSide/client.h">
+<persistable path="/clientSide/client.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="server.h" tooltip="serverSide/server.h">
+<persistable path="/serverSide/server.h"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="server.c" tooltip="/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/server.c">
+<persistable uri="file:/home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/server.c"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="client.c" tooltip="clientSide/client.c">
 <persistable path="/clientSide/client.c"/>

@@ -1,0 +1,32 @@
+/*
+ * server.h
+ *
+ *  Created on: Apr 9, 2018
+ *      Author: yovo
+ */
+
+#ifndef SERVER_H_
+#define SERVER_H_
+
+typedef struct place {
+   double Lon;
+   double Lat;
+   char name[50];
+   char date[12]; //dd-mm-yyyy
+} Place ;
+
+typedef struct Travel Travel;
+struct Travel {
+   Place beginning;
+   Place destination;
+   Travel* next;
+};
+
+typedef struct tourist {
+   char name[20];
+   int countOfTravels; //id of last added travel
+   					   //starting from 1 to n
+   Travel* headNode;
+} Tourist;
+
+#endif /* SERVER_H_ */

@@ -17,9 +17,10 @@
 #include<arpa/inet.h> //inet_addr
 #include<unistd.h>    //write
 #include<pthread.h>
+
 //for distance calcuation
 #include <math.h>
-#define PI 3.14159265358979323846
+#define pi 3.14159265358979323846
 
 
 typedef struct place {
@@ -39,18 +40,16 @@ struct Travel {
 
 typedef struct tourist {
    char name[20];
-   /*take from xml increment save to xml
-   id of last added travel
-   starting from 1 to n*/
    int countOfTravels;
    Travel* headNode;
 } Tourist;
 
-
 void *connection_handler(void *);
 void loadTravelInfo(void* socket_desc,Travel* t);
+
 double deg2rad(double);
 double rad2deg(double);
+
 /*:: unit = the unit you desire for results                                  :*/
 /*::           where: 'M' is statute miles (default)                         :*/
 /*::                  'K' is kilometers                                      :*/

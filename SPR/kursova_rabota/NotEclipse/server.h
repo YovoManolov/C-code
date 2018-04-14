@@ -40,9 +40,6 @@ struct Travel {
 
 typedef struct tourist {
    char name[20];
-   /*take from xml increment save to xml ;
-   id of last added travel
-   starting from 1 to n*/
    int countOfTravels; 
    Travel* headNode;
 } Tourist;

@@ -63,15 +63,13 @@ int main(int argc , char *argv[]){
 
 //to handle connection for each thread 
 void* connection_handler(void * socket_desc){
-	int sock= *(int*) socket_desc,message_size;
+	int sock= *(int*)socket_desc;
 	int menu_choice ,read_size;
-	char *greeting;
+	char greeting[500];
 	Travel t;
 	
-	greeting = "Hi client! I am your connection handler\0";
-	message_size = strlen(greeting);
-	write(sock,&message_size,sizeof(int));
-	write(sock, greeting,strlen(greeting));
+	strcpy(greeting ,"Hi client! I am your connection handler");
+	write(sock, greeting, 500);
 
 	//recv returns -1 on error and number of bites received on success
 	while((read_size = recv(sock,&menu_choice,sizeof(int),0)) != -1){
@@ -82,7 +80,6 @@ void* connection_handler(void * socket_desc){
 				break;
 			case 2: 
 				loadTravelInfo(socket_desc,&t);
-				
 				printf("beg longitude %lf \n",t.beginning.Lon);
 				printf("beg latitude %lf \n", t.beginning.Lat);
 				printf("beg name %s \n", t.beginning.name);
@@ -126,8 +123,6 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//start-longit
 	//=============================
 	ascForInput = "Please enter Longitude of starting position:\0";
-	message_size = strlen(ascForInput);
-	write(sock,&message_size,sizeof(int));
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,&Lon,sizeof(double),0)) < 0){
 		perror("Error reading start pos Longitude!:  ");
@@ -140,8 +135,7 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//start-latit
 	//=============================
 	ascForInput = "Please enter Latitude of starting position:\0";
-	message_size = strlen(ascForInput);
-	write(sock,&message_size,sizeof(int));
+
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
 		perror("Error reading start pos Latitude!:  ");
@@ -154,35 +148,32 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//start-name
 	//=============================
 	ascForInput = "Please enter name of starting position:\0";
-	message_size = strlen(ascForInput);
-	write(sock,&message_size,sizeof(int));
+
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,place_name,50,0)) < 0){
 		perror("Error reading start pos name!:  ");
 	}else{
 		strcpy(t->beginning.name,place_name);
 	}
-
+	memset(place_name, 0, 50);
 	//=============================
 	//start-date
 	//=============================
 	ascForInput = "Please enter date of departure like dd/mm/yyyy:\0";
-	message_size = strlen(ascForInput);
-	write(sock,&message_size,sizeof(int));
+
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,date,12,0)) < 0){
 		perror("Error reading departure date!:  ");
 	}else{
 		strcpy(t->beginning.date, date);
 	}
-
+	memset(place_name, 0, 12);
 
 	//=============================
 	//dest-longit
 	//=============================
 	ascForInput = "Please enter Longitude of destination:\0";
-	message_size = strlen(ascForInput);
-	write(sock,&message_size,sizeof(int));
+
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,&Lon,sizeof(double),0)) < 0){
 		perror("Error reading destination Longitude!:  ");
@@ -193,9 +184,7 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//=============================
 	//dest-latit
 	//=============================
-	ascForInput = "Please enter Latitude of destination:";
-	message_size = strlen(ascForInput);
-	write(sock,&message_size,sizeof(int));
+	ascForInput = "Please enter Latitude of destination:\0";
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
 		perror("Error reading destination Latitude!:  ");
@@ -207,37 +196,36 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//dest-name
 	//=============================
 	ascForInput = "Please enter name of destination position:\0";
-	message_size = strlen(ascForInput);
-	write(sock,&message_size,sizeof(int));
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,place_name,50,0)) < 0){
 		perror("Error reading start pos name!:  ");
 	}else{
 		strcpy(t->destination.name,place_name);
 	}
+	memset(place_name, 0, 50);
 
 	//=============================
 	//dest-date
 	//=============================
 	ascForInput = "Please enter date of arrival like dd/mm/yyyy:\0";
-	message_size = strlen(ascForInput);
-	write(sock,&message_size,sizeof(int));
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,date,12,0)) < 0){
 		perror("Error reading arrival date!:  ");
 	}else{
 		strcpy(t->destination.date, date);
 	}
-
+	memset(place_name, 0, 12);
 	t->distance = distance(t->beginning.Lon,t->beginning.Lat,t->destination.Lon,t->destination.Lat,'K');
+
+	printf("Trip was added created successfully ! ");
 }
 
 double deg2rad(double degrees){
-	return (degrees) * PI / 180.0;
+	return (degrees) * pi / 180.0;
 }
 
 double rad2deg(double radians){
-	return (radians) * 180.0 / M_PI ;
+	return (radians) * 180.0 / pi ;
 }
 
 double distance(double lat1, double lon1, double lat2, double lon2, char unit) {

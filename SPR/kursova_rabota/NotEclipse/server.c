@@ -111,6 +111,7 @@ void* connection_handler(void * socket_desc,int* fileMutex){
 		switch(menu_choice){
 
 			case 1:
+				printTravelsOfCurrentTraveller();
 				break;
 			case 2: 
 				singleTravelStorage = malloc(sizeof(Travel));
@@ -143,7 +144,7 @@ void* connection_handler(void * socket_desc,int* fileMutex){
 
 void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName){
 	int sock = *(int*) socket_desc ,message_size;
-	double Lon, Lat;
+	double Lon, Lat ,averageSpeed;
 	int read_size;
 	char* ascForInput,place_name[50], date[12];
 
@@ -243,15 +244,27 @@ void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName){
 		strcpy(t->destination.date, date);
 	}
 	memset(place_name, 0, 12);
-	t->distance = distance(t->beginning.Lon,t->beginning.Lat,t->destination.Lon,t->destination.Lat,'K');
+
+	//=============================
+	//average speed
+	//=============================
+	ascForInput = "Please enter average speed in km/h: \0";
+	write(sock, ascForInput,strlen(ascForInput));
+	if((read_size = recv(sock,averageSpeed,sizeof(double),0)) < 0){
+		perror("Error reading average speed!:  ");
+	}else{
+		t->averageSpeed = averageSpeed ;
+	}
+
+	// K for distance in kilometer 
+	t->distance = distance(t->beginning.Lon,t->beginning.Lat,
+							t->destination.Lon,t->destination.Lat,'K');
 	//always adding the wast node
+	t->averageDuration = (t->distance / t->averageSpeed);
 	t->next = NULL;
 
 	printf("Trip was added created successfully ! ");
 }
-
-
-
 
 
 void printTravel(Travel *t){
@@ -269,6 +282,19 @@ void printTravel(Travel *t){
 		pritnf("---------------------------------\n");	
 }
 
+void printTravelsOfCurrentTraveller(Travel* currentTouristHead){
+	Travel * curr;
+	curr = allTripsHead;
+
+	//no need from touristName check , cose all
+	//travels are for the current tourist 
+	while(curr->next != NULL){
+		printTravel(curr);
+    	curr = curr->next;
+    }
+    printTravel(curr);
+
+}
 
 void addTravel(Travel *_head,Travel* singleTravelStorage){
 	Travel *_curr;
@@ -284,6 +310,23 @@ void addTravel(Travel *_head,Travel* singleTravelStorage){
       	_curr->next = singleTravelStorage;
        	printf("\nNew travel was added to your list of travells!\n");
     }
+}
+
+int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
+								Travel* currentTouristHead){
+	Travel* curr;
+	curr = allTripsHead;
+	while(curr->next != NULL){
+		if(strcmp(curr->touristName,touristName) == 0){
+			addTravel(currentTouristHead,curr);
+		}
+		curr = curr->next;
+	}
+	if(strcmp(curr->touristName,touristName) == 0){
+			addTravel(currentTouristHead,curr);
+	}
+	
+	return 1;
 }
 
 int loadAllTravelsFromFile(Travel* allTripsHead,FILE *fp){
@@ -308,19 +351,6 @@ int loadAllTravelsFromFile(Travel* allTripsHead,FILE *fp){
     }
    	
    	fclose(fp);    	
-	return 1;
-}
-
-int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
-								Travel* currentTouristHead){
-	Travel* curr;
-	curr = allTripsHead;
-	while(curr->next != NULL){
-		if(strcmp(curr->touristName,touristName) == 0){
-			addTravel(currentTouristHead,curr);
-		}
-		curr = curr->next;
-	}
 	return 1;
 }
 
@@ -354,6 +384,40 @@ int saveTravelsToFile(Travel* allTripsHead ,FILE *fp){
 
 	return 1;
 }
+
+void getTravelsByStOrEndDate(Travel* currentTouristHead ,
+					char* dateToCompare,boolean isStartDate){
+	Travel * curr;
+	curr = currentTouristHead;
+
+	//no need from touristName check , cose all
+	//travels are for the current tourist 
+	while(curr->next != NULL){
+		if(isStartDate){
+			if(0 == strcmp(curr->beginning.date,dateToCompare)){
+				printTravel(curr);
+				curr = curr->next;
+			}
+		}else{
+			if(0 == strcmp(curr->destination.date,dateToCompare)){
+				printTravel(curr);
+				curr = curr->next;
+			}
+		}
+    }
+   		if(isStartDate){
+			if(0 == strcmp(curr->beginning.date,dateToCompare)){
+				printTravel(curr);
+				curr = curr->next;
+			}
+		}else{
+			if(0 == strcmp(curr->destination.date,dateToCompare)){
+				printTravel(curr);
+				curr = curr->next;
+			}
+		}
+}
+
 double deg2rad(double degrees){
 	return (degrees) * pi / 180.0;
 }

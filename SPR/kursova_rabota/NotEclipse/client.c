@@ -35,14 +35,13 @@ void readMessageFromServer(int sock,char* server_message, int sizeOfMessage){
 
 int addNewTrip(int sock,char* server_message) {
 	char place_name[50],date[12];
-    double lon,lat;
+    double lon,lat,averageSpeed;
 
 				  //------------------------------------------
 			      //------------------------------------------
 			      //BEGINNING
 			      //------------------------------------------
     			  //------------------------------------------
-
 				  readMessageFromServer(sock,server_message,sizeof(server_message));
 		          scanf("%lf",&lon);
 		          if(send(sock ,&lon , sizeof(double) , 0) < 0)
@@ -120,7 +119,15 @@ int addNewTrip(int sock,char* server_message) {
 			      }
 			      //-------------------------------------------
 			      //-------------------------------------------
-
+			      readMessageFromServer(sock,server_message,sizeof(server_message));
+		          scanf("%lf",averageSpeed);
+		          if(send(sock ,averageSpeed ,sizeof(double) , 0) < 0)
+			      {
+			         puts("Sending average speed failed!\n");
+			         return 1;
+			      }
+			      //-------------------------------------------
+			      //-------------------------------------------
 }
 
 
@@ -170,7 +177,7 @@ int main(int argc , char *argv[])
     	scanf("%d",&menu_choice);
         if(send(sock ,&menu_choice , sizeof(int) , 0) < 0)
         {
-           puts("Menu choice sending failed");
+           puts("Menu choice sending failed!");
            return 1;
         }
 
@@ -194,8 +201,8 @@ int main(int argc , char *argv[])
 				exit(0);
 				break;
 			default:
+				printf("You selected invalid option, please try again!");
 				break;
-
 		}
 
     }

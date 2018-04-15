@@ -35,7 +35,9 @@ struct Travel {
    char touristName[50];
    Place beginning;
    Place destination;
+   double averageSpeed;
    double distance;
+   double averageDuration;
    Travel* next;
 };
 
@@ -45,9 +47,12 @@ struct Travel {
    Travel* headNode;
 } Tourist;
 */
+
+void *connection_handler(void *);
 int loadAllTravelsFromFile(Travel* allTripsHead,FILE *fp);
 int saveTravelsToFile(Travel* head);
-void *connection_handler(void *);
+void getTravelsByStOrEndDate(Travel* currentTouristHead ,
+               char* dateToCompare,boolean isStartDate)
 void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName);
 void printTravel(Travel *t);
 void addTravel(Travel *_head,Travel* singleTravelStorage);
@@ -56,7 +61,6 @@ int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
 
 double deg2rad(double);
 double rad2deg(double);
-
 /*:: unit = the unit you desire for results                                  :*/
 /*::           where: 'M' is statute miles (default)                         :*/
 /*::                  'K' is kilometers                                      :*/

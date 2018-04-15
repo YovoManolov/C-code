@@ -32,20 +32,27 @@ typedef struct place {
 
 typedef struct Travel Travel;
 struct Travel {
+   char touristName[50];
    Place beginning;
    Place destination;
    double distance;
    Travel* next;
 };
 
-typedef struct tourist {
+/*typedef struct tourist {
    char name[20];
    int countOfTravels; 
    Travel* headNode;
 } Tourist;
-
+*/
+int loadAllTravelsFromFile(Travel* allTripsHead,FILE *fp);
+int saveTravelsToFile(Travel* head);
 void *connection_handler(void *);
-void loadTravelInfo(void* socket_desc,Travel* t);
+void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName);
+void printTravel(Travel *t);
+void addTravel(Travel *_head,Travel* singleTravelStorage);
+int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
+                              Travel* currentTouristHead);
 
 double deg2rad(double);
 double rad2deg(double);

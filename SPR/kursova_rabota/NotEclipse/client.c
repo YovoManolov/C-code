@@ -4,7 +4,7 @@
 #include "client.h"
 
 void printMenu(){
-	printf("Please enter your choice from the menu! \n");
+	printf("Please make your choice from the following menu! \n");
    	printf("\n\n---------MENU---------");
    	printf("\n1.Всички мои пътувания");
    	printf("\n2.Добави ново пътуване");
@@ -128,7 +128,7 @@ int main(int argc , char *argv[])
 {
     int sock,menu_choice,f_returnVal;
     struct sockaddr_in server;
-    char server_message[500];
+    char server_message[500],touristName[50];
 
 
     //Create socket
@@ -151,10 +151,21 @@ int main(int argc , char *argv[])
     }
 
     puts("Connected\n");
+    //greeting
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    //please enter your name
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",touristName);
+    if(send(sock ,touristName,50, 0) < 0)
+    {
+        puts("Your name was not sended!");
+        return 1;
+    }
 
     //keep communicating with server
     while(1)
     {
+    	clearScreen();
     	printMenu();
     	scanf("%d",&menu_choice);
         if(send(sock ,&menu_choice , sizeof(int) , 0) < 0)
@@ -163,8 +174,6 @@ int main(int argc , char *argv[])
            return 1;
         }
 
-        readMessageFromServer(sock,server_message,sizeof(server_message));
-
         switch(menu_choice){
         	case 1:
 				break;
@@ -172,8 +181,6 @@ int main(int argc , char *argv[])
 				if(1 == addNewTrip(sock,server_message)){
 					return 1;
 				}
-			    clearScreen();
-			    printMenu();
 				break;
 			case 3: 
 				break;
@@ -182,7 +189,6 @@ int main(int argc , char *argv[])
 			case 5:
 				break;
 			case 6:
-				clearScreen();
 				break;
 			case 7:
 				exit(0);

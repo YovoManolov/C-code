@@ -1,5 +1,4 @@
  //for threading , link with lpthread
-
 #include "server.h"
  /// https://www.binarytides.com/server-client-example-c-sockets-linux/
 
@@ -62,14 +61,49 @@ int main(int argc , char *argv[]){
 }
 
 //to handle connection for each thread 
-void* connection_handler(void * socket_desc){
+void* connection_handler(void * socket_desc,int* fileMutex){
+
 	int sock= *(int*)socket_desc;
 	int menu_choice ,read_size;
-	char greeting[500];
-	Travel t;
-	
-	strcpy(greeting ,"Hi client! I am your connection handler");
-	write(sock, greeting, 500);
+	char messageToClient[500],touristName[50];
+	FILE* fp;
+	Travel* allTripsHead;
+	Travel* currentTouristHead;
+	Travel* singleTravelStorage;
+
+	strcpy(messageToClient ,"Hi client! I am your connection handler");
+	write(sock, messageToClient, 500);
+	memset(messageToClient, 0, 500);
+
+	strcpy(messageToClient ,"Please enter your name: ");
+	write(sock, messageToClient, 500);
+	memset(messageToClient, 0, 500);
+
+	if((read_size = recv(sock,touristName,50,0)) < 0){
+		perror("Error reading start pos Longitude!:  ");
+	}else{
+		printf("Thank you %s",touristName);
+	}
+
+	// =================================================
+	// =================================================
+	// Load all travels from file 
+	// Extract only those for current Traveller
+	// =================================================
+	// =================================================
+
+	//TO DO synchronize file usage between threads
+	if(loadAllTravelsFromFile(allTripsHead,fp) == 1){
+		printf("Loading trips from file has failed! \n");
+		return 1;
+	}
+
+	if(getCurrentUserTravels(touristName,allTripsHead,
+                             	 currentTouristHead) == 1){
+		printf("Loading trips from file has failed! \n");
+		return 1;
+	}
+	// =================================================
 
 	//recv returns -1 on error and number of bites received on success
 	while((read_size = recv(sock,&menu_choice,sizeof(int),0)) != -1){
@@ -79,16 +113,10 @@ void* connection_handler(void * socket_desc){
 			case 1:
 				break;
 			case 2: 
-				loadTravelInfo(socket_desc,&t);
-				printf("beg longitude %lf \n",t.beginning.Lon);
-				printf("beg latitude %lf \n", t.beginning.Lat);
-				printf("beg name %s \n", t.beginning.name);
-				printf("beg date %s \n", t.beginning.date);
-				printf("dst longitude %lf \n", t.destination.Lon);
-				printf("dst latitude %lf \n", t.destination.Lat);
-				printf("dst name %s \n", t.destination.name);
-				printf("dst date %s \n", t.destination.date);
-				printf("The distance of your trip is :%lf",t.distance);
+				singleTravelStorage = malloc(sizeof(Travel));
+				receiveNewTravelInfo(socket_desc,singleTravelStorage,char* touristName);
+				printTravel(singleTravelStorage);
+				addTravel(*currentTouristHead,singleTravelStorage);
 				break;
 			case 3: 
 				break;
@@ -113,7 +141,7 @@ void* connection_handler(void * socket_desc){
 	free(socket_desc);
 }
 
-void loadTravelInfo(void* socket_desc,Travel* t){
+void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName){
 	int sock = *(int*) socket_desc ,message_size;
 	double Lon, Lat;
 	int read_size;
@@ -122,6 +150,10 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//=============================
 	//start-longit
 	//=============================
+	if(strlen(touristName) > 0 ){
+		t->touristName = touristName;
+	}
+
 	ascForInput = "Please enter Longitude of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,&Lon,sizeof(double),0)) < 0){
@@ -135,7 +167,6 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//start-latit
 	//=============================
 	ascForInput = "Please enter Latitude of starting position:\0";
-
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
 		perror("Error reading start pos Latitude!:  ");
@@ -148,7 +179,6 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//start-name
 	//=============================
 	ascForInput = "Please enter name of starting position:\0";
-
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,place_name,50,0)) < 0){
 		perror("Error reading start pos name!:  ");
@@ -160,7 +190,6 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//start-date
 	//=============================
 	ascForInput = "Please enter date of departure like dd/mm/yyyy:\0";
-
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,date,12,0)) < 0){
 		perror("Error reading departure date!:  ");
@@ -173,7 +202,6 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	//dest-longit
 	//=============================
 	ascForInput = "Please enter Longitude of destination:\0";
-
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,&Lon,sizeof(double),0)) < 0){
 		perror("Error reading destination Longitude!:  ");
@@ -216,10 +244,116 @@ void loadTravelInfo(void* socket_desc,Travel* t){
 	}
 	memset(place_name, 0, 12);
 	t->distance = distance(t->beginning.Lon,t->beginning.Lat,t->destination.Lon,t->destination.Lat,'K');
+	//always adding the wast node
+	t->next = NULL;
 
 	printf("Trip was added created successfully ! ");
 }
 
+
+
+
+
+void printTravel(Travel *t){
+		pritnf("---------------------------------\n");
+		printf("Traveller : %s \n",t->touristName);
+		printf("beg longitude %lf \n",t->beginning.Lon);
+		printf("beg latitude %lf \n", t->beginning.Lat);
+		printf("beg name %s \n", t->beginning.name);
+		printf("beg date %s \n", t->beginning.date);
+		printf("dst longitude %lf \n", t->destination.Lon);
+		printf("dst latitude %lf \n", t->destination.Lat);
+		printf("dst name %s \n", t->destination.name);
+		printf("dst date %s \n", t->destination.date);
+		printf("The distance of your trip is :%lf",t->distance);
+		pritnf("---------------------------------\n");	
+}
+
+
+void addTravel(Travel *_head,Travel* singleTravelStorage){
+	Travel *_curr;
+
+	if(_head == NULL){
+         _head = singleTravelStorage;
+    }else{
+        _curr = _head;
+      
+        while( _curr->next != NULL){
+        	_curr = _curr->next;
+        }
+      	_curr->next = singleTravelStorage;
+       	printf("\nNew travel was added to your list of travells!\n");
+    }
+}
+
+int loadAllTravelsFromFile(Travel* allTripsHead,FILE *fp){
+    Travel *singleTravel;
+    Travel temp;
+     
+    // Open person.dat for reading
+    fp = fopen ("Travels.dat", "r");
+
+    if (infile == NULL)
+    {
+        fprintf(stderr, "\nError opening file\n");
+        exit (1);
+    }
+    
+    printf("Loading all trips from the file!")
+    // read file contents till end of file
+    while(fread(&temp, sizeof(Travel), 1, infile)){
+		singleTravel = malloc(sizeof(T));
+		*singleTravel = temp;
+    	addTravel(allTripsHead, singleTravel);
+    }
+   	
+   	fclose(fp);    	
+	return 1;
+}
+
+int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
+								Travel* currentTouristHead){
+	Travel* curr;
+	curr = allTripsHead;
+	while(curr->next != NULL){
+		if(strcmp(curr->touristName,touristName) == 0){
+			addTravel(currentTouristHead,curr);
+		}
+		curr = curr->next;
+	}
+	return 1;
+}
+
+int saveTravelsToFile(Travel* allTripsHead ,FILE *fp){
+
+	Travel * curr;
+	curr = allTripsHead;
+    // open file for writing
+    // when file is opened with mode "w" the content is 
+    // erased and the file is threated as empty file 
+
+    fp = fopen ("person.dat", "w");
+    if (fp == NULL)
+    {
+        fprintf(stderr, "\nError opend file\n");
+        exit (1);
+    }
+    while(curr->next != NULL){
+    	// write struct to file
+    	fwrite(curr, sizeof(Travel), 1, fp);
+    	if(fwrite == 0) {
+    		printf("Error writing into the file! ");
+    	}
+    	curr = curr->next;
+    }
+     
+    if(fwrite != 0) 
+        printf("contents to file written successfully !\n");
+    else
+        printf("error writing file !\n");
+
+	return 1;
+}
 double deg2rad(double degrees){
 	return (degrees) * pi / 180.0;
 }

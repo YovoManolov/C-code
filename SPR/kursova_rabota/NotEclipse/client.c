@@ -11,8 +11,7 @@ void printMenu(){
    	printf("\n3.Намери пътуване по дата на тръгване");
    	printf("\n4.Изведи 10-те най-дълги пътувания");
    	printf("\n5.Изведи 10-те най-къси пътувания");
-   	printf("\n6.Изчисти екарана");
-   	printf("\n7.Изход\n\n");
+   	printf("\n6.Изход\n\n");
 }
  
 void clearScreen(){
@@ -196,8 +195,6 @@ int main(int argc , char *argv[])
 			case 5:
 				break;
 			case 6:
-				break;
-			case 7:
 				exit(0);
 				break;
 			default:

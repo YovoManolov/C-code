@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+
+int[][] sort2dAsc(int* distanceArr[][],int size){
+	
+	int i ,j,swap;
+	//sort distances while storing id of each node
+	// so it can be retrieved if needed;
+	for(i=0; i < size; i++) {
+	    for (j = i+1; j < size; j++) {
+	       if( *distanceArr[i][1] > *distanceArr[j][1]){
+	           swap = distanceArr[i][1];
+	           *distanceArr[i][1] = *distanceArr[j][1];
+	           *distanceArr[j][1] = swap;
+	       }
+	    }
+	 } 
+
+	 return distanceArr;
+}
+
+int main(int argc , char *argv[])
+{
+	int i ,j,swap;
+	int arr[5][2] = {
+			{2,5},
+			{2,3},
+			{2,4},
+			{2,1},
+			{2,2}
+	};
+
+	printf("Before sorting\n");
+	for ( i = 0 ; i < 5; i++ ) {
+       for(j=0; j<2; j++) {
+         printf ( "%d \t", arr[i][j] ) ;     //printing sorted array
+       }
+       printf("\n");
+    }
+    
+    
+	int* arr1[][] = sort2dAsc(arr,5);
+
+	arr = *arr1;
+	
+    printf("After sorting\n");
+
+	for ( i = 0 ; i < 5; i++ ) {
+       for(j=0; j<2; j++) {
+         printf ("%d \t", arr[i][j] ) ;     //printing sorted array
+       }
+       printf("\n");
+    }
+
+	return 0;
+} 
+
+

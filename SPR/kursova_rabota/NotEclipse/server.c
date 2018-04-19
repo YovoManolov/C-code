@@ -64,12 +64,13 @@ int main(int argc , char *argv[]){
 void* connection_handler(void * socket_desc,int* fileMutex){
 
 	int sock= *(int*)socket_desc;
-	int menu_choice ,read_size;
+	int menu_choice ,read_size,numberOfTrips;
 	char messageToClient[500],touristName[50];
 	FILE* fp;
 	Travel* allTripsHead;
 	Travel* currentTouristHead;
 	Travel* singleTravelStorage;
+	Travel* statisticsListPointer;
 
 	strcpy(messageToClient ,"Hi client! I am your connection handler");
 	write(sock, messageToClient, 500);
@@ -122,8 +123,18 @@ void* connection_handler(void * socket_desc,int* fileMutex){
 			case 3: 
 				break;
 			case 4: 
+				strcpy(messageToClient ,"Please enter number of trips to be returned : ");
+				write(sock, messageToClient, 500);
+				memset(messageToClient, 0, 500);
+				if((read_size = recv(sock,numberOfTrips,sizeof(int),0)) < 0){
+					perror("Number of trips was not received !:  ");
+				}else{
+					topShortestDistances(currentTouristHead,statisticsListPointer,numberOfTrips);
+				}
+				//printf("\n4.Изведи 10-те най-дълги пътувания");
 				break;
 			case 5:
+				//printf("\n5.Изведи 10-те най-къси пътувания");
 				break;
 			default:
 				printf("Client choice was invalid!");
@@ -140,6 +151,76 @@ void* connection_handler(void * socket_desc,int* fileMutex){
 	}
 
 	free(socket_desc);
+}
+
+int[][] sort2dAsc(int* distanceArr[][],int size){
+	
+	int i ,j,swap;
+	//sort distances while storing id of each node
+	// so it can be retrieved if needed;
+	for(i=0; i < size; i++) {
+	    for (j = i+1; j < size; j++) {
+	       if( distanceArr[i][1] > distanceArr[j][1]){
+	           swap = distanceArr[i][1];
+	           distanceArr[i][1] = distanceArr[j][1];
+	           distanceArr[j][1] = swap;
+	       }
+	    }
+	 } 
+
+	 return distanceArr;
+}
+
+int[][] sort2dDesc(int distanceArr[][],int size){
+	
+	int i ,j,swap;
+	//sort distances while storing id of each node
+	// so it can be retrieved if needed;
+	for(i=0; i < listSize; i++) {
+	    for (j = i+1; j < listSize; j++) {
+	       if(distanceArr[i][1] < distanceArr[j][1]){
+	           swap = distanceArr[i][1];
+	           distanceArr[i][1] = distanceArr[j][1];
+	           distanceArr[j][1] = swap;
+	       }
+	    }
+	 } 
+
+	 return distanceArr;
+}
+
+int getListSize(Travel* head){
+	int listSize = 1;
+	Travel *curr;
+	curr = currentTouristHead;
+	while(curr->next != NULL){
+		listSize += 1;
+		curr = curr->next
+	}
+	return listSize;
+}
+
+Travel* topShortestDistances(Travel* currentTouristHead,
+	
+				Travel* statisticsListPointer,int countOfTripsToReturn){
+	Travel *curr;
+	int listSize = getListSize(currentTouristHead);
+	int distanceArr [listSize][2];  //first column id sec column distance;
+	int i,j,swap;
+
+	curr = currentTouristHead;
+	int i = 1;
+	while(curr->next != NULL){
+		distanceArr[i][1] = curr->distance;
+		i++;
+		curr = curr->next
+	}
+
+	sort2dAsc(&distanceArr);
+
+
+	distanceArr = sort2dArray(distanceArr);
+	return statisticsListPointer;
 }
 
 void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName){
@@ -268,7 +349,10 @@ void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName){
 
 
 void printTravel(Travel *t){
-		pritnf("---------------------------------\n");
+		//!!!!!!!!!!!!!!!!!!!!!!
+		//TO BE SENDED TO CLIENT 
+		//!!!!!!!!!!!!!!!!!!!!!!
+		printf("---------------------------------\n");
 		printf("Traveller : %s \n",t->touristName);
 		printf("beg longitude %lf \n",t->beginning.Lon);
 		printf("beg latitude %lf \n", t->beginning.Lat);
@@ -389,6 +473,7 @@ void getTravelsByStOrEndDate(Travel* currentTouristHead ,
 					char* dateToCompare,boolean isStartDate){
 	Travel * curr;
 	curr = currentTouristHead;
+
 
 	//no need from touristName check , cose all
 	//travels are for the current tourist 

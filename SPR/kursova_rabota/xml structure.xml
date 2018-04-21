@@ -19,6 +19,14 @@
 </contact-info>
 
 
+/*
+NOT USED
+typedef struct tourist {
+   char name[20];
+   int countOfTravels; 
+   Travel* headNode;
+} Tourist;
+*/
 
 // how to calculate distance using latitude and longitude
 

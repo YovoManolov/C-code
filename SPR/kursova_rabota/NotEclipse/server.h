@@ -12,11 +12,13 @@
 #include<stdio.h>
 #include<string.h>    //strlen
 #include<stdlib.h>
+#include<stdbool.h>
 #include<sys/types.h>   
 #include<sys/socket.h>
+#include<pthread.h> 
 #include<arpa/inet.h> //inet_addr
 #include<unistd.h>    //write
-#include<pthread.h> 
+
 
 //for distance calcuation 
 #include <math.h>
@@ -32,6 +34,11 @@ typedef struct place {
 
 typedef struct Travel Travel;
 struct Travel {
+   int id; 
+   // ascending used only for 
+   // single client statistics 
+   //value in allTravelStructures
+   //is formal and not used 
    char touristName[50];
    Place beginning;
    Place destination;
@@ -41,23 +48,24 @@ struct Travel {
    Travel* next;
 };
 
-/*typedef struct tourist {
-   char name[20];
-   int countOfTravels; 
-   Travel* headNode;
-} Tourist;
-*/
 
-void *connection_handler(void *);
+void* connection_handler(void *);
 int loadAllTravelsFromFile(Travel* allTripsHead,FILE *fp);
-int saveTravelsToFile(Travel* head);
+int saveTravelsToFile(Travel* allTripsHead ,FILE *fp);
 void getTravelsByStOrEndDate(Travel* currentTouristHead ,
-               char* dateToCompare,boolean isStartDate)
+               char* dateToCompare,bool isStartDate);
 void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName);
 void printTravel(Travel *t);
+void printTravelsOfCurrentTraveller(Travel* currentTouristHead);
 void addTravel(Travel *_head,Travel* singleTravelStorage);
 int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
                               Travel* currentTouristHead);
+void topWantedDistances(Travel* currentTouristHead,bool topShortest,
+   Travel* statisticsListPointer,int countOfTripsToReturn);
+void filteredTravelsById(Travel* statisticsListPointer,Travel* currentTouristHead,
+                        int* IDsOfWantedTrips,int countOfTripsToReturn);
+
+int getListSize(Travel* head);
 
 double deg2rad(double);
 double rad2deg(double);

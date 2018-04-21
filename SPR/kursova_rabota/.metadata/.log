@@ -1044,3 +1044,39 @@ java.io.IOException: Exec_tty error:Cannot run program "/home/yovo/Documents/Cre
 	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:923)
 	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1126)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-04-19 23:09:09.887
+!MESSAGE An internal error occurred during: "Launching sort2dArray Debug".
+!STACK 0
+java.util.MissingResourceException: Can't find resource for bundle java.util.PropertyResourceBundle, key AbstractCLaunchDelegate.Program_is_not_a_recognized_executable
+	at java.util.ResourceBundle.getObject(ResourceBundle.java:450)
+	at java.util.ResourceBundle.getString(ResourceBundle.java:407)
+	at org.eclipse.cdt.dsf.gdb.launching.LaunchMessages.getString(LaunchMessages.java:44)
+	at org.eclipse.cdt.dsf.gdb.launching.LaunchUtils.verifyBinary(LaunchUtils.java:157)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.checkBinaryDetails(GdbLaunchDelegate.java:232)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:124)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:83)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:72)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:923)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1126)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-04-19 23:12:00.607
+!MESSAGE An internal error occurred during: "Launching sort2dArray Debug".
+!STACK 0
+java.util.MissingResourceException: Can't find resource for bundle java.util.PropertyResourceBundle, key AbstractCLaunchDelegate.Program_is_not_a_recognized_executable
+	at java.util.ResourceBundle.getObject(ResourceBundle.java:450)
+	at java.util.ResourceBundle.getString(ResourceBundle.java:407)
+	at org.eclipse.cdt.dsf.gdb.launching.LaunchMessages.getString(LaunchMessages.java:44)
+	at org.eclipse.cdt.dsf.gdb.launching.LaunchUtils.verifyBinary(LaunchUtils.java:157)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.checkBinaryDetails(GdbLaunchDelegate.java:232)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:124)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:83)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:72)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:853)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:702)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:923)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1126)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)

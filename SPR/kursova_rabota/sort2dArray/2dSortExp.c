@@ -1,5 +1,8 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+
+void printJustIds(){
+
+}
 
 int main(int argc , char *argv[])
 {
@@ -22,9 +25,6 @@ int main(int argc , char *argv[])
     }
 
 
-    //Let's say m is number of row and n is number of column.
-	//5 == number of rows
-
 	for(i=0; i < 5; i++) {
 	    for (j = i+1; j < 5; j++) {
 	       if(arr[i][1] > arr[j][1]){
@@ -34,7 +34,6 @@ int main(int argc , char *argv[])
 	       }
 	    }
 	 } 
-	
 
     printf("After sorting\n");
 
@@ -47,3 +46,6 @@ int main(int argc , char *argv[])
 
 	return 0;
 } 
+
+
+

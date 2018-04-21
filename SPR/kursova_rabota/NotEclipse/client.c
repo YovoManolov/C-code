@@ -33,100 +33,101 @@ void readMessageFromServer(int sock,char* server_message, int sizeOfMessage){
 }
 
 int addNewTrip(int sock,char* server_message) {
-	char place_name[50],date[12];
+
+    char place_name[50],date[12];
     double lon,lat,averageSpeed;
 
-				  //------------------------------------------
-			      //------------------------------------------
-			      //BEGINNING
-			      //------------------------------------------
-    			  //------------------------------------------
-				  readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%lf",&lon);
-		          if(send(sock ,&lon , sizeof(double) , 0) < 0)
-			      {
-			         puts("Sending beg longitude failed");
-			         return 1;
-			      }
-			      //------------------------------------------
-			      //------------------------------------------
-				  readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%lf",&lat);
-		          if(send(sock ,&lat , sizeof(double) , 0) < 0)
-			      {
-			         puts("Sending beg latitude failed");
-			         return 1;
-			      }
-			      //------------------------------------------
-			      //------------------------------------------
+    //------------------------------------------
+    //------------------------------------------
+    //BEGINNING
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lon);
+    if(send(sock ,&lon , sizeof(double) , 0) < 0)
+    {
+        puts("Sending beg longitude failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lat);
+    if(send(sock ,&lat , sizeof(double) , 0) < 0)
+    {
+        puts("Sending beg latitude failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
 
-				  readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%s",place_name);
-		          if(send(sock , place_name , strlen(place_name) , 0) < 0)
-			      {
-			         puts("Sending beg starting position name failed");
-			     	 return 1;
-			      }
-			      //------------------------------------------
-			      //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",place_name);
+    if(send(sock , place_name , strlen(place_name) , 0) < 0)
+    {
+        puts("Sending beg starting position name failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
 
-				  readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%s",date);
-		          if(send(sock ,date , strlen(date) , 0) < 0)
-			      {
-			         puts("Sending beg starting position name failed");
-			         return 1;
-			      }
-			      //------------------------------------------
-			      //------------------------------------------
-			      //DESTINATION
-				  //------------------------------------------
-			      //------------------------------------------
-				  readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%lf",&lon);
-		          if(send(sock , &lon , sizeof(double) , 0) < 0)
-			      {
-			         puts("Sending destination longitude failed");
-			         return 1;
-			      }
-			      //------------------------------------------
-			      //------------------------------------------
-				  readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%lf",&lat);
-		          if(send(sock ,&lat , sizeof(double) , 0) < 0)
-			      {
-			         puts("Sending destination latitude failed");
-			         return 1;
-			      }
-			      //------------------------------------------
-			      //------------------------------------------
-				  readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%s",place_name);
-		          if(send(sock ,place_name, strlen(place_name) , 0) < 0)
-			      {
-			         puts("Sending destination starting position name failed!\n");
-			         return 1;
-			      }
-			      //------------------------------------------
-			      //------------------------------------------
-				  readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%s",date);
-		          if(send(sock ,date , strlen(date) , 0) < 0)
-			      {
-			         puts("Sending destination starting position name failed!\n");
-			         return 1;
-			      }
-			      //-------------------------------------------
-			      //-------------------------------------------
-			      readMessageFromServer(sock,server_message,sizeof(server_message));
-		          scanf("%lf",averageSpeed);
-		          if(send(sock ,averageSpeed ,sizeof(double) , 0) < 0)
-			      {
-			         puts("Sending average speed failed!\n");
-			         return 1;
-			      }
-			      //-------------------------------------------
-			      //-------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",date);
+    if(send(sock ,date , strlen(date) , 0) < 0)
+    {
+        puts("Sending beg starting position name failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    //DESTINATION
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lon);
+    if(send(sock , &lon , sizeof(double) , 0) < 0)
+    {
+        puts("Sending destination longitude failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lat);
+    if(send(sock ,&lat , sizeof(double) , 0) < 0)
+    {
+        puts("Sending destination latitude failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",place_name);
+    if(send(sock ,place_name, strlen(place_name) , 0) < 0)
+    {
+        puts("Sending destination starting position name failed!\n");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",date);
+    if(send(sock ,date , strlen(date) , 0) < 0)
+    {
+        puts("Sending destination starting position name failed!\n");
+        return 1;
+    }
+    //-------------------------------------------
+    //-------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",averageSpeed);
+    if(send(sock ,averageSpeed ,sizeof(double) , 0) < 0)
+    {
+        puts("Sending average speed failed!\n");
+        return 1;
+    }
+    //-------------------------------------------
+    //-------------------------------------------
 }
 
 
@@ -182,6 +183,9 @@ int main(int argc , char *argv[])
 
         switch(menu_choice){
         	case 1:
+        		if(1 == printAllMyTravels()){
+					return 1;
+				}
 				break;
 			case 2:
 				if(1 == addNewTrip(sock,server_message)){
@@ -206,4 +210,101 @@ int main(int argc , char *argv[])
      
     close(sock);
     return 0;
+}
+
+int printAllMyTravels(){
+	int countOfPrintedTrips
+	readMessageFromServer(sock,&countOfPrintedTrips,sizeof(int));
+    printf(" %d trips will be printed!\n" , countOfPrintedTrips);
+	//------------------------------------------
+    //------------------------------------------
+    //BEGINNING
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lon);
+    if(send(sock ,&lon , sizeof(double) , 0) < 0)
+    {
+        puts("Sending beg longitude failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lat);
+    if(send(sock ,&lat , sizeof(double) , 0) < 0)
+    {
+        puts("Sending beg latitude failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",place_name);
+    if(send(sock , place_name , strlen(place_name) , 0) < 0)
+    {
+        puts("Sending beg starting position name failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",date);
+    if(send(sock ,date , strlen(date) , 0) < 0)
+    {
+        puts("Sending beg starting position name failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    //DESTINATION
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lon);
+    if(send(sock , &lon , sizeof(double) , 0) < 0)
+    {
+        puts("Sending destination longitude failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lat);
+    if(send(sock ,&lat , sizeof(double) , 0) < 0)
+    {
+        puts("Sending destination latitude failed");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",place_name);
+    if(send(sock ,place_name, strlen(place_name) , 0) < 0)
+    {
+        puts("Sending destination starting position name failed!\n");
+        return 1;
+    }
+    //------------------------------------------
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",date);
+    if(send(sock ,date , strlen(date) , 0) < 0)
+    {
+        puts("Sending destination starting position name failed!\n");
+        return 1;
+    }
+    //-------------------------------------------
+    //-------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",averageSpeed);
+    if(send(sock ,averageSpeed ,sizeof(double) , 0) < 0)
+    {
+        puts("Sending average speed failed!\n");
+        return 1;
+    }	
+
+	return 1;
 }

@@ -33,110 +33,57 @@ void readMessageFromServer(int sock,char* server_message, int sizeOfMessage){
 }
 
 int addNewTrip(int sock,char* server_message) {
+	Travel* newTravel;
 
-    char place_name[50],date[12];
-    double lon,lat,averageSpeed;
-
+	newTravel = malloc(sizeof(Travel));
     //------------------------------------------
-    //------------------------------------------
-    //BEGINNING
-    //------------------------------------------
+    //BEGINING
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&lon);
-    if(send(sock ,&lon , sizeof(double) , 0) < 0)
-    {
-        puts("Sending beg longitude failed");
-        return 1;
-    }
-    //------------------------------------------
+    scanf("%lf",&(newTravel->beginning.Lon));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&lat);
-    if(send(sock ,&lat , sizeof(double) , 0) < 0)
-    {
-        puts("Sending beg latitude failed");
-        return 1;
-    }
+    scanf("%lf",&(newTravel->beginning.Lat));
     //------------------------------------------
-    //------------------------------------------
-
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",place_name);
-    if(send(sock , place_name , strlen(place_name) , 0) < 0)
-    {
-        puts("Sending beg starting position name failed");
-        return 1;
-    }
+    scanf("%s",newTravel->beginning.name);
     //------------------------------------------
-    //------------------------------------------
-
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",date);
-    if(send(sock ,date , strlen(date) , 0) < 0)
-    {
-        puts("Sending beg starting position name failed");
-        return 1;
-    }
-    //------------------------------------------
+    scanf("%s",newTravel->beginning.date);
     //------------------------------------------
     //DESTINATION
     //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&(newTravel->destination.Lon));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&lon);
-    if(send(sock , &lon , sizeof(double) , 0) < 0)
-    {
-        puts("Sending destination longitude failed");
-        return 1;
-    }
-    //------------------------------------------
+    scanf("%lf",&(newTravel->destination.Lon));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&lat);
-    if(send(sock ,&lat , sizeof(double) , 0) < 0)
-    {
-        puts("Sending destination latitude failed");
-        return 1;
-    }
-    //------------------------------------------
+    scanf("%s",newTravel->destination.name);
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",place_name);
-    if(send(sock ,place_name, strlen(place_name) , 0) < 0)
-    {
-        puts("Sending destination starting position name failed!\n");
-        return 1;
-    }
-    //------------------------------------------
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",date);
-    if(send(sock ,date , strlen(date) , 0) < 0)
-    {
-        puts("Sending destination starting position name failed!\n");
-        return 1;
-    }
-    //-------------------------------------------
+    scanf("%s",newTravel->destination.date);
     //-------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",averageSpeed);
-    if(send(sock ,averageSpeed ,sizeof(double) , 0) < 0)
-    {
-        puts("Sending average speed failed!\n");
-        return 1;
-    }
-    //-------------------------------------------
-    //-------------------------------------------
-}
+    scanf("%lf",&(newTravel->averageSpeed));
 
+    if(send(sock ,newTravel ,sizeof(Travel) , 0) < 0)
+    {
+        puts("Sending new Travel failed!\n");
+        return 1;
+    }
+}
 
 int main(int argc , char *argv[])
 {
     int sock,menu_choice,f_returnVal;
+    int countOfPrintedTrips;
     struct sockaddr_in server;
     char server_message[500],touristName[50];
+	Travel *allMyTravelsHead;
 
+	
 
     //Create socket
     sock = socket(AF_INET , SOCK_STREAM , 0);
@@ -167,6 +114,16 @@ int main(int argc , char *argv[])
     {
         puts("Your name was not sended!");
         return 1;
+    }else{
+
+	    if(recv(sock , &countOfPrintedTrips ,sizeOf(int), 0) < 0){
+			 puts("recv failed");
+			 return 1;
+		}else{
+			 printf(" %d trips wore taken from file!\n" , countOfPrintedTrips);
+			 allMyTravelsHead = malloc(countOfPrintedTrips *sizeof(Travel));
+		}
+
     }
 
     //keep communicating with server
@@ -183,7 +140,8 @@ int main(int argc , char *argv[])
 
         switch(menu_choice){
         	case 1:
-        		if(1 == printAllMyTravels()){
+        		if(1 == printAllMyTravels(sock,server_message,countOfPrintedTrips)){
+        			printf("Something went wrong!");
 					return 1;
 				}
 				break;
@@ -193,8 +151,10 @@ int main(int argc , char *argv[])
 				}
 				break;
 			case 3: 
+				  findTop_S_Distances(sock, server_message, countOfPrintedTrips);
 				break;
 			case 4: 
+				  findTop_L_Distances(sock, server_message, countOfPrintedTrips);
 				break;
 			case 5:
 				break;
@@ -212,99 +172,137 @@ int main(int argc , char *argv[])
     return 0;
 }
 
-int printAllMyTravels(){
-	int countOfPrintedTrips
-	readMessageFromServer(sock,&countOfPrintedTrips,sizeof(int));
-    printf(" %d trips will be printed!\n" , countOfPrintedTrips);
-	//------------------------------------------
-    //------------------------------------------
-    //BEGINNING
-    //------------------------------------------
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&lon);
-    if(send(sock ,&lon , sizeof(double) , 0) < 0)
-    {
-        puts("Sending beg longitude failed");
-        return 1;
-    }
-    //------------------------------------------
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&lat);
-    if(send(sock ,&lat , sizeof(double) , 0) < 0)
-    {
-        puts("Sending beg latitude failed");
-        return 1;
-    }
-    //------------------------------------------
-    //------------------------------------------
+int printAllMyTravels(int sock,char* server_message,Travel* allMyTravelsHead){
 
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",place_name);
-    if(send(sock , place_name , strlen(place_name) , 0) < 0)
-    {
-        puts("Sending beg starting position name failed");
-        return 1;
-    }
-    //------------------------------------------
-    //------------------------------------------
+	int countOfPrintedTrips;
+	char server_message[500];
+	Travel  *singleTravel;
 
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",date);
-    if(send(sock ,date , strlen(date) , 0) < 0)
-    {
-        puts("Sending beg starting position name failed");
-        return 1;
-    }
-    //------------------------------------------
-    //------------------------------------------
-    //DESTINATION
-    //------------------------------------------
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&lon);
-    if(send(sock , &lon , sizeof(double) , 0) < 0)
-    {
-        puts("Sending destination longitude failed");
-        return 1;
-    }
-    //------------------------------------------
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&lat);
-    if(send(sock ,&lat , sizeof(double) , 0) < 0)
-    {
-        puts("Sending destination latitude failed");
-        return 1;
-    }
-    //------------------------------------------
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",place_name);
-    if(send(sock ,place_name, strlen(place_name) , 0) < 0)
-    {
-        puts("Sending destination starting position name failed!\n");
-        return 1;
-    }
-    //------------------------------------------
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",date);
-    if(send(sock ,date , strlen(date) , 0) < 0)
-    {
-        puts("Sending destination starting position name failed!\n");
-        return 1;
-    }
-    //-------------------------------------------
-    //-------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",averageSpeed);
-    if(send(sock ,averageSpeed ,sizeof(double) , 0) < 0)
-    {
-        puts("Sending average speed failed!\n");
-        return 1;
-    }	
+	singleTravel = malloc(sizeof(Travel));
 
-	return 1;
+    for(i = 0 ;i < countOfPrintedTrips ; i++){
+    	if(recv(sock ,singleTravel ,sizeof(Travel), 0) < 0){
+			 puts("recv failed");
+		}else{
+			 addTravel(allMyTravelsHead,singleTravel);
+		}
+		
+	}
+	//Single travel used as temp node to 
+	//iterate over the list of travels;
+	printTravelsList(allMyTravelsHead);
+    
+    return 0;
 }
+
+void printTravelsList(Tavel* head){
+
+	Travel* curr = allMyTravelsHead;
+	while(curr->next != NULL){
+		printTravel(curr);
+		printf("\n---------------Next Travel---------------\n")
+    	curr = curr->next;
+    }
+    printTravel(curr);
+}
+
+ void printTravel(Travel *t){
+    //!!!!!!!!!!!!!!!!!!!!!!
+    //TO BE SENDED TO CLIENT 
+    //!!!!!!!!!!!!!!!!!!!!!!
+    printf("---------------------------------\n");
+    printf("Traveller : %s \n",t->touristName);
+    printf("Beginning longitude %lf \n",t->beginning.Lon);
+    printf("Beginning latitude %lf \n", t->beginning.Lat);
+    printf("Beginning name %s \n", t->beginning.name);
+    printf("Beginning date %s \n", t->beginning.date);
+    printf("Destination longitude %lf \n", t->destination.Lon);
+    printf("Destination latitude %lf \n", t->destination.Lat);
+    printf("Destination name %s \n", t->destination.name);
+    printf("Destination date %s \n", t->destination.date);
+    printf("The distance of your trip is :%lf",t->distance);
+    pritnf("---------------------------------\n");  
+}
+
+int findTop_S_Distances(int sock,char* server_message,int countOfMyPastTrips){
+	int numberOfTravelsToBeReceived;
+	Travel *topSLTravels;
+	Travel* singleTravelStorage;
+	singleTravelStorage = malloc(sizeOf(Travel));
+
+ 	readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%d", &numberOfTravelsToBeReceived);
+
+    if(numberOfTravelsToBeReceived > countOfMyPastTrips){
+    	printf("Please enter number which is less or equal to the number of your past travels\n");
+    	scanf("%d", &numberOfTravelsToBeReceived);
+    }
+
+    if(send(sock ,numberOfTravelsToBeReceived, sizeof(numberOfTravelsToBeReceived) , 0) < 0)
+    {
+        puts("Sending number of shortest trips to be returned failed!\n");
+        return 1;
+    }
+
+	topSLTravels = malloc(sizeof(Travel)* numberOfTravelsToBeReceived);
+    while(recv(sock ,t,500, 0) > 0){
+		addTravel(topSLTravels,singleTravelStorage);
+	}else{
+		 puts("recv failed");
+	}
+
+	printTravelsList(topSLTravels);
+
+	free(singleTravelStorage);
+	free(topSLTravels);
+ }
+
+int findTop_L_Distances(int sock,char* server_message,int countOfPrintedTrips){
+ 	int numberOfTravelsToBeReceived;
+	Travel *topSLTravels;
+	Travel* singleTravelStorage;
+	singleTravelStorage = malloc(sizeOf(Travel));
+
+ 	readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%d", &numberOfTravelsToBeReceived);
+
+    if(numberOfTravelsToBeReceived > countOfMyPastTrips){
+    	printf("Please enter number which is less or equal to the number of your past travels\n");
+    	scanf("%d", &numberOfTravelsToBeReceived);
+    }
+
+    if(send(sock ,numberOfTravelsToBeReceived, sizeof(numberOfTravelsToBeReceived) , 0) < 0)
+    {
+        puts("Sending number of longest trips to be returned failed!\n");
+        return 1;
+    }
+
+	topSLTravels = malloc(sizeof(Travel)* numberOfTravelsToBeReceived);
+    while(recv(sock ,t,500, 0) > 0){
+		addTravel(topSLTravels,singleTravelStorage);
+	}else{
+		 puts("recv failed");
+	}
+	
+	printTravelsList(topSLTravels);
+
+	free(singleTravelStorage);
+	free(topSLTravels);
+ }
+
+
+ void addTravel(Travel *_head,Travel* singleTravelStorage){
+ 	Travel *_curr;
+
+	if(_head == NULL){
+         _head = singleTravelStorage;
+    }else{
+        _curr = _head;
+        while( _curr->next != NULL){
+        	_curr = _curr->next;
+        }
+      	_curr->next = singleTravelStorage;
+       	printf("\nNew travel was added to your list of travells!\n");
+    }
+ }
+

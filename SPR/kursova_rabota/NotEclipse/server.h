@@ -50,15 +50,14 @@ struct Travel {
 
 
 void* connection_handler(void *);
-int loadAllTravelsFromFile(Travel* allTripsHead,FILE *fp);
-int saveTravelsToFile(Travel* allTripsHead ,FILE *fp);
+int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp);
+int saveTravelsToFile(Travel* allTravelsHead ,FILE *fp);
 void getTravelsByStOrEndDate(Travel* currentTouristHead ,
                char* dateToCompare,bool isStartDate);
 void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName);
-void printTravel(Travel *t);
-void printTravelsOfCurrentTraveller(Travel* currentTouristHead);
+void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead);
 void addTravel(Travel *_head,Travel* singleTravelStorage);
-int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
+int getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
                               Travel* currentTouristHead);
 void topWantedDistances(Travel* currentTouristHead,bool topShortest,
    Travel* statisticsListPointer,int countOfTripsToReturn);

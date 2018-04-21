@@ -67,7 +67,7 @@ void* connection_handler(void * socket_desc){
 	int menu_choice ,read_size,numberOfTrips;
 	char messageToClient[500],touristName[50];
 	FILE* fp;
-	Travel* allTripsHead;
+	Travel* allTravelsHead;
 	Travel* currentTouristHead;
 	Travel* singleTravelStorage;
 	Travel* statisticsListPointer;
@@ -94,13 +94,16 @@ void* connection_handler(void * socket_desc){
 	// =================================================
 
 	//TO DO synchronize file usage between threads
-	if(loadAllTravelsFromFile(allTripsHead,fp) == 1){
+	if(loadAllTravelsFromFile(allTravelsHead,fp) == 1){
 		printf("Loading trips from file has failed! \n");
 	}
 
-	if(getCurrentUserTravels(touristName,allTripsHead,
+	if(getCurrentUserTravels(touristName,allTravelsHead,
                              	 currentTouristHead) == 1){
 		printf("Loading trips from file has failed! \n");
+	}else{
+		numberOfTrips = getListSize(currentTouristHead);
+		write(sock,&numberOfTrips,sizeof(int));
 	}
 	// =================================================
 
@@ -110,18 +113,18 @@ void* connection_handler(void * socket_desc){
 		switch(menu_choice){
 
 			case 1:
-				printTravelsOfCurrentTraveller(currentTouristHead);
+				printTravelsFromHeadNode(socket_desc,currentTouristHead);
 				break;
 			case 2: 
 				singleTravelStorage = malloc(sizeof(Travel));
-				receiveNewTravelInfo(socket_desc,singleTravelStorage,touristName);
-				printTravel(singleTravelStorage);
+				receiveNewTravelInfo(socket_desc, singleTravelStorage, touristName);
 				addTravel(currentTouristHead,singleTravelStorage);
+				free(singleTravelStorage);
 				break;
 			case 3: 
 				break;
 			case 4: 
-				strcpy(messageToClient ,"Please enter number of trips to be returned : ");
+				strcpy(messageToClient ,"Please enter number top longest travels to be returned : ");
 				write(sock, messageToClient, 500);
 				memset(messageToClient, 0, 500);
 				if((read_size = recv(sock,&numberOfTrips,sizeof(int),0)) < 0){
@@ -130,19 +133,21 @@ void* connection_handler(void * socket_desc){
 					//2cond arg : bool topShortest
 					//if false  : topLongest 
 					topWantedDistances(currentTouristHead,false,statisticsListPointer,numberOfTrips);
+					printTravelsFromHeadNode(statisticsListPointer);
 				}
-				//printf("\n4.Изведи 10-те най-дълги пътувания");
 				break;
 			case 5:
-				strcpy(messageToClient ,"Please enter number of trips to be returned : ");
+				strcpy(messageToClient ,"Please enter number of top shortest trips to be returned : ");
 				write(sock, messageToClient, 500);
 				memset(messageToClient, 0, 500);
 				if((read_size = recv(sock,&numberOfTrips,sizeof(int),0)) < 0){
 					perror("Number of trips was not received !:  ");
 				}else{
+					//2cond arg : bool topShortest
+					//if false  : topLongest 
 					topWantedDistances(currentTouristHead,true,statisticsListPointer,numberOfTrips);
+					printTravelsFromHeadNode(statisticsListPointer);
 				}
-				//printf("\n5.Изведи 10-те най-къси пътувания");
 				break;
 			default:
 				printf("Client choice was invalid!");
@@ -178,9 +183,7 @@ void topWantedDistances(Travel* currentTouristHead,bool topShortest,
 	Travel *curr;
 
 	int listSize = getListSize(currentTouristHead);
-	if(countOfTripsToReturn  > listSize){
-		printf("The traveler is trying to filter more travels than those he made !");
-	}
+
 
 	int distanceArr [listSize][2];  //first column id sec column distance;
 	int i,j,swap;
@@ -223,6 +226,11 @@ void topWantedDistances(Travel* currentTouristHead,bool topShortest,
 
 	filteredTravelsById(statisticsListPointer,
 				currentTouristHead,IDsOfWantedTrips,countOfTripsToReturn);
+
+
+
+
+
 	free(IDsOfWantedTrips);
 }
 
@@ -247,193 +255,59 @@ void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName){
 	int read_size;
 	char* ascForInput,place_name[50], date[12];
 
-	//=============================
-	//start-longit
-	//=============================
 	if(strlen(touristName) > 0 ){
 		strcpy(t->touristName, touristName);
 	}
-
+	//=============================
+	//STARTING POSITION
+	//=============================
 	ascForInput = "Please enter Longitude of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&Lon,sizeof(double),0)) < 0){
-		perror("Error reading start pos Longitude!:  ");
-	}else{
-		t->beginning.Lon = Lon;
-	}
-
-
-	//=============================
-	//start-latit
-	//=============================
 	ascForInput = "Please enter Latitude of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
-		perror("Error reading start pos Latitude!:  ");
-	}else{
-		t->beginning.Lat = Lat;
-	}
-
-
-	//=============================
-	//start-name
-	//=============================
 	ascForInput = "Please enter name of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,place_name,50,0)) < 0){
-		perror("Error reading start pos name!:  ");
-	}else{
-		strcpy(t->beginning.name,place_name);
-	}
-	memset(place_name, 0, 50);
-	//=============================
-	//start-date
-	//=============================
 	ascForInput = "Please enter date of departure like dd/mm/yyyy:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,date,12,0)) < 0){
-		perror("Error reading departure date!:  ");
-	}else{
-		strcpy(t->beginning.date, date);
-	}
-	memset(place_name, 0, 12);
-
 	//=============================
-	//dest-longit
+	//DESTINATION
 	//=============================
 	ascForInput = "Please enter Longitude of destination:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&Lon,sizeof(double),0)) < 0){
-		perror("Error reading destination Longitude!:  ");
-	}else{
-		t->destination.Lon = Lon;
-	}
-
-	//=============================
-	//dest-latit
-	//=============================
 	ascForInput = "Please enter Latitude of destination:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
-		perror("Error reading destination Latitude!:  ");
-	}else{
-		t->destination.Lat = Lat;
-	}
-
-	//=============================
-	//dest-name
-	//=============================
 	ascForInput = "Please enter name of destination position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,place_name,50,0)) < 0){
-		perror("Error reading start pos name!:  ");
-	}else{
-		strcpy(t->destination.name,place_name);
-	}
-	memset(place_name, 0, 50);
-
-	//=============================
-	//dest-date
-	//=============================
 	ascForInput = "Please enter date of arrival like dd/mm/yyyy:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,date,12,0)) < 0){
-		perror("Error reading arrival date!:  ");
-	}else{
-		strcpy(t->destination.date, date);
-	}
-	memset(place_name, 0, 12);
-
-	//=============================
-	//average speed
-	//=============================
 	ascForInput = "Please enter average speed in km/h: \0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&averageSpeed,sizeof(double),0)) < 0){
-		perror("Error reading average speed!:  ");
+
+
+	if((read_size = recv(sock,t,sizeof(Travel),0)) < 0){
+		perror("Error receiving travel!:  ");
 	}else{
-		t->averageSpeed = averageSpeed ;
-	}
-
-	// K for distance in kilometer 
-	t->distance = distance(t->beginning.Lon,t->beginning.Lat,
+		t->distance = distance(t->beginning.Lon,t->beginning.Lat,
 							t->destination.Lon,t->destination.Lat,'K');
-	//always adding the wast node
-	t->averageDuration = (t->distance / t->averageSpeed);
-	t->next = NULL;
-
-	printf("Trip was added created successfully ! ");
+		//always adding the wast node
+		t->averageDuration = (t->distance / t->averageSpeed);
+		t->next = NULL;
+	}
 }
 
-void printTravel(Travel *t){
-		char stringToSend [100];
-		//!!!!!!!!!!!!!!!!!!!!!!
-		//TO BE SENDED TO CLIENT 
-		//!!!!!!!!!!!!!!!!!!!!!!
 
-		strcpy(stringToSend ,"---------------------------------");
-		write(sock, stringToSend,strlen(stringToSend));
-
-		snprintf(stringToSend, 100, "Traveller : %s \0", t->touristName);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-
-		snprintf(stringToSend, 100, "beg longitude %lf \0", t->beginning.Lon);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		snprintf(stringToSend, 100, "beg latitude %lf \0", t->beginning.Lat);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		snprintf(stringToSend, 100, "beg name %s \0", t->beginning.name);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		snprintf(stringToSend, 100, "beg date %s \0", t->beginning.date);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		snprintf(stringToSend, 100, "dst longitude %lf \0",  t->destination.Lon);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		snprintf(stringToSend, 100, "dst latitude %lf \0", t->destination.Lat);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		snprintf(stringToSend, 100, "dst name %s \0",t->destination.name);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		snprintf(stringToSend, 100, "dst date %s \0",t->destination.date);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		snprintf(stringToSend, 100, "The distance of your trip is :%lf \0",t->distance);
-		write(sock, stringToSend,strlen(stringToSend));
-		memset(stringToSend, 0, 100);
-
-		strcpy(stringToSend ,"---------------------------------");
-		write(sock, stringToSend,strlen(stringToSend));
-}
-
-void printTravelsOfCurrentTraveller(Travel* currentTouristHead){
+void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead){
+	int sock = *(int*) socket_desc;
 	Travel * curr;
 	curr = currentTouristHead;
-
-	int numberOfTrips = getListSize(currentTouristHead);
-	write(sock,&numberOfTrips,sizeof(int));
 
 	//no need from touristName check , cose all
 	//travels are for the current tourist 
 	while(curr->next != NULL){
-		printTravel(curr);
+		write(sock,t,sizeof(Travel));
     	curr = curr->next;
     }
-    printTravel(curr);
-
+    write(sock,t,sizeof(Travel));
 }
 
 void addTravel(Travel *_head,Travel* singleTravelStorage){
@@ -452,10 +326,10 @@ void addTravel(Travel *_head,Travel* singleTravelStorage){
     }
 }
 
-int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
+int getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
 								Travel* currentTouristHead){
 	Travel* curr;
-	curr = allTripsHead;
+	curr = allTravelsHead;
 	while(curr->next != NULL){
 		if(strcmp(curr->touristName,touristName) == 0){
 			addTravel(currentTouristHead,curr);
@@ -469,35 +343,40 @@ int getCurrentUserTravels(char* touristName, Travel* allTripsHead,
 	return 1;
 }
 
-int loadAllTravelsFromFile(Travel* allTripsHead,FILE *fp){
+int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp){
     Travel *singleTravel;
-    Travel temp;
      
+     singleTravel = malloc(sizeof(Travel));
     // Open person.dat for reading
     fp = fopen ("Travels.dat", "r");
-
     if (fp == NULL)
     {
         fprintf(stderr, "\nError opening file\n");
         exit (1);
     }
-    
+
+    //count the number of trips in the file to allocate memmory 
+    int countOfAllTravels = 1;
+    while(fread(singleTravel, sizeof(Travel), 1, fp)){
+    	countOfAllTravels +=1;
+    }
+    rewind(fp);
+    allTravelsHead = malloc(countOfAllTravels* sizeof(Travel));
+
     printf("Loading all trips from the file! \n");
     // read file contents till end of file
-    while(fread(&temp, sizeof(Travel), 1, fp)){
-		singleTravel = malloc(sizeof(Travel));
-		*singleTravel = temp;
-    	addTravel(allTripsHead, singleTravel);
+    while(fread(singleTravel, sizeof(Travel), 1, fp)){
+    	addTravel(allTravelsHead, singleTravel);
     }
-   	
+   	free(singleTravel);
    	fclose(fp);    	
 	return 1;
 }
 
-int saveTravelsToFile(Travel* allTripsHead ,FILE *fp){
+int saveTravelsToFile(Travel* allTravelsHead ,FILE *fp){
 
 	Travel * curr;
-	curr = allTripsHead;
+	curr = allTravelsHead;
     // open file for writing
     // when file is opened with mode "w" the content is 
     // erased and the file is threated as empty file 
@@ -525,38 +404,30 @@ int saveTravelsToFile(Travel* allTripsHead ,FILE *fp){
 	return 1;
 }
 
-void getTravelsByStOrEndDate(Travel* currentTouristHead ,
+void getTravelsByStOrEndDate(void* socket_desc,Travel* currentTouristHead ,
 					char* dateToCompare,bool isStartDate){
+	int sock = *(int*) socket_desc;
 	Travel * curr;
 	curr = currentTouristHead;
 
-
 	//no need from touristName check , cose all
 	//travels are for the current tourist 
-	while(curr->next != NULL){
-		if(isStartDate){
+	if(isStartDate){
+		while(curr->next != NULL){
 			if(0 == strcmp(curr->beginning.date,dateToCompare)){
-				printTravel(curr);
-				curr = curr->next;
-			}
-		}else{
-			if(0 == strcmp(curr->destination.date,dateToCompare)){
-				printTravel(curr);
+				write(sock,t,sizeof(Travel));
 				curr = curr->next;
 			}
 		}
     }
-   		if(isStartDate){
-			if(0 == strcmp(curr->beginning.date,dateToCompare)){
-				printTravel(curr);
-				curr = curr->next;
-			}
-		}else{
+	else{
+		while(curr->next != NULL){
 			if(0 == strcmp(curr->destination.date,dateToCompare)){
-				printTravel(curr);
+				write(sock,t,sizeof(Travel));
 				curr = curr->next;
 			}
 		}
+	}
 }
 
 double deg2rad(double degrees){

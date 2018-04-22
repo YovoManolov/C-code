@@ -16,7 +16,7 @@ void printMenu(){
  
 void clearScreen(){
 	char c;
-	printf("If you want to clear the screen press Y !");
+	printf("\nIf you want to clear the screen press Y !");
 	c = getchar();
 	if(c == 'Y' || c == 'y'){
 		printf("\033[H\033[J");
@@ -32,7 +32,8 @@ void readMessageFromServer(int sock,char* server_message, int sizeOfMessage){
 	memset(server_message, 0, 500);
 }
 
-int addNewTrip(int sock,char* server_message) {
+int addNewTrip(int sock,char* server_message,int* countOfPrintedTrips){
+
 	Travel* newTravel;
 	int loadedDataSignal = 1;
 	newTravel = malloc(sizeof(Travel));
@@ -86,21 +87,25 @@ int addNewTrip(int sock,char* server_message) {
     //signal for writen input;
     write(sock,&loadedDataSignal,sizeof(int));
 
+    *countOfPrintedTrips += 1;
+
     if(send(sock ,newTravel ,sizeof(Travel) , 0) < 0)
     {
         puts("Sending new Travel failed!\n");
         return 1;
     }
+
+    free(newTravel);
+    return 0;
 }
 
 int main(int argc , char *argv[])
 {
-    int sock,menu_choice,f_returnVal;
+    int sock,menu_choice;
     int countOfPrintedTrips;
     struct sockaddr_in server;
     char server_message[500],touristName[50];
-	Travel *allMyTravelsHead;
-
+	Travel *allMyTravelsHead = NULL;
 
 
     //Create socket
@@ -139,9 +144,9 @@ int main(int argc , char *argv[])
 		}else{
 			if(countOfPrintedTrips != 0 ){
 				printf(" %d trips wore taken from file!\n" , countOfPrintedTrips);
-			 	allMyTravelsHead = malloc(countOfPrintedTrips *sizeof(Travel));
 			}
 			else{
+				//count of trips is euqal to 0;
 				printf("You have no travels writen into the system!");
 			}
 		}
@@ -167,19 +172,24 @@ int main(int argc , char *argv[])
 				}
 				break;
 			case 2:
-				if(1 == addNewTrip(sock,server_message)){
+				if(1 == addNewTrip(sock,server_message, &countOfPrintedTrips)){
 					return 1;
 				}
 				break;
 			case 3: 
-				  findTop_S_Distances(sock, server_message, countOfPrintedTrips);
+				 if(findTop_S_Distances(sock, server_message, countOfPrintedTrips) != 0){
+					 printf("\nThere was a problem with filtering your trips \n");
+				 }
 				break;
 			case 4: 
-				  findTop_L_Distances(sock, server_message, countOfPrintedTrips);
+				  if(findTop_L_Distances(sock, server_message, countOfPrintedTrips) != 0){
+						 printf("\nThere was a problem with filtering your trips \n");
+				  }
 				break;
 			case 5:
 				break;
 			case 6:
+
 				exit(0);
 				break;
 			default:
@@ -197,6 +207,7 @@ int printAllMyTravels(int sock,Travel* allMyTravelsHead,int countOfPrintedTrips)
 
 	Travel  *singleTravel;
 	int i;
+
 	singleTravel = malloc(sizeof(Travel));
 
     for(i = 0 ;i < countOfPrintedTrips ; i++){
@@ -207,7 +218,8 @@ int printAllMyTravels(int sock,Travel* allMyTravelsHead,int countOfPrintedTrips)
 		}
 
 	}
-	//Single travel used as temp node to
+
+    //Single travel used as temp node to
 	//iterate over the list of travels;
 	printTravelsList(allMyTravelsHead);
 
@@ -272,6 +284,8 @@ int findTop_S_Distances(int sock,char* server_message,int countOfMyPastTrips){
 
 	free(singleTravelStorage);
 	free(topSLTravels);
+
+	return 0;
  }
 
 int findTop_L_Distances(int sock,char* server_message,int countOfMyPastTrips){
@@ -303,6 +317,8 @@ int findTop_L_Distances(int sock,char* server_message,int countOfMyPastTrips){
 
 	free(singleTravelStorage);
 	free(topSLTravels);
+
+	return  0;
  }
 
 

@@ -42,7 +42,7 @@ struct Travel {
 void clearScreen();
 void printMenu();
 void readMessageFromServer(int sock,char* server_message, int sizeOfMessage);
-int addNewTrip(int sock,char* server_message);
+int addNewTrip(int sock,char* server_message,int* countOfPrintedTrips);
 int findTop_L_Distances(int sock,char* server_message,int countOfMyPastTrips);
 int findTop_S_Distances(int sock,char* server_message,int countOfMyPastTrips);
 int printAllMyTravels(int sock,Travel* allMyTravelsHead,int countOfMyPastTrips);

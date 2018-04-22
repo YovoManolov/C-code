@@ -336,6 +336,8 @@ void receiveNewTravelInfo(void* socket_desc,Travel* receivedTravel,char* tourist
 		if(signalForWritenData == 1 ){ printf("\n Average speed: writen! "); }
 	}
 
+
+	//RECEIVING TRAVEL FROM CLIENT;
 	if((read_size = recv(sock,receivedTravel,sizeof(Travel),0)) < 0){
 		perror("Error receiving travel!:  ");
 	}else{
@@ -359,7 +361,9 @@ void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead){
 		write(sock,curr,sizeof(Travel));
     	curr = curr->next;
     }
-    write(sock,curr,sizeof(Travel));
+    if(curr != NULL){
+    	write(sock,curr,sizeof(Travel));
+    }
 }
 
 void addTravel(Travel *_head,Travel* singleTravelStorage){

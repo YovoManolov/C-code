@@ -6,21 +6,9 @@ Building file: ../client.c
 Invoking: GCC C Compiler
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"client.d" -MT"client.d" -o"client.o" "../client.c"
 ../client.c: In function ‘main’:
-../client.c:98:26: warning: unused variable ‘f_returnVal’ [-Wunused-variable]
-     int sock,menu_choice,f_returnVal;
-                          ^
-../client.c: In function ‘addNewTrip’:
-../client.c:94:1: warning: control reaches end of non-void function [-Wreturn-type]
- }
- ^
-../client.c: In function ‘findTop_S_Distances’:
-../client.c:275:2: warning: control reaches end of non-void function [-Wreturn-type]
-  }
-  ^
-../client.c: In function ‘findTop_L_Distances’:
-../client.c:306:2: warning: control reaches end of non-void function [-Wreturn-type]
-  }
-  ^
+../client.c:169:19: warning: ‘allMyTravelsHead’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+           if(1 == printAllMyTravels(sock,allMyTravelsHead,countOfPrintedTrips)){
+                   ^
 Finished building: ../client.c
  
 Building target: clientSide

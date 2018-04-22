@@ -34,39 +34,57 @@ void readMessageFromServer(int sock,char* server_message, int sizeOfMessage){
 
 int addNewTrip(int sock,char* server_message) {
 	Travel* newTravel;
-
+	int loadedDataSignal = 1;
 	newTravel = malloc(sizeof(Travel));
     //------------------------------------------
     //BEGINING
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%lf",&(newTravel->beginning.Lon));
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%lf",&(newTravel->beginning.Lat));
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%s",newTravel->beginning.name);
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%s",newTravel->beginning.date);
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
     //------------------------------------------
     //DESTINATION
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%lf",&(newTravel->destination.Lon));
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%lf",&(newTravel->destination.Lon));
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%s",newTravel->destination.name);
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%s",newTravel->destination.date);
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
     //-------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%lf",&(newTravel->averageSpeed));
+    //signal for writen input;
+    write(sock,&loadedDataSignal,sizeof(int));
 
     if(send(sock ,newTravel ,sizeof(Travel) , 0) < 0)
     {
@@ -83,7 +101,7 @@ int main(int argc , char *argv[])
     char server_message[500],touristName[50];
 	Travel *allMyTravelsHead;
 
-	
+
 
     //Create socket
     sock = socket(AF_INET , SOCK_STREAM , 0);
@@ -110,20 +128,24 @@ int main(int argc , char *argv[])
     //please enter your name
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%s",touristName);
-    if(send(sock ,touristName,50, 0) < 0)
+    if(send(sock ,touristName,strlen(touristName), 0) < 0)
     {
         puts("Your name was not sended!");
         return 1;
     }else{
-
-	    if(recv(sock , &countOfPrintedTrips ,sizeOf(int), 0) < 0){
+	    if(recv(sock , &countOfPrintedTrips ,sizeof(int), 0) < 0){
 			 puts("recv failed");
 			 return 1;
 		}else{
-			 printf(" %d trips wore taken from file!\n" , countOfPrintedTrips);
-			 allMyTravelsHead = malloc(countOfPrintedTrips *sizeof(Travel));
+			if(countOfPrintedTrips != 0 ){
+				printf(" %d trips wore taken from file!\n" , countOfPrintedTrips);
+			 	allMyTravelsHead = malloc(countOfPrintedTrips *sizeof(Travel));
+			}
+			else{
+				//count of trips is euqal to 0;
+				printf("You have no travels writen into the system!");
+			}
 		}
-
     }
 
     //keep communicating with server
@@ -140,13 +162,13 @@ int main(int argc , char *argv[])
 
         switch(menu_choice){
         	case 1:
-        		if(1 == printAllMyTravels(sock,server_message,countOfPrintedTrips)){
+        		if(1 == printAllMyTravels(sock,allMyTravelsHead,countOfPrintedTrips)){
         			printf("Something went wrong!");
 					return 1;
 				}
 				break;
 			case 2:
-				if(1 == addNewTrip(sock,server_message)){
+				if(1 == addNewTrip(sock,server_message,)){
 					return 1;
 				}
 				break;
@@ -172,12 +194,10 @@ int main(int argc , char *argv[])
     return 0;
 }
 
-int printAllMyTravels(int sock,char* server_message,Travel* allMyTravelsHead){
+int printAllMyTravels(int sock,Travel* allMyTravelsHead,int countOfPrintedTrips){
 
-	int countOfPrintedTrips;
-	char server_message[500];
 	Travel  *singleTravel;
-
+	int i;
 	singleTravel = malloc(sizeof(Travel));
 
     for(i = 0 ;i < countOfPrintedTrips ; i++){
@@ -186,21 +206,21 @@ int printAllMyTravels(int sock,char* server_message,Travel* allMyTravelsHead){
 		}else{
 			 addTravel(allMyTravelsHead,singleTravel);
 		}
-		
+
 	}
-	//Single travel used as temp node to 
+	//Single travel used as temp node to
 	//iterate over the list of travels;
 	printTravelsList(allMyTravelsHead);
-    
+
     return 0;
 }
 
-void printTravelsList(Tavel* head){
+void printTravelsList(Travel* head){
 
-	Travel* curr = allMyTravelsHead;
+	Travel* curr = head;
 	while(curr->next != NULL){
 		printTravel(curr);
-		printf("\n---------------Next Travel---------------\n")
+		printf("\n---------------Next Travel---------------\n");
     	curr = curr->next;
     }
     printTravel(curr);
@@ -208,7 +228,7 @@ void printTravelsList(Tavel* head){
 
  void printTravel(Travel *t){
     //!!!!!!!!!!!!!!!!!!!!!!
-    //TO BE SENDED TO CLIENT 
+    //TO BE SENDED TO CLIENT
     //!!!!!!!!!!!!!!!!!!!!!!
     printf("---------------------------------\n");
     printf("Traveller : %s \n",t->touristName);
@@ -221,14 +241,14 @@ void printTravelsList(Tavel* head){
     printf("Destination name %s \n", t->destination.name);
     printf("Destination date %s \n", t->destination.date);
     printf("The distance of your trip is :%lf",t->distance);
-    pritnf("---------------------------------\n");  
+    printf("---------------------------------\n");
 }
 
 int findTop_S_Distances(int sock,char* server_message,int countOfMyPastTrips){
 	int numberOfTravelsToBeReceived;
 	Travel *topSLTravels;
 	Travel* singleTravelStorage;
-	singleTravelStorage = malloc(sizeOf(Travel));
+	singleTravelStorage = malloc(sizeof(Travel));
 
  	readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%d", &numberOfTravelsToBeReceived);
@@ -238,17 +258,15 @@ int findTop_S_Distances(int sock,char* server_message,int countOfMyPastTrips){
     	scanf("%d", &numberOfTravelsToBeReceived);
     }
 
-    if(send(sock ,numberOfTravelsToBeReceived, sizeof(numberOfTravelsToBeReceived) , 0) < 0)
+    if(send(sock ,&numberOfTravelsToBeReceived, sizeof(numberOfTravelsToBeReceived) , 0) < 0)
     {
         puts("Sending number of shortest trips to be returned failed!\n");
         return 1;
     }
 
 	topSLTravels = malloc(sizeof(Travel)* numberOfTravelsToBeReceived);
-    while(recv(sock ,t,500, 0) > 0){
+    while(recv(sock ,singleTravelStorage,sizeof(Travel), 0) > 0){
 		addTravel(topSLTravels,singleTravelStorage);
-	}else{
-		 puts("recv failed");
 	}
 
 	printTravelsList(topSLTravels);
@@ -257,11 +275,11 @@ int findTop_S_Distances(int sock,char* server_message,int countOfMyPastTrips){
 	free(topSLTravels);
  }
 
-int findTop_L_Distances(int sock,char* server_message,int countOfPrintedTrips){
+int findTop_L_Distances(int sock,char* server_message,int countOfMyPastTrips){
  	int numberOfTravelsToBeReceived;
 	Travel *topSLTravels;
 	Travel* singleTravelStorage;
-	singleTravelStorage = malloc(sizeOf(Travel));
+	singleTravelStorage = malloc(sizeof(Travel));
 
  	readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%d", &numberOfTravelsToBeReceived);
@@ -271,19 +289,17 @@ int findTop_L_Distances(int sock,char* server_message,int countOfPrintedTrips){
     	scanf("%d", &numberOfTravelsToBeReceived);
     }
 
-    if(send(sock ,numberOfTravelsToBeReceived, sizeof(numberOfTravelsToBeReceived) , 0) < 0)
+    if(send(sock , &numberOfTravelsToBeReceived, sizeof(numberOfTravelsToBeReceived) , 0) < 0)
     {
         puts("Sending number of longest trips to be returned failed!\n");
         return 1;
     }
 
 	topSLTravels = malloc(sizeof(Travel)* numberOfTravelsToBeReceived);
-    while(recv(sock ,t,500, 0) > 0){
+    while(recv(sock ,singleTravelStorage,sizeof(Travel), 0) > 0){
 		addTravel(topSLTravels,singleTravelStorage);
-	}else{
-		 puts("recv failed");
 	}
-	
+
 	printTravelsList(topSLTravels);
 
 	free(singleTravelStorage);

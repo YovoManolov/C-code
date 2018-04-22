@@ -52,7 +52,7 @@ struct Travel {
 void* connection_handler(void *);
 int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp);
 int saveTravelsToFile(Travel* allTravelsHead ,FILE *fp);
-void getTravelsByStOrEndDate(Travel* currentTouristHead ,
+void getTravelsByStOrEndDate(void* socket_desc,Travel* currentTouristHead ,
                char* dateToCompare,bool isStartDate);
 void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName);
 void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead);

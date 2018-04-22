@@ -12,11 +12,13 @@
 #include<stdio.h>
 #include<string.h>    //strlen
 #include<stdlib.h>
+#include<stdbool.h>
 #include<sys/types.h>
 #include<sys/socket.h>
+#include<pthread.h>
 #include<arpa/inet.h> //inet_addr
 #include<unistd.h>    //write
-#include<pthread.h>
+
 
 //for distance calcuation
 #include <math.h>
@@ -32,24 +34,40 @@ typedef struct place {
 
 typedef struct Travel Travel;
 struct Travel {
+   int id;
+   // ascending used only for
+   // single client statistics
+   //value in allTravelStructures
+   //is formal and not used
+   char touristName[50];
    Place beginning;
    Place destination;
+   double averageSpeed;
    double distance;
+   double averageDuration;
    Travel* next;
 };
 
-typedef struct tourist {
-   char name[20];
-   int countOfTravels;
-   Travel* headNode;
-} Tourist;
 
-void *connection_handler(void *);
-void loadTravelInfo(void* socket_desc,Travel* t);
+void* connection_handler(void *);
+int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp);
+int saveTravelsToFile(Travel* allTravelsHead ,FILE *fp);
+void getTravelsByStOrEndDate(void* socket_desc,Travel* currentTouristHead ,
+               char* dateToCompare,bool isStartDate);
+void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName);
+void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead);
+void addTravel(Travel *_head,Travel* singleTravelStorage);
+int getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
+                              Travel* currentTouristHead);
+void topWantedDistances(Travel* currentTouristHead,bool topShortest,
+   Travel* statisticsListPointer,int countOfTripsToReturn);
+void filteredTravelsById(Travel* statisticsListPointer,Travel* currentTouristHead,
+                        int* IDsOfWantedTrips,int countOfTripsToReturn);
+
+int getListSize(Travel* head);
 
 double deg2rad(double);
 double rad2deg(double);
-
 /*:: unit = the unit you desire for results                                  :*/
 /*::           where: 'M' is statute miles (default)                         :*/
 /*::                  'K' is kilometers                                      :*/

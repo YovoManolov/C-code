@@ -260,92 +260,100 @@ void receiveNewTravelInfo(void* socket_desc,Travel* receivedTravel,char* tourist
 	if(strlen(touristName) > 0 ){
 		strcpy(receivedTravel->touristName, touristName);
 	}
+
 	//=============================
 	//STARTING POSITION
 	//=============================
 	ascForInput = "Please enter Longitude of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-		perror("Error receiving signalForWritenData!:  ");
-	}else{
-		if(signalForWritenData == 1 ){ printf("\n Beginning Longitude: writen! "); }
-	}
+
+	if((read_size = recv(sock,&Lon,sizeof(double),0)) < 0){
+   	   perror("Error reading start pos Longitude!:  ");
+    }else{
+       receivedTravel->beginning.Lon = Lon;
+    }
 
 	ascForInput = "Please enter Latitude of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-			perror("Error receiving signalForWritenData!:  ");
+	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
+	    perror("Error reading start pos Latitude!:  ");
 	}else{
-		if(signalForWritenData == 1 ){ printf("\nBeginning Latitude: writen! "); }
+	    receivedTravel->beginning.Lat = Lat;
 	}
 
 	ascForInput = "Please enter name of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-		perror("Error receiving signalForWritenData!:  ");
-	}else{
-		if(signalForWritenData == 1 ){ printf("\nName of starting position: writen! "); }
-	}
+	if((read_size = recv(sock,place_name,50,0)) < 0){
+    perror("Error reading start pos name!:  ");
+  	}else{
+    	strcpy(receivedTravel->beginning.name,place_name);
+  	}
+  	memset(place_name, 0, 50);
 
 	ascForInput = "Please enter date of departure like dd/mm/yyyy:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-		perror("Error receiving signalForWritenData!:  ");
-	}else{
-		if(signalForWritenData == 1 ){ printf("\nName of starting position: writen! "); }
-	}
+	if((read_size = recv(sock,date,12,0)) < 0){
+    	perror("Error reading departure date!:  ");
+ 	}else{
+    	strcpy(receivedTravel->beginning.date, date);
+  	}
+  	memset(place_name, 0, 12);
+
 	//=============================
 	//DESTINATION
 	//=============================
 	ascForInput = "Please enter Longitude of destination:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-			perror("Error receiving signalForWritenData!:  ");
-	}else{
-		if(signalForWritenData == 1 ){ printf("\n Destination Longitude: writen! "); }
-	}
+	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
+    	perror("Error reading destination Latitude!:  ");
+    }else{
+       receivedTravel->destination.Lat = Lat;
+    }
+ 	
 	ascForInput = "Please enter Latitude of destination:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-		perror("Error receiving signalForWritenData!:  ");
-	}else{
-		if(signalForWritenData == 1 ){ printf("\n Destination Latitude: writen! "); }
-	}
+	if((read_size = recv(sock,place_name,50,0)) < 0){
+   		perror("Error reading start pos name!:  ");
+  	}else{
+    	strcpy(receivedTravel->destination.name,place_name);
+  	}
+  	memset(place_name, 0, 50);
+
 
 	ascForInput = "Please enter name of destination position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-		perror("Error receiving signalForWritenData!:  ");
-	}else{
-		if(signalForWritenData == 1 ){ printf("\n Name of destination position: writen! "); }
-	}
+	if((read_size = recv(sock,place_name,50,0)) < 0){
+    	perror("Error reading start pos name!:  ");
+    }else{
+    	strcpy(receivedTravel->destination.name,place_name);
+    }
+  	memset(place_name, 0, 50);
 
 	ascForInput = "Please enter date of arrival like dd/mm/yyyy:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-		perror("Error receiving signalForWritenData!:  ");
-	}else{
-		if(signalForWritenData == 1 ){ printf("\n Date of arrival: writen! "); }
-	}
+	if((read_size = recv(sock,date,12,0)) < 0){
+    	perror("Error reading arrival date!:  ");
+    }else{
+    	strcpy(receivedTravel->destination.date, date);
+ 	}
+    memset(place_name, 0, 12);
 
 	ascForInput = "Please enter average speed in km/h: \0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&signalForWritenData,sizeof(int),0)) < 0){
-			perror("Error receiving signalForWritenData!:  ");
-	}else{
-		if(signalForWritenData == 1 ){ printf("\n Average speed: writen! "); }
-	}
+	if((read_size = recv(sock,averageSpeed,sizeof(double),0)) < 0){
+   		 perror("Error reading average speed!:  ");
+  	}else{
+    	receivedTravel->averageSpeed = averageSpeed ;
+  	}
 
 
-	//RECEIVING TRAVEL FROM CLIENT;
-	if((read_size = recv(sock,receivedTravel,sizeof(Travel),0)) < 0){
-		perror("Error receiving travel!:  ");
-	}else{
-		receivedTravel->distance = distance(receivedTravel->beginning.Lon,receivedTravel->beginning.Lat,
-				receivedTravel->destination.Lon,receivedTravel->destination.Lat,'K');
+	receivedTravel->distance = distance(receivedTravel->beginning.Lon,
+				receivedTravel->beginning.Lat,receivedTravel->destination.Lon,
+				receivedTravel->destination.Lat,'K');
 		//always adding the wast node
-		receivedTravel->averageDuration = (receivedTravel->distance / receivedTravel->averageSpeed);
-		receivedTravel->next = NULL;
+	receivedTravel->averageDuration = (receivedTravel->distance / receivedTravel->averageSpeed);
+	receivedTravel->next = NULL;
+
 	}
 }
 

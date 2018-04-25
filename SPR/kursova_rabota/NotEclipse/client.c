@@ -33,49 +33,76 @@ void readMessageFromServer(int sock,char* server_message, int sizeOfMessage){
 }
 
 int addNewTrip(int sock,char* server_message,int* countOfPrintedTrips){
+	char place_name[50],date[12];
+    double lon,lat,averageSpeed;
 
-	Travel* newTravel;
-	int loadedDataSignal = 1;
-	newTravel = malloc(sizeof(Travel));
     //------------------------------------------
     //BEGINING
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&(newTravel->beginning.Lon));
+    scanf("%lf",&lon);
     //signal for writen input;
-    write(sock,&loadedDataSignal,sizeof(int));
+    if(send(sock ,&lon , sizeof(double) , 0) < 0)
+    {
+        puts("Sending beg longitude failed");
+        return 1;
+    }
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&(newTravel->beginning.Lat));
+    scanf("%lf",&lat);
     //signal for writen input;
-    write(sock,&loadedDataSignal,sizeof(int));
+    if(send(sock ,&lat , sizeof(double) , 0) < 0)
+    {
+       puts("Sending beg latitude failed");
+       return 1;
+    }
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",newTravel->beginning.name);
+    scanf("%s",place_name);
     //signal for writen input;
-    write(sock,&loadedDataSignal,sizeof(int));
+    if(send(sock , place_name , strlen(place_name) , 0) < 0)
+    {
+       puts("Sending beg starting position name failed");
+       return 1;
+    }
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",newTravel->beginning.date);
+    scanf("%s",date);
     //signal for writen input;
-    write(sock,&loadedDataSignal,sizeof(int));
+    if(send(sock ,date , strlen(date) , 0) < 0)
+    {
+       puts("Sending beg starting position name failed");
+       return 1;
+    }
     //------------------------------------------
     //DESTINATION
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&(newTravel->destination.Lon));
+    scanf("%lf",&lon);
     //signal for writen input;
-    write(sock,&loadedDataSignal,sizeof(int));
+    if(send(sock , &lon , sizeof(double) , 0) < 0)
+    {
+        puts("Sending destination longitude failed");
+    	return 1;
+    }
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&(newTravel->destination.Lon));
+    scanf("%lf",&Lat);
     //signal for writen input;
-    write(sock,&loadedDataSignal,sizeof(int));
+    if(send(sock ,&lat , sizeof(double) , 0) < 0)
+    {
+        puts("Sending destination latitude failed");
+        return 1;
+    }
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%s",newTravel->destination.name);
+    scanf("%s",place_name);
     //signal for writen input;
-    write(sock,&loadedDataSignal,sizeof(int));
+    if(send(sock ,place_name, strlen(place_name) , 0) < 0)
+    {
+       puts("Sending destination starting position name failed!\n");
+       return 1;
+    }
     //------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
     scanf("%s",newTravel->destination.date);
@@ -83,21 +110,17 @@ int addNewTrip(int sock,char* server_message,int* countOfPrintedTrips){
     write(sock,&loadedDataSignal,sizeof(int));
     //-------------------------------------------
     readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%lf",&(newTravel->averageSpeed));
+    scanf("%s",date);
     //signal for writen input;
-    write(sock,&loadedDataSignal,sizeof(int));
-
-    *countOfPrintedTrips += 1;
-
-    if(send(sock ,newTravel ,sizeof(Travel) , 0) < 0)
+    if(send(sock ,date , strlen(date) , 0) < 0)
     {
-        puts("Sending new Travel failed!\n");
-        return 1;
+       puts("Sending destination starting position name failed!\n");
+       return 1;
     }
 
 
-    free(newTravel);
-}
+ 	*countOfPrintedTrips += 1;
+ }
 
 int main(int argc , char *argv[])
 {

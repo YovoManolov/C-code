@@ -14,40 +14,18 @@
 #include<unistd.h>
 #include<sys/socket.h>    //socket
 #include<arpa/inet.h> //inet_addr
-
-typedef struct place {
-   double Lon;
-   double Lat;
-   char name[50];
-   char date[12]; //dd-mm-yyyy
-} Place ;
-
-typedef struct Travel Travel;
-struct Travel {
-   int id;
-   // ascending used only for
-   // single client statistics
-   //value in allTravelStructures
-   //is formal and not used
-   char touristName[50];
-   Place beginning;
-   Place destination;
-   double averageSpeed;
-   double distance;
-   double averageDuration;
-   Travel* next;
-};
+#include "datastruct.h"
 
 
 void clearScreen();
 void printMenu();
 void readMessageFromServer(int sock,char* server_message, int sizeOfMessage);
-int addNewTrip(int sock,char* server_message,int* countOfPrintedTrips);
-int findTop_L_Distances(int sock,char* server_message,int countOfMyPastTrips);
-int findTop_S_Distances(int sock,char* server_message,int countOfMyPastTrips);
-int printAllMyTravels(int sock,Travel* allMyTravelsHead,int countOfMyPastTrips);
+int addNewTrip(int sock,char* server_message);
+int findTop_L_Distances(int sock,char* server_message);
+int findTop_S_Distances(int sock,char* server_message);
+int printAllMyTravels(int sock,Travel* allMyTravelsHead);
 void printTravel(Travel* head);
-void printTravelsList(Travel* head);
+void printTravelsList(int sock,int numberOfTravelsToBeReceived);
 void addTravel(Travel *_head,Travel* singleTravelStorage);
 
 #endif /* CLIENT_H_ */

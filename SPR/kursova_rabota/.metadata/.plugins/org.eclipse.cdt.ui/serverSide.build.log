@@ -2,4 +2,28 @@
 **** Build of configuration Debug for project serverSide ****
 
 make all 
-make: Nothing to be done for 'all'.
+Building file: ../server.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"server.d" -MT"server.d" -o"server.o" "../server.c"
+../server.c: In function ‘connection_handler’:
+../server.c:175:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../server.c: In function ‘sendSigleTravelInfoToClient’:
+../server.c:401:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../server.c: In function ‘connection_handler’:
+../server.c:97:5: warning: ‘fp’ is used uninitialized in this function [-Wuninitialized]
+  if(loadAllTravelsFromFile(allTravelsHead,fp) == 1){
+     ^
+../server.c:108:6: warning: ‘listSize’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+    if(listSize == 0){
+      ^
+Finished building: ../server.c
+ 
+Building target: serverSide
+Invoking: GCC C Linker
+gcc  -o"serverSide"  ./server.o   -lpthread -lm
+Finished building target: serverSide
+ 

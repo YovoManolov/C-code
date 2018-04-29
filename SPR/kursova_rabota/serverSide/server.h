@@ -8,45 +8,20 @@
 #ifndef SERVER_H_
 #define SERVER_H_
 
-
+#include "datastruct.h"
 #include<stdio.h>
 #include<string.h>    //strlen
 #include<stdlib.h>
 #include<stdbool.h>
-#include<sys/types.h>
+#include<sys/types.h>   
 #include<sys/socket.h>
-#include<pthread.h>
+#include<pthread.h> 
 #include<arpa/inet.h> //inet_addr
 #include<unistd.h>    //write
-
-
-//for distance calcuation
+//for distance calcuation 
 #include <math.h>
 #define pi 3.14159265358979323846
 
-
-typedef struct place {
-   double Lon;
-   double Lat;
-   char name[50];
-   char date[12]; //dd-mm-yyyy
-} Place ;
-
-typedef struct Travel Travel;
-struct Travel {
-   int id;
-   // ascending used only for
-   // single client statistics
-   //value in allTravelStructures
-   //is formal and not used
-   char touristName[50];
-   Place beginning;
-   Place destination;
-   double averageSpeed;
-   double distance;
-   double averageDuration;
-   Travel* next;
-};
 
 
 void* connection_handler(void *);
@@ -56,7 +31,7 @@ void getTravelsByStOrEndDate(void* socket_desc,Travel* currentTouristHead ,
                char* dateToCompare,bool isStartDate);
 void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName);
 void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead);
-void addTravel(Travel *_head,Travel* singleTravelStorage);
+int addTravel(Travel* _head,Travel* singleTravelStorage);
 int getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
                               Travel* currentTouristHead);
 void topWantedDistances(Travel* currentTouristHead,bool topShortest,
@@ -71,7 +46,7 @@ double rad2deg(double);
 /*:: unit = the unit you desire for results                                  :*/
 /*::           where: 'M' is statute miles (default)                         :*/
 /*::                  'K' is kilometers                                      :*/
-/*::                  'N' is nautical miles                                  :*/
+/*::                  'N' is nautical miles                                  :*/     
 double distance(double lat1, double lon1, double lat2, double lon2, char unit);
 
 #endif /* SERVER_H_ */

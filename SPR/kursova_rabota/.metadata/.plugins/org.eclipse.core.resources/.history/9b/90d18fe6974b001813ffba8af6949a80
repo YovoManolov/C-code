@@ -1,0 +1,31 @@
+/*
+ * client.h
+ *
+ *  Created on: Apr 9, 2018
+ *      Author: yovo
+ */
+
+#ifndef CLIENT_H_
+#define CLIENT_H_
+
+#include<stdio.h> //printf
+#include<stdlib.h>
+#include<string.h>    //strlen
+#include<unistd.h>
+#include<sys/socket.h>    //socket
+#include<arpa/inet.h> //inet_addr
+#include "datastruct.h"
+
+
+void clearScreen();
+void printMenu();
+void readMessageFromServer(int sock,char* server_message, int sizeOfMessage);
+int addNewTrip(int sock,char* server_message,int* countOfPrintedTrips);
+int findTop_L_Distances(int sock,char* server_message,int countOfMyPastTrips);
+int findTop_S_Distances(int sock,char* server_message,int countOfMyPastTrips);
+int printAllMyTravels(int sock,Travel* allMyTravelsHead,int countOfMyPastTrips);
+void printTravel(Travel* head);
+void printTravelsList(Travel* head);
+void addTravel(Travel *_head,Travel* singleTravelStorage);
+
+#endif /* CLIENT_H_ */

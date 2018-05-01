@@ -36,6 +36,8 @@ int addNewTrip(int sock,char* server_message){
     char place_name[50],date[12];
     double lon,lat,averageSpeed;
 
+
+
     //------------------------------------------
     //BEGINING
     //------------------------------------------
@@ -137,6 +139,7 @@ int addNewTrip(int sock,char* server_message){
 
     readMessageFromServer(sock,server_message,sizeof(server_message));
 
+    return 0;
  }
 
 int main(int argc , char *argv[])
@@ -145,7 +148,7 @@ int main(int argc , char *argv[])
     int countOfPrintedTrips;
     struct sockaddr_in server;
     char server_message[500],touristName[50];
-    Travel *allMyTravelsHead;
+    Travel *allMyTravelsHead = NULL;
 
 
 
@@ -216,6 +219,10 @@ int main(int argc , char *argv[])
                 if(1 == addNewTrip(sock,server_message)){
                     return 1;
                 }
+                if(1 == printAllMyTravels(sock,allMyTravelsHead)){
+                    printf("Something went wrong!");
+                    return 1;
+                }
                 break;
             case 3:
                  if(findTop_S_Distances(sock, server_message) != 0){
@@ -230,7 +237,6 @@ int main(int argc , char *argv[])
             case 5:
                 break;
             case 6:
-
                 exit(0);
                 break;
             default:
@@ -246,9 +252,10 @@ int main(int argc , char *argv[])
 
 int printAllMyTravels(int sock,Travel* allMyTravelsHead){
 
-    int i,numberOfTravelsToPrint;
-    if(recv(sock ,&numberOfTravelsToPrint ,sizeof(int), 0) < 0){
-        puts("recv failed");
+    int numberOfTravelsToPrint;
+
+    if(recv(sock ,&numberOfTravelsToPrint ,sizeof(int), 0) <= 0){
+        puts("There are no travels to be shown or recv failed");
     }else{
         printf("\n %d travels to be printed ! \n",numberOfTravelsToPrint);
     }
@@ -262,55 +269,104 @@ int printAllMyTravels(int sock,Travel* allMyTravelsHead){
 void printTravelsList(int sock,int numberOfTravelsToPrint){
     Travel* curr;
     int read_size;
+
+    //used for synchronization
+    int dataReceived = 1;
     curr = malloc(sizeof(Travel));
 
-    for(int i = 0;i< numberOfTravelsToPrint ;i ++){
+    for(int i = 0;i < numberOfTravelsToPrint ;i++){
+
+        if((read_size = recv(sock,curr->touristName,sizeof(50),0)) < 0){
+           perror("Error reading tourist Name!:  ");
+        }
+        write(sock, &dataReceived,sizeof(int));
         //=============================
         //STARTING POSITION
         //=============================
         if((read_size = recv(sock,&curr->beginning.Lon,sizeof(double),0)) < 0){
+           dataReceived = 0;
+           write(sock, &dataReceived,sizeof(int));
            perror("Error reading start pos Longitude!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
         if((read_size = recv(sock,&curr->beginning.Lat,sizeof(double),0)) < 0){
-        perror("Error reading start pos Latitude!:  ");
+        	dataReceived = 0;
+        	write(sock, &dataReceived,sizeof(int));
+        	perror("Error reading start pos Latitude!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
         if((read_size = recv(sock,curr->beginning.name,50,0)) < 0){
+        	dataReceived = 0;
+        	write(sock, &dataReceived,sizeof(int));
             perror("Error reading start pos name!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
+
         if((read_size = recv(sock,curr->beginning.date,12,0)) < 0){
+        	dataReceived = 0;
+        	write(sock, &dataReceived,sizeof(int));
             perror("Error reading departure date!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
         //=============================
         //DESTINATION
         //=============================
         if((read_size = recv(sock,&curr->destination.Lon,sizeof(double),0)) < 0){
+           dataReceived = 0;
+           write(sock, &dataReceived,sizeof(int));
            perror("Error reading destination Longitude!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
         if((read_size = recv(sock,&curr->destination.Lat,sizeof(double),0)) < 0){
-        perror("Error reading destination Latitude!:  ");
+        	dataReceived = 0;
+        	write(sock, &dataReceived,sizeof(int));
+        	perror("Error reading destination Latitude!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
         if((read_size = recv(sock,curr->destination.name,50,0)) < 0){
+        	dataReceived = 0;
+        	write(sock, &dataReceived,sizeof(int));
             perror("Error reading destination name!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
         if((read_size = recv(sock,curr->destination.date,12,0)) < 0){
+        	dataReceived = 0;
+        	write(sock, &dataReceived,sizeof(int));
             perror("Error reading arrival date!:  ");
         }
-
+        write(sock, &dataReceived,sizeof(int));
         //=============================
         //=============================
         if((read_size = recv(sock,&(curr->averageSpeed),sizeof(double),0)) < 0){
+        	 dataReceived = 0;
+        	 write(sock, &dataReceived,sizeof(int));
              perror("Error reading average speed!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
         if((read_size = recv(sock,&(curr->distance),sizeof(double),0)) < 0){
+        	 dataReceived = 0;
+        	 write(sock, &dataReceived,sizeof(int));
              perror("Error reading average speed!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
         if((read_size = recv(sock,&(curr->averageDuration),sizeof(double),0)) < 0){
+        	 dataReceived = 0;
+        	 write(sock, &dataReceived,sizeof(int));
              perror("Error reading average speed!:  ");
         }
+        write(sock, &dataReceived,sizeof(int));
 
-        printf("\n---------------Next Travel---------------\n");
-        curr = curr->next;
         printTravel(curr);
+
+        memset(curr->touristName, 0, 50);
+        memset(curr->beginning.name, 0, 50);
+        memset(curr->beginning.date, 0, 12);
+        memset(curr->destination.name, 0, 50);
+        memset(curr->destination.date, 0, 12);
+
+        curr = curr->next;
+        printf("\n---------------Next Travel---------------\n");
+
     }
     free(curr);
 }
@@ -330,7 +386,7 @@ void printTravelsList(int sock,int numberOfTravelsToPrint){
     printf("Destination name %s \n", t->destination.name);
     printf("Destination date %s \n", t->destination.date);
     printf("The distance of your trip is :%lf",t->distance);
-    printf("---------------------------------\n");
+    printf("\n--------------------------------------------\n");
 }
 
 int findTop_S_Distances(int sock,char* server_message){
@@ -379,4 +435,3 @@ int findTop_L_Distances(int sock,char* server_message){
 
     return  0;
  }
-

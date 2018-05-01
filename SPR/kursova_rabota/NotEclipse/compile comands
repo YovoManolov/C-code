@@ -1,2 +1,8 @@
 gcc server.c -o server -lpthread -lm
 ~/Documents/Crepo/C-code/SPR/kursova_rabota/NotEclipse
+
+$ sudo lsof -i :8889
+
+//kill processId
+kill 9078
+

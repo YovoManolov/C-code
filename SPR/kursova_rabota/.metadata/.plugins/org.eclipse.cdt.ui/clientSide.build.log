@@ -2,21 +2,4 @@
 **** Build of configuration Debug for project clientSide ****
 
 make all 
-Building file: ../client.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"client.d" -MT"client.d" -o"client.o" "../client.c"
-../client.c: In function ‘findTop_S_Distances’:
-../client.c:400:7: warning: ‘countOfMyPastTrips’ is used uninitialized in this function [-Wuninitialized]
-     if(numberOfTravelsToBeReceived > countOfMyPastTrips){
-       ^
-../client.c: In function ‘findTop_L_Distances’:
-../client.c:423:7: warning: ‘countOfMyPastTrips’ is used uninitialized in this function [-Wuninitialized]
-     if(numberOfTravelsToBeReceived > countOfMyPastTrips){
-       ^
-Finished building: ../client.c
- 
-Building target: clientSide
-Invoking: GCC C Linker
-gcc  -o"clientSide"  ./client.o   -lpthread
-Finished building target: clientSide
- 
+make: Nothing to be done for 'all'.

@@ -105,19 +105,18 @@ void* connection_handler(void * socket_desc){
 		numberOfTrips = 0;
 		write(sock,&numberOfTrips,sizeof(int));
 	}else{
-		if(getCurrentUserTravels(touristName,allTravelsHead,
-	                             	 currentTouristHead) == 1){
-			printf("Loading trips from file has failed! \n");
-		}else{
-			numberOfTrips = getListSize(currentTouristHead);
-			if(numberOfTrips == 0){
-				printf("List of travels is empty request cannot be fulfilled!");
-			}
-			write(sock,&numberOfTrips,sizeof(int));
-			//initialize the last id in the list of trips with the number of all
-			//the travels for this user token from the file.
-			lastIdInt = numberOfTrips;
+		getCurrentUserTravels(touristName,allTravelsHead,currentTouristHead);
+		
+		numberOfTrips = getListSize(currentTouristHead);
+		if(numberOfTrips == 0){
+			printf("List of user's travels is empty requests cannot be fulfilled!");
 		}
+
+		write(sock,&numberOfTrips,sizeof(int));
+		//initialize the last id in the list of trips with the number of all
+		//the travels for this user token from the file.
+		lastIdInt = numberOfTrips;
+		
 	}
 
 	// =================================================
@@ -136,7 +135,7 @@ void* connection_handler(void * socket_desc){
 				addTravel(&currentTouristHead,singleTravelStorage);
 				strcpy(messageToClient,"\nNew travel was added to your list of travells!\n");
 		      	write(sock, messageToClient,strlen(messageToClient));
-				printTravelsFromHeadNode(socket_desc,currentTouristHead);
+
 				break;
 			case 3: 
 				break;
@@ -166,6 +165,23 @@ void* connection_handler(void * socket_desc){
 					printTravelsFromHeadNode(socket_desc,statisticsListPointer);
 				}
 				break;
+			case 6:
+				int signalReceived;
+				deleteCurrentUserTravels(touristName, &allTravelsHead);
+				saveTravelsToFile(allTravelsHead ,fp);
+
+				strcpy(messageToClient ,"Thank you for using our services!  : ");
+				write(sock, messageToClient, 500);
+				memset(messageToClient, 0, 500);
+
+				if((read_size = recv(sock,&signalReceived,sizeof(int),0)) < 0){
+					perror("Shut down message not received !:  ");
+				}else{
+					printf("Client disconnected");
+					free(socket_desc);
+				}	
+
+			break;
 			default:
 				printf("Client choice was invalid!");
 				break;
@@ -516,30 +532,75 @@ int addTravel(Travel** _head,Travel* singleTravelStorage){
     }
 }
 
-int getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
+
+void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead){
+	Travel* temp = *allTravelsHead;
+	Travel* prev = *allTravelsHead;
+
+	int deletedTravels = 0;
+
+
+	// If head node itself holds the key to be deleted
+    if (temp != NULL && strcmp(temp->touristName,touristName) == 0 )
+    {
+        *allTravelsHead = temp->next;   // Changed head
+        free(temp);               		// free old head
+        deletedTravels += 1;
+        temp = *allTravelsHead;
+    }
+
+    while(1){
+    	// Search for the key to be deleted, keep track of the
+	    // previous node as we need to change 'prev->next'
+	    while (temp != NULL && strcmp(temp->touristName,touristName) != 0)
+	    {
+	        prev = temp;
+	        temp = temp->next;
+	    }
+	 	// If key was not present in linked list
+	    if (temp == NULL){
+	    	break;
+	    } else{
+		    // Unlink the node from linked list
+		    prev->next = temp->next;
+		    free(temp);
+		    deletedTravels +=1 ;
+		    temp = prev->next;
+	    } 
+    }
+
+	//like logs in the server side;
+    printf("Number of travels delted from file : %d ", deletedTravels);
+
+	return ;
+}
+
+void getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
 								Travel* currentTouristHead){
 	Travel* curr;
 	curr = allTravelsHead;
-	while(curr->next){
+	if(curr->next){
+		while(curr->next){
+			if(strcmp(curr->touristName,touristName) == 0){
+				if(addTravel(&currentTouristHead,curr) == 0){
+					printf("\nTravel added successfully !\n");
+				}else{
+					printf("\nAdding travel failed !\n");
+				}
+			}
+			curr = curr->next;
+		}
+
+	}
+	if(curr){
 		if(strcmp(curr->touristName,touristName) == 0){
 			if(addTravel(&currentTouristHead,curr) == 0){
 				printf("\nTravel added successfully !\n");
-
 			}else{
 				printf("\nAdding travel failed !\n");
 			}
 		}
-		curr = curr->next;
 	}
-	if(strcmp(curr->touristName,touristName) == 0){
-			if(addTravel(&currentTouristHead,curr) == 0){
-				printf("\nTravel added successfully !\n");
-			}else{
-				printf("\nAdding travel failed !\n");
-			}
-	}
-
-	return 1;
 }
 
 int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp){
@@ -578,6 +639,7 @@ int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp){
 
 int saveTravelsToFile(Travel* allTravelsHead ,FILE *fp){
 
+	bool successfullyWritenData;
 	Travel * curr;
 	curr = allTravelsHead;
     // open file for writing
@@ -590,15 +652,19 @@ int saveTravelsToFile(Travel* allTravelsHead ,FILE *fp){
         fprintf(stderr, "\nError opend file\n");
         exit (1);
     }
-    while(curr->next){
+    if(curr == allTravelsHead && !curr){
+    	printf("All travels list is empty. Something went wrong!");
+    	successfullyWritenData = false;
+    }	
+
+   	while(curr){
     	// write struct to file
     	fwrite(curr, sizeof(Travel), 1, fp);
     	curr = curr->next;
     }
-    fwrite(curr, sizeof(Travel), 1, fp);
-    curr = curr->next;
 
-    printf("Contents to file written successfully !\n");
+    char * successfullySavedToFile;
+    
 
 	return 0;
 }

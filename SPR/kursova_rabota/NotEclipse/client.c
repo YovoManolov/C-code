@@ -364,7 +364,6 @@ void printTravelsList(int sock,int numberOfTravelsToPrint){
         memset(curr->destination.name, 0, 50);
         memset(curr->destination.date, 0, 12);
 
-        curr = curr->next;
         printf("\n---------------Next Travel---------------\n");
 
     }

@@ -136,7 +136,6 @@ void* connection_handler(void * socket_desc){
 				addTravel(&currentTouristHead,singleTravelStorage);
 				strcpy(messageToClient,"\nNew travel was added to your list of travells!\n");
 		      	write(sock, messageToClient,strlen(messageToClient));
-				printTravelsFromHeadNode(socket_desc,currentTouristHead);
 				break;
 			case 3: 
 				break;
@@ -180,7 +179,6 @@ void* connection_handler(void * socket_desc){
 	}
 
 	free(socket_desc);
-
 }
 
 

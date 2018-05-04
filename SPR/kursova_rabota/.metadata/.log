@@ -3306,3 +3306,1139 @@ Caused by: java.lang.NullPointerException
 	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
 	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
 	... 23 more
+!SESSION 2018-05-04 17:33:17.748 -----------------------------------------------
+eclipse.buildId=M20100909-0800
+java.version=1.8.0_162
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.linuxtools.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.linuxtools.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2018-05-04 17:33:29.776
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.debug.core 4 125 2018-05-04 17:33:46.364
+!MESSAGE Error logged from Debug Core: 
+!STACK 1
+org.eclipse.debug.core.DebugException: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Premature end of file. occurred while reading launch configuration file: /home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/.metadata/.plugins/org.eclipse.debug.core/.launches/clientSide.launch.
+	at org.eclipse.debug.internal.core.LaunchManager.createDebugException(LaunchManager.java:904)
+	at org.eclipse.debug.internal.core.LaunchManager.throwException(LaunchManager.java:2438)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1336)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:452)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:613)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2062)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2454)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1096)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1382)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:576)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:545)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1080)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1052)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:525)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:228)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:194)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:164)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:493)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:206)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:126)
+	at org.eclipse.ui.internal.PluginAction.selectionChanged(PluginAction.java:275)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshSelection(WWinPluginAction.java:275)
+	at org.eclipse.ui.internal.WWinPluginAction.<init>(WWinPluginAction.java:121)
+	at org.eclipse.ui.internal.WWinPluginPulldown.<init>(WWinPluginPulldown.java:188)
+	at org.eclipse.ui.internal.ActionDescriptor.createAction(ActionDescriptor.java:269)
+	at org.eclipse.ui.internal.ActionDescriptor.<init>(ActionDescriptor.java:176)
+	at org.eclipse.ui.internal.PluginActionSetBuilder.createActionDescriptor(PluginActionSetBuilder.java:138)
+	at org.eclipse.ui.internal.PluginActionBuilder.readElement(PluginActionBuilder.java:161)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElements(RegistryReader.java:144)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElementChildren(RegistryReader.java:133)
+	at org.eclipse.ui.internal.PluginActionBuilder.readElement(PluginActionBuilder.java:144)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElements(RegistryReader.java:144)
+	at org.eclipse.ui.internal.PluginActionSetBuilder.readActionExtensions(PluginActionSetBuilder.java:268)
+	at org.eclipse.ui.internal.PluginActionSetBuilder.processActionSets(PluginActionSetBuilder.java:230)
+	at org.eclipse.ui.internal.ActionPresentation.setActionSets(ActionPresentation.java:184)
+	at org.eclipse.ui.internal.WorkbenchWindow.updateActionSets(WorkbenchWindow.java:3255)
+	at org.eclipse.ui.internal.WorkbenchWindow$27.run(WorkbenchWindow.java:3006)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.internal.WorkbenchWindow.setActivePage(WorkbenchWindow.java:2967)
+	at org.eclipse.ui.internal.WorkbenchWindow$21.runWithException(WorkbenchWindow.java:2284)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Premature end of file.
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:1014)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:842)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:771)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:925)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1329)
+	... 69 more
+!SUBENTRY 1 org.eclipse.debug.core 4 5012 2018-05-04 17:33:46.379
+!MESSAGE org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Premature end of file. occurred while reading launch configuration file: /home/yovo/Documents/Crepo/C-code/SPR/kursova_rabota/.metadata/.plugins/org.eclipse.debug.core/.launches/clientSide.launch.
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Premature end of file.
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:203)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1472)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:1014)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:602)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:505)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:842)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:771)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:243)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
+	at org.eclipse.debug.internal.core.LaunchManager.createInfoFromXML(LaunchManager.java:925)
+	at org.eclipse.debug.internal.core.LaunchManager.getInfo(LaunchManager.java:1329)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getInfo(LaunchConfiguration.java:452)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.getType(LaunchConfiguration.java:613)
+	at org.eclipse.debug.internal.core.LaunchManager.isValid(LaunchManager.java:2062)
+	at org.eclipse.debug.internal.core.LaunchManager.verifyConfigurations(LaunchManager.java:2454)
+	at org.eclipse.debug.internal.core.LaunchManager.getAllLaunchConfigurations(LaunchManager.java:1096)
+	at org.eclipse.debug.internal.core.LaunchManager.getLaunchConfigurations(LaunchManager.java:1382)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreHistory(LaunchConfigurationManager.java:576)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.restoreLaunchHistory(LaunchConfigurationManager.java:545)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.loadLaunchHistories(LaunchConfigurationManager.java:1080)
+	at org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationManager.getLaunchHistory(LaunchConfigurationManager.java:1052)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.internalGetHistory(AbstractLaunchHistoryAction.java:525)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.getToolTip(AbstractLaunchHistoryAction.java:228)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.updateTooltip(AbstractLaunchHistoryAction.java:194)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.initialize(AbstractLaunchHistoryAction.java:164)
+	at org.eclipse.debug.ui.actions.AbstractLaunchHistoryAction.selectionChanged(AbstractLaunchHistoryAction.java:493)
+	at org.eclipse.ui.internal.PluginAction.refreshEnablement(PluginAction.java:206)
+	at org.eclipse.ui.internal.PluginAction.createDelegate(PluginAction.java:126)
+	at org.eclipse.ui.internal.PluginAction.selectionChanged(PluginAction.java:275)
+	at org.eclipse.ui.internal.WWinPluginAction.refreshSelection(WWinPluginAction.java:275)
+	at org.eclipse.ui.internal.WWinPluginAction.<init>(WWinPluginAction.java:121)
+	at org.eclipse.ui.internal.WWinPluginPulldown.<init>(WWinPluginPulldown.java:188)
+	at org.eclipse.ui.internal.ActionDescriptor.createAction(ActionDescriptor.java:269)
+	at org.eclipse.ui.internal.ActionDescriptor.<init>(ActionDescriptor.java:176)
+	at org.eclipse.ui.internal.PluginActionSetBuilder.createActionDescriptor(PluginActionSetBuilder.java:138)
+	at org.eclipse.ui.internal.PluginActionBuilder.readElement(PluginActionBuilder.java:161)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElements(RegistryReader.java:144)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElementChildren(RegistryReader.java:133)
+	at org.eclipse.ui.internal.PluginActionBuilder.readElement(PluginActionBuilder.java:144)
+	at org.eclipse.ui.internal.registry.RegistryReader.readElements(RegistryReader.java:144)
+	at org.eclipse.ui.internal.PluginActionSetBuilder.readActionExtensions(PluginActionSetBuilder.java:268)
+	at org.eclipse.ui.internal.PluginActionSetBuilder.processActionSets(PluginActionSetBuilder.java:230)
+	at org.eclipse.ui.internal.ActionPresentation.setActionSets(ActionPresentation.java:184)
+	at org.eclipse.ui.internal.WorkbenchWindow.updateActionSets(WorkbenchWindow.java:3255)
+	at org.eclipse.ui.internal.WorkbenchWindow$27.run(WorkbenchWindow.java:3006)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.ui.internal.WorkbenchWindow.setActivePage(WorkbenchWindow.java:2967)
+	at org.eclipse.ui.internal.WorkbenchWindow$21.runWithException(WorkbenchWindow.java:2284)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.application.WorkbenchAdvisor.openWindows(WorkbenchAdvisor.java:803)
+	at org.eclipse.ui.internal.Workbench$31.runWithException(Workbench.java:1567)
+	at org.eclipse.ui.internal.StartupThreading$StartupRunnable.run(StartupThreading.java:31)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2548)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 17:33:53.701
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (org.eclipse.swt.SWTError: No more handles [Unknown Mozilla path (MOZILLA_FIVE_HOME not set)])
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: org.eclipse.swt.SWTError: No more handles [Unknown Mozilla path (MOZILLA_FIVE_HOME not set)]
+	at org.eclipse.swt.SWT.error(SWT.java:4109)
+	at org.eclipse.swt.browser.Mozilla.initMozilla(Mozilla.java:1739)
+	at org.eclipse.swt.browser.Mozilla.create(Mozilla.java:656)
+	at org.eclipse.swt.browser.Browser.<init>(Browser.java:119)
+	at org.eclipse.epp.usagedata.internal.ui.wizards.TermsOfUseWizardPage.createControl(TermsOfUseWizardPage.java:48)
+	at org.eclipse.jface.wizard.Wizard.createPageControls(Wizard.java:170)
+	at org.eclipse.jface.wizard.WizardDialog.createPageControls(WizardDialog.java:734)
+	at org.eclipse.jface.wizard.WizardDialog.createContents(WizardDialog.java:606)
+	at org.eclipse.jface.window.Window.create(Window.java:431)
+	at org.eclipse.jface.dialogs.Dialog.create(Dialog.java:1089)
+	at org.eclipse.jface.window.Window.open(Window.java:790)
+	at org.eclipse.epp.usagedata.internal.ui.uploaders.AskUserUploader$1.run(AskUserUploader.java:65)
+	at org.eclipse.ui.internal.UILockListener.doPendingWork(UILockListener.java:164)
+	at org.eclipse.ui.internal.UISynchronizer$3.run(UISynchronizer.java:158)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 17:49:49.523
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (org.eclipse.swt.SWTException: Widget is disposed)
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: org.eclipse.swt.SWTException: Widget is disposed
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.SWT.error(SWT.java:3969)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:466)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:403)
+	at org.eclipse.swt.widgets.Tree.getTopItem(Tree.java:1846)
+	at org.eclipse.debug.internal.ui.viewers.model.InternalTreeModelViewer.getTopElementPath(InternalTreeModelViewer.java:2265)
+	at org.eclipse.cdt.dsf.debug.internal.ui.ExpressionInformationControlCreator$ExpressionInformationControl$2$1.run(ExpressionInformationControlCreator.java:354)
+	at org.eclipse.swt.widgets.Display.timerProc(Display.java:4106)
+	at org.eclipse.swt.internal.gtk.OS._g_main_context_iteration(Native Method)
+	at org.eclipse.swt.internal.gtk.OS.g_main_context_iteration(OS.java:2229)
+	at org.eclipse.swt.widgets.Shell.setVisible(Shell.java:1997)
+	at org.eclipse.jface.text.AbstractInformationControl.setVisible(AbstractInformationControl.java:506)
+	at org.eclipse.cdt.dsf.debug.internal.ui.ExpressionInformationControlCreator$ExpressionInformationControl.setVisible(ExpressionInformationControlCreator.java:283)
+	at org.eclipse.jface.text.AbstractInformationControlManager.showInformationControl(AbstractInformationControlManager.java:1259)
+	at org.eclipse.jface.text.TextViewerHoverManager.showInformationControl(TextViewerHoverManager.java:283)
+	at org.eclipse.jface.text.AbstractInformationControlManager.internalShowInformationControl(AbstractInformationControlManager.java:1210)
+	at org.eclipse.jface.text.AbstractInformationControlManager.presentInformation(AbstractInformationControlManager.java:1139)
+	at org.eclipse.jface.text.AbstractHoverInformationControlManager.presentInformation(AbstractHoverInformationControlManager.java:902)
+	at org.eclipse.jface.text.TextViewerHoverManager.doPresentInformation(TextViewerHoverManager.java:243)
+	at org.eclipse.jface.text.TextViewerHoverManager$5.run(TextViewerHoverManager.java:233)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 17:52:50.752
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (org.eclipse.swt.SWTException: Widget is disposed)
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: org.eclipse.swt.SWTException: Widget is disposed
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.SWT.error(SWT.java:3969)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:466)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:403)
+	at org.eclipse.swt.widgets.Tree.getTopItem(Tree.java:1846)
+	at org.eclipse.debug.internal.ui.viewers.model.InternalTreeModelViewer.getTopElementPath(InternalTreeModelViewer.java:2265)
+	at org.eclipse.cdt.dsf.debug.internal.ui.ExpressionInformationControlCreator$ExpressionInformationControl$2$1.run(ExpressionInformationControlCreator.java:354)
+	at org.eclipse.swt.widgets.Display.timerProc(Display.java:4106)
+	at org.eclipse.swt.internal.gtk.OS._g_main_context_iteration(Native Method)
+	at org.eclipse.swt.internal.gtk.OS.g_main_context_iteration(OS.java:2229)
+	at org.eclipse.swt.widgets.Shell.setVisible(Shell.java:1997)
+	at org.eclipse.jface.text.AbstractInformationControl.setVisible(AbstractInformationControl.java:506)
+	at org.eclipse.cdt.dsf.debug.internal.ui.ExpressionInformationControlCreator$ExpressionInformationControl.setVisible(ExpressionInformationControlCreator.java:283)
+	at org.eclipse.jface.text.AbstractInformationControlManager.showInformationControl(AbstractInformationControlManager.java:1259)
+	at org.eclipse.jface.text.TextViewerHoverManager.showInformationControl(TextViewerHoverManager.java:283)
+	at org.eclipse.jface.text.AbstractInformationControlManager.internalShowInformationControl(AbstractInformationControlManager.java:1210)
+	at org.eclipse.jface.text.AbstractInformationControlManager.presentInformation(AbstractInformationControlManager.java:1139)
+	at org.eclipse.jface.text.AbstractHoverInformationControlManager.presentInformation(AbstractHoverInformationControlManager.java:902)
+	at org.eclipse.jface.text.TextViewerHoverManager.doPresentInformation(TextViewerHoverManager.java:243)
+	at org.eclipse.jface.text.TextViewerHoverManager$5.run(TextViewerHoverManager.java:233)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 18:09:57.881
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.debug.core 4 125 2018-05-04 18:11:09.465
+!MESSAGE Error logged from Debug Core: 
+!STACK 0
+java.io.IOException: close error
+	at org.eclipse.cdt.utils.pty.PTYInputStream.close(PTYInputStream.java:79)
+	at java.io.BufferedInputStream.close(BufferedInputStream.java:483)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.read(OutputStreamMonitor.java:183)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.access$1(OutputStreamMonitor.java:134)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor$1.run(OutputStreamMonitor.java:207)
+	at java.lang.Thread.run(Thread.java:748)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 18:11:09.850
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 18:13:55.369
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 18:13:55.370
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 18:14:13.855
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 18:14:13.856
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 18:14:28.644
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 18:14:28.644
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 18:14:53.319
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 18:16:58.946
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 18:16:58.947
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 18:18:30.104
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 18:18:30.104
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 20:27:14.734
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 20:27:46.684
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 20:27:46.684
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 20:27:46.684
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 20:27:46.685
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 20:32:24.307
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 20:47:17.187
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 20:47:18.508
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.cdt.dsf.ui.viewmodel.DefaultVMModelProxyStrategy.createDelta(DefaultVMModelProxyStrategy.java:330)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.handleEvent(AbstractVMProvider.java:378)
+	at org.eclipse.cdt.dsf.ui.viewmodel.update.AbstractCachingVMProvider.handleEvent(AbstractCachingVMProvider.java:798)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.doHandleEvent(AbstractVMProvider.java:356)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.access$1(AbstractVMProvider.java:334)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider$1.handleCompleted(AbstractVMProvider.java:352)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:291)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 20:50:45.756
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 20:51:53.711
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 20:51:54.811
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.cdt.dsf.ui.viewmodel.DefaultVMModelProxyStrategy.createDelta(DefaultVMModelProxyStrategy.java:330)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.handleEvent(AbstractVMProvider.java:378)
+	at org.eclipse.cdt.dsf.ui.viewmodel.update.AbstractCachingVMProvider.handleEvent(AbstractCachingVMProvider.java:798)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.doHandleEvent(AbstractVMProvider.java:356)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.access$1(AbstractVMProvider.java:334)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider$1.handleCompleted(AbstractVMProvider.java:352)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:291)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 20:52:32.409
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 20:52:35.593
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.cdt.dsf.ui.viewmodel.DefaultVMModelProxyStrategy.createDelta(DefaultVMModelProxyStrategy.java:330)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.handleEvent(AbstractVMProvider.java:378)
+	at org.eclipse.cdt.dsf.ui.viewmodel.update.AbstractCachingVMProvider.handleEvent(AbstractCachingVMProvider.java:798)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.doHandleEvent(AbstractVMProvider.java:356)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.access$1(AbstractVMProvider.java:334)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider$1.handleCompleted(AbstractVMProvider.java:352)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:291)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 20:53:08.901
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 20:54:23.972
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 20:54:25.132
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.cdt.dsf.ui.viewmodel.DefaultVMModelProxyStrategy.createDelta(DefaultVMModelProxyStrategy.java:330)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.handleEvent(AbstractVMProvider.java:378)
+	at org.eclipse.cdt.dsf.ui.viewmodel.update.AbstractCachingVMProvider.handleEvent(AbstractCachingVMProvider.java:798)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.doHandleEvent(AbstractVMProvider.java:356)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.access$1(AbstractVMProvider.java:334)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider$1.handleCompleted(AbstractVMProvider.java:352)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:291)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 21:09:25.986
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 21:09:25.986
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 21:09:27.268
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 21:09:27.268
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 21:09:27.278
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 21:09:27.278
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 21:09:27.279
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 21:09:27.279
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 21:09:27.282
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 21:09:27.282
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.debug.core 4 125 2018-05-04 21:09:38.601
+!MESSAGE Error logged from Debug Core: 
+!STACK 0
+java.io.IOException: close error
+	at org.eclipse.cdt.utils.pty.PTYInputStream.close(PTYInputStream.java:79)
+	at java.io.BufferedInputStream.close(BufferedInputStream.java:483)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.read(OutputStreamMonitor.java:183)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.access$1(OutputStreamMonitor.java:134)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor$1.run(OutputStreamMonitor.java:207)
+	at java.lang.Thread.run(Thread.java:748)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 21:09:38.852
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 21:16:23.784
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 21:38:35.724
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 21:39:58.208
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 21:51:50.927
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 21:52:13.348
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 21:52:13.348
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 21:52:16.729
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 21:52:16.729
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 21:56:07.623
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:06:05.823
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:06:05.824
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:06:20.067
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:06:20.067
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:06:34.668
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:06:34.669
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.debug.core 4 125 2018-05-04 22:14:28.129
+!MESSAGE Error logged from Debug Core: 
+!STACK 0
+java.io.IOException: close error
+	at org.eclipse.cdt.utils.pty.PTYInputStream.close(PTYInputStream.java:79)
+	at java.io.BufferedInputStream.close(BufferedInputStream.java:483)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.read(OutputStreamMonitor.java:183)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor.access$1(OutputStreamMonitor.java:134)
+	at org.eclipse.debug.internal.core.OutputStreamMonitor$1.run(OutputStreamMonitor.java:207)
+	at java.lang.Thread.run(Thread.java:748)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 22:14:28.403
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:28:46.081
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:28:46.081
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:29:29.234
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:29:29.234
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 22:30:59.827
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 22:31:00.544
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 22:31:01.403
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.cdt.dsf.ui.viewmodel.DefaultVMModelProxyStrategy.createDelta(DefaultVMModelProxyStrategy.java:330)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.handleEvent(AbstractVMProvider.java:378)
+	at org.eclipse.cdt.dsf.ui.viewmodel.update.AbstractCachingVMProvider.handleEvent(AbstractCachingVMProvider.java:798)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.doHandleEvent(AbstractVMProvider.java:356)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.access$1(AbstractVMProvider.java:334)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider$1.handleCompleted(AbstractVMProvider.java:352)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:291)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.ui 4 0 2018-05-04 22:31:01.404
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:4083)
+	at org.eclipse.swt.SWT.error(SWT.java:3998)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:137)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3515)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3164)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.cdt.dsf.ui.viewmodel.DefaultVMModelProxyStrategy.createDelta(DefaultVMModelProxyStrategy.java:330)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.handleEvent(AbstractVMProvider.java:378)
+	at org.eclipse.cdt.dsf.ui.viewmodel.update.AbstractCachingVMProvider.handleEvent(AbstractCachingVMProvider.java:798)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.doHandleEvent(AbstractVMProvider.java:356)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider.access$1(AbstractVMProvider.java:334)
+	at org.eclipse.cdt.dsf.ui.viewmodel.AbstractVMProvider$1.handleCompleted(AbstractVMProvider.java:352)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:291)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	... 23 more
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-05-04 22:36:12.926
+!MESSAGE An internal error occurred during: "Reading Debug Symbol Information: serverSide".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processCompileUnit(DwarfReader.java:470)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.processDebugInfoEntry(DwarfReader.java:440)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfoEntry(Dwarf.java:454)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parseDebugInfo(Dwarf.java:386)
+	at org.eclipse.cdt.utils.debug.dwarf.Dwarf.parse(Dwarf.java:362)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFilesFromDebugInfoSection(DwarfReader.java:385)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:363)
+	at org.eclipse.cdt.utils.debug.dwarf.DwarfReader.getSourceFiles(DwarfReader.java:488)
+	at org.eclipse.cdt.debug.internal.core.executables.StandardSourceFilesProvider.getSourceFiles(StandardSourceFilesProvider.java:121)
+	at org.eclipse.cdt.debug.core.executables.ExecutablesManager.getSourceFiles(ExecutablesManager.java:351)
+	at org.eclipse.cdt.debug.core.executables.Executable.getSourceFiles(Executable.java:176)
+	at org.eclipse.cdt.debug.internal.ui.views.executables.SourceFilesContentProvider$QuickParseJob.run(SourceFilesContentProvider.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:40:15.302
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:40:15.302
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:42:39.191
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:42:39.191
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:42:51.923
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:42:51.923
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:43:05.969
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:43:05.969
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-05-04 22:47:03.038
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2018-05-04 22:47:03.038
+!MESSAGE Breakpoint already removed

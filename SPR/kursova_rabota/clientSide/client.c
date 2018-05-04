@@ -36,8 +36,6 @@ int addNewTrip(int sock,char* server_message){
     char place_name[50],date[12];
     double lon,lat,averageSpeed;
 
-
-
     //------------------------------------------
     //BEGINING
     //------------------------------------------
@@ -233,7 +231,7 @@ int main(int argc , char *argv[])
             case 5:
                 break;
             case 6:
-                exit(0);
+                saveAndExit(sock, server_message);
                 break;
             default:
                 printf("You selected invalid option, please try again!");
@@ -430,3 +428,14 @@ int findTop_L_Distances(int sock,char* server_message){
 
     return  0;
  }
+
+
+void saveAndExit(int sock,char* server_message){
+    int dataReceived = 1;
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    write(sock, &dataReceived,sizeof(int));
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    write(sock, &dataReceived,sizeof(int));
+
+    exit(0);
+}

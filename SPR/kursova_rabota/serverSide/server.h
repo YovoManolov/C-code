@@ -24,23 +24,28 @@
 
 void* connection_handler(void *);
 int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp);
-int saveTravelsToFile(Travel* allTravelsHead ,FILE *fp);
+int saveTravelsToFile(void* socket_desc,Travel* allTravelsHead ,FILE *fp);
+//delete current user travels from allTravelsStruct
+void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead);
+//get current user travels from allTravelsStruct
+void getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
+                              Travel* currentTouristHead);
+void sendSigleTravelInfoToClient(void* socket_desc,Travel* travelToSend);
 void getTravelsByStOrEndDate(void* socket_desc,Travel* currentTouristHead ,
                char* dateToCompare,bool isStartDate);
 void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName,
                                                          int* lastIdInt);
 void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead);
 int addTravel(Travel** _head,Travel* singleTravelStorage);
-int getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
-                              Travel* currentTouristHead);
+void addCurrUsTravToAllTravels(Travel** allTravelsHead ,Travel* currentTouristHead);
+
 void topWantedDistances(Travel* currentTouristHead,bool topShortest,
    Travel* statisticsListPointer,int countOfTripsToReturn);
 void filteredTravelsById(Travel* statisticsListPointer,
                    Travel* currentTouristHead, int* IDsOfWantedTrips,
                   int countOfTripsToReturn);
-
+void writeMessageToClient(int sock,char* messageToClient);
 int getListSize(Travel* head);
-
 double deg2rad(double);
 double rad2deg(double);
 /*:: unit = the unit you desire for results                                  :*/

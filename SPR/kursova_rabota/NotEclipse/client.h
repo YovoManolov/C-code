@@ -27,5 +27,6 @@ int printAllMyTravels(int sock,Travel* allMyTravelsHead);
 void printTravel(Travel* head);
 void printTravelsList(int sock,int numberOfTravelsToBeReceived);
 void addTravel(Travel *_head,Travel* singleTravelStorage);
+void saveAndExit(int sock,char* server_message);
 
 #endif /* CLIENT_H_ */

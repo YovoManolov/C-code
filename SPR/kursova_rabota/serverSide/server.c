@@ -76,7 +76,7 @@ void* connection_handler(void * socket_desc){
 	Travel* allTravelsHead = NULL;
 	Travel* currentTouristHead = NULL;
 	Travel* singleTravelStorage = NULL;
-	Travel* statisticsListPointer = NULL;
+	Travel* userSearchListPointer = NULL;
 
 	strcpy(messageToClient ,"Hi client! I am your connection handler");
 	write(sock, messageToClient, 500);
@@ -138,7 +138,8 @@ void* connection_handler(void * socket_desc){
 		      	write(sock, messageToClient,strlen(messageToClient));
 
 				break;
-			case 3: 
+			case 3:
+				findTravelByStartEndDate(socket_desc,currentTouristHead);
 				break;
 			case 4: 
 				strcpy(messageToClient ,"Please enter number top longest travels to be returned : ");
@@ -149,8 +150,8 @@ void* connection_handler(void * socket_desc){
 				}else{
 					//2cond arg : bool topShortest
 					//if false  : topLongest
-					topWantedDistances(currentTouristHead,false,statisticsListPointer,numberOfTrips);
-					printTravelsFromHeadNode(socket_desc,statisticsListPointer);
+					topWantedDistances(currentTouristHead,false,userSearchListPointer,numberOfTrips);
+					printTravelsFromHeadNode(socket_desc,userSearchListPointer);
 				}
 				break;
 			case 5:
@@ -162,8 +163,8 @@ void* connection_handler(void * socket_desc){
 				}else{
 					//2cond arg : bool topShortest
 					//if false  : topLongest
-					topWantedDistances(currentTouristHead,true,statisticsListPointer,numberOfTrips);
-					printTravelsFromHeadNode(socket_desc,statisticsListPointer);
+					topWantedDistances(currentTouristHead,true,userSearchListPointer,numberOfTrips);
+					printTravelsFromHeadNode(socket_desc,userSearchListPointer);
 				}
 				break;
 			case 6:
@@ -214,9 +215,69 @@ int getListSize(Travel* head){
 	return listSize;
 }
 
+//stOrEndDate - true->search by start date
+//stOrEndDate - false->search by end date
+void findTravelByStartEndDate(void* socket_desc,Travel* currentTouristHead){
+	int sock = *(int*) socket_desc ;
+	Travel *curr;
+	char dateToSearch[12];
+	int dateTypeChoice,read_size;
+	bool isTravelFound = false;
+
+	if((read_size = recv(sock,&dateTypeChoice,sizeof(int),0)) <= 0){
+        perror("Error receiving date type choice !: \n");
+    }else {
+    	writeMessageToClient(sock,"Searching date type is received\n");
+    }
+
+    if((read_size = recv(sock,dateToSearch,12,0)) <= 0){
+        perror("Error receiving date to search with !: \n");
+    }else {
+    	writeMessageToClient(sock,"Date is received !\n");
+    }
+
+    //the idea is there cannot be more than 1 travels with the same
+    //start or end date for the same traveller/client
+	curr = currentTouristHead;
+    if(dateTypeChoice == 1){
+		while(curr){
+			if(strcmp(curr->beginning.date,dateToSearch) == 0){
+					isTravelFound = true;
+					write(sock,&isTravelFound,sizeof(bool));
+					sendSigleTravelInfoToClient(socket_desc,curr);
+					break;
+			}else{
+				curr = curr->next;
+			}
+		}
+	}else if(dateTypeChoice == 2){
+		while(curr){
+			if(strcmp(curr->destination.date,dateToSearch) == 0){
+				isTravelFound = true;
+				write(sock,&isTravelFound,sizeof(bool));
+				sendSigleTravelInfoToClient(socket_desc,curr);
+				break;
+			}else{
+				curr = curr->next;
+			}
+		}
+	}else{
+		printf("\nDate type choice is invalid!\n");
+	}
+
+	if(isTravelFound){
+		if(dateTypeChoice == 1){
+			printf("\n Successfully found travel by start date!\n");
+		}else if(dateTypeChoice == 2){
+			printf("\n Successfully found travel by end date!\n");
+		}
+	}
+	write(sock,&isTravelFound,sizeof(bool));
+}
+
 //if topShortest is false top longest are filtered
 void topWantedDistances(Travel* currentTouristHead,bool topShortest,
-	Travel* statisticsListPointer,int countOfTripsToReturn){
+	Travel* userSearchListPointer,int countOfTripsToReturn){
 	Travel *curr;
 
 	int listSize = getListSize(currentTouristHead);
@@ -263,21 +324,21 @@ void topWantedDistances(Travel* currentTouristHead,bool topShortest,
 		}
 	}
 
-	filteredTravelsById(statisticsListPointer,
+	filteredTravelsById(userSearchListPointer,
 				currentTouristHead,IDsOfWantedTrips,countOfTripsToReturn);
 
 
 	free(IDsOfWantedTrips);
 }
 
-void filteredTravelsById(Travel* statisticsListPointer,Travel* currentTouristHead,
+void filteredTravelsById(Travel* userSearchListPointer,Travel* currentTouristHead,
 								int* IDsOfWantedTrips,int countOfTripsToReturn){
 	Travel* curr ;
 	curr = currentTouristHead;
 	while(curr->next != NULL){
 		for(int i=0 ;i < countOfTripsToReturn ;i++){
 			if( (*(IDsOfWantedTrips + i)) == curr->id  ){
-			  	addTravel(&statisticsListPointer,curr);
+			  	addTravel(&userSearchListPointer,curr);
 			}
 		}
 		curr = curr->next;
@@ -560,7 +621,7 @@ void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead){
 	int deletedTravels = 0;
 
 	// If head node itself holds the key to be deleted
-    if (temp != NULL && strcmp(temp->touristName,touristName) == 0 )
+    while (temp != NULL && strcmp(temp->touristName,touristName) == 0 )
     {
         *allTravelsHead = temp->next;   // Changed head
         free(temp);               		// free old head
@@ -581,22 +642,14 @@ void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead){
 	    if (temp == NULL){
 	    	break;
 	    } else{
-		    // Unlink the node from linked list
-	    	if(prev == temp){
-	    		free(temp);
-	    		temp = NULL;
-	    	}else{
-			    prev->next = temp->next;
-			    free(temp);
-			    deletedTravels +=1 ;
-			    temp = prev->next;
-	    	}
+		    prev->next = temp->next;
+			free(temp);
+			deletedTravels += 1 ;
+			temp = prev->next;
 	    }
     }
-
 	//like logs in the server side;
     printf("Number of travels delted from file : %d ", deletedTravels);
-
 	return ;
 }
 

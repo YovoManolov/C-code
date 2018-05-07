@@ -12,6 +12,7 @@
 #include<stdlib.h>
 #include<string.h>    //strlen
 #include<unistd.h>
+#include<stdbool.h>
 #include<sys/socket.h>    //socket
 #include<arpa/inet.h> //inet_addr
 #include "datastruct.h"
@@ -21,6 +22,7 @@ void clearScreen();
 void printMenu();
 void readMessageFromServer(int sock,char* server_message, int sizeOfMessage);
 int addNewTrip(int sock,char* server_message);
+int findTravelByStartEndDate(int sock,char* server_message);
 int findTop_L_Distances(int sock,char* server_message);
 int findTop_S_Distances(int sock,char* server_message);
 int printAllMyTravels(int sock,Travel* allMyTravelsHead);

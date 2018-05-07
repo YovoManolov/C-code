@@ -8,9 +8,9 @@ void printMenu(){
     printf("\n\n---------MENU---------");
     printf("\n1.Всички мои пътувания");
     printf("\n2.Добави ново пътуване");
-    printf("\n3.Намери пътуване по дата на тръгване");
-    printf("\n4.Изведи 10-те най-дълги пътувания");
-    printf("\n5.Изведи 10-те най-къси пътувания");
+    printf("\n3.Намери пътуване по дата на тръгване или пристигане");
+    printf("\n4.Изведи X най-дълги пътувания");
+    printf("\n5.Изведи X най-къси пътувания");
     printf("\n6.Изход\n\n");
 }
  
@@ -219,16 +219,19 @@ int main(int argc , char *argv[])
                 }
                 break;
             case 3:
-                 if(findTop_S_Distances(sock, server_message) != 0){
-                     printf("\nThere was a problem with filtering your trips \n");
-                 }
+                if(findTravelByStartEndDate(sock,server_message)!= 0){
+                    printf("\nYour search was unsuccessful! ");
+                }
                 break;
             case 4:
-                  if(findTop_L_Distances(sock, server_message) != 0){
-                         printf("\nThere was a problem with filtering your trips \n");
-                  }
+                if(findTop_S_Distances(sock, server_message) != 0){
+                     printf("\nThere was a problem with filtering your trips \n");
+                }
                 break;
             case 5:
+                if(findTop_L_Distances(sock, server_message) != 0){
+                         printf("\nThere was a problem with filtering your trips \n");
+                }
                 break;
             case 6:
                 saveAndExit(sock, server_message);
@@ -358,7 +361,12 @@ void printTravelsList(int sock,int numberOfTravelsToPrint){
         memset(curr->destination.name, 0, 50);
         memset(curr->destination.date, 0, 12);
 
-        printf("\n---------------Next Travel---------------\n");
+
+        if(numberOfTravelsToPrint != 1){
+            printf("\n---------------Next Travel---------------\n");
+        }else{
+            printf("\n\n");
+        }
 
     }
     free(curr);
@@ -404,6 +412,45 @@ int findTop_S_Distances(int sock,char* server_message){
     printTravelsList(sock,numberOfTravelsToBeReceived);
 
     return 0;
+ }
+
+ int findTravelByStartEndDate(int sock,char* server_message){
+    int dateTypeChoice,read_size; // 1 or 2
+    bool isTravelFound;
+    char dateToSearch[12];
+    printf("Select searching by : \n");
+    printf("Start date : 1\n");
+    printf("End date : 2\n");
+
+    while(1){
+        scanf("%d",&dateTypeChoice);
+        if(dateTypeChoice != 1 && dateTypeChoice != 2){
+            printf("Search date type choice was invalid!\n");
+            printf("Please choose again!");
+        }else{
+            break;
+        }
+    }
+    write(sock, &dateTypeChoice,sizeof(int));
+    printf("Your choice is send to the server!\n");
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+
+    printf("Enter date to search with like dd/mm/yyyy : \n");
+    scanf("%s",dateToSearch);
+    write(sock,dateToSearch,12);
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+
+    if((read_size = recv(sock,&isTravelFound,sizeof(bool),0)) < 0){
+        perror("Is travel found flag not received ! ");
+    }
+    if(isTravelFound){
+        printTravelsList(sock,1);
+        return 0;
+    }else{
+        printf("No such travel found !");
+        return 1;
+    }
+    return 1;
  }
 
 int findTop_L_Distances(int sock,char* server_message){

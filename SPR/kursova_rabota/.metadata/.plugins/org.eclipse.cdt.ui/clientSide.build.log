@@ -6,11 +6,11 @@ Building file: ../client.c
 Invoking: GCC C Compiler
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"client.d" -MT"client.d" -o"client.o" "../client.c"
 ../client.c: In function ‘findTop_S_Distances’:
-../client.c:393:7: warning: ‘countOfMyPastTrips’ is used uninitialized in this function [-Wuninitialized]
+../client.c:401:7: warning: ‘countOfMyPastTrips’ is used uninitialized in this function [-Wuninitialized]
      if(numberOfTravelsToBeReceived > countOfMyPastTrips){
        ^
 ../client.c: In function ‘findTop_L_Distances’:
-../client.c:416:7: warning: ‘countOfMyPastTrips’ is used uninitialized in this function [-Wuninitialized]
+../client.c:463:7: warning: ‘countOfMyPastTrips’ is used uninitialized in this function [-Wuninitialized]
      if(numberOfTravelsToBeReceived > countOfMyPastTrips){
        ^
 Finished building: ../client.c

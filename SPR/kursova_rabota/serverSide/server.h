@@ -29,7 +29,7 @@ int saveTravelsToFile(void* socket_desc,Travel* allTravelsHead ,FILE *fp);
 void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead);
 //get current user travels from allTravelsStruct
 void getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
-								Travel** currentTouristHead);
+                        Travel** currentTouristHead);
 void sendSigleTravelInfoToClient(void* socket_desc,Travel* travelToSend);
 void getTravelsByStOrEndDate(void* socket_desc,Travel* currentTouristHead ,
                char* dateToCompare,bool isStartDate);
@@ -38,10 +38,10 @@ void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName,
 void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead);
 int addTravel(Travel** _head,Travel* singleTravelStorage);
 void addCurrUsTravToAllTravels(Travel** allTravelsHead ,Travel* currentTouristHead);
-
+void findTravelByStartEndDate(void* socket_desc,Travel* currentTouristHead);
 void topWantedDistances(Travel* currentTouristHead,bool topShortest,
-   Travel* statisticsListPointer,int countOfTripsToReturn);
-void filteredTravelsById(Travel* statisticsListPointer,
+   Travel* userSearchListPointer,int countOfTripsToReturn);
+void filteredTravelsById(Travel* userSearchListPointer,
                    Travel* currentTouristHead, int* IDsOfWantedTrips,
                   int countOfTripsToReturn);
 void writeMessageToClient(int sock,char* messageToClient);

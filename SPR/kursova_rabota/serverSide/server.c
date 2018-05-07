@@ -100,13 +100,13 @@ void* connection_handler(void * socket_desc){
 	// =================================================
 
 	//TO DO synchronize file usage between threads
-	if(loadAllTravelsFromFile(allTravelsHead,fp) == 1){
+	if(loadAllTravelsFromFile(&allTravelsHead,fp) == 1){
 		printf("Loading trips from file has failed! \n");
 		//in case of not created file !
 		numberOfTrips = 0;
 		write(sock,&numberOfTrips,sizeof(int));
 	}else{
-		getCurrentUserTravels(touristName,allTravelsHead,currentTouristHead);
+		getCurrentUserTravels(touristName,allTravelsHead,&currentTouristHead);
 
 		numberOfTrips = getListSize(currentTouristHead);
 		if(numberOfTrips == 0){
@@ -177,6 +177,9 @@ void* connection_handler(void * socket_desc){
 				}else{
 					printf("Client disconnected");
 					free(socket_desc);
+					close(sock);
+					pthread_exit(NULL);
+					return;
 				}
 			break;
 			default:
@@ -191,8 +194,6 @@ void* connection_handler(void * socket_desc){
 	else if(read_size == -1){
 		perror("recv failed");
 	}
-
-	free(socket_desc);
 }
 
 
@@ -519,7 +520,7 @@ int addTravel(Travel** _head,Travel* singleTravelStorage){
 
 	if(!(*_head)){
          (*_head) = singleTravelStorage;
-         return 2;
+         return 0;
     }else{
         _curr = (*_head);
 
@@ -565,6 +566,7 @@ void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead){
         free(temp);               		// free old head
         deletedTravels += 1;
         temp = *allTravelsHead;
+        prev = *allTravelsHead;
     }
 
     while(1){
@@ -573,17 +575,22 @@ void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead){
 	    while (temp != NULL && strcmp(temp->touristName,touristName) != 0)
 	    {
 	        prev = temp;
-	        temp = temp->next;
+		    temp = temp->next;
 	    }
 	 	// If key was not present in linked list
 	    if (temp == NULL){
 	    	break;
 	    } else{
 		    // Unlink the node from linked list
-		    prev->next = temp->next;
-		    free(temp);
-		    deletedTravels +=1 ;
-		    temp = prev->next;
+	    	if(prev == temp){
+	    		free(temp);
+	    		temp = NULL;
+	    	}else{
+			    prev->next = temp->next;
+			    free(temp);
+			    deletedTravels +=1 ;
+			    temp = prev->next;
+	    	}
 	    }
     }
 
@@ -594,65 +601,81 @@ void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead){
 }
 
 void getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
-								Travel* currentTouristHead){
-	Travel* curr;
-	curr = allTravelsHead;
-	if(curr->next){
-		while(curr->next){
-			if(strcmp(curr->touristName,touristName) == 0){
-				if(addTravel(&currentTouristHead,curr) == 0){
+								Travel** currentTouristHead){
+	Travel* allTravelsIterator;
+	Travel* tempNode;
+	allTravelsIterator = allTravelsHead;
+
+	if(allTravelsIterator->next){
+		while(allTravelsIterator->next){
+			if(strcmp(allTravelsIterator->touristName,touristName) == 0){
+				tempNode = malloc(sizeof(Travel));
+				*tempNode = *allTravelsIterator;
+				tempNode->next = NULL;
+				//will nead new malloc
+				if(addTravel(currentTouristHead,tempNode) == 0){
 					printf("\nTravel added successfully !\n");
 				}else{
 					printf("\nAdding travel failed !\n");
 				}
 			}
-			curr = curr->next;
+			allTravelsIterator = allTravelsIterator->next;
 		}
-
 	}
-	if(curr){
-		if(strcmp(curr->touristName,touristName) == 0){
-			if(addTravel(&currentTouristHead,curr) == 0){
+	if(allTravelsIterator){
+		if(strcmp(allTravelsIterator->touristName,touristName) == 0){
+			tempNode = malloc(sizeof(Travel));
+			*tempNode = *allTravelsIterator;
+			tempNode->next = NULL;
+			//will nead new malloc
+			if(addTravel(currentTouristHead,tempNode) == 0){
 				printf("\nTravel added successfully !\n");
 			}else{
 				printf("\nAdding travel failed !\n");
 			}
-		}
+	    }
 	}
 }
 
-int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp){
+int loadAllTravelsFromFile(Travel** allTravelsHead,FILE *fp){
     Travel *singleTravel;
-
+    bool smthRdScs;  //somthing readed successfully ?
     singleTravel = malloc(sizeof(Travel));
-    // Open person.dat for reading
+    // Open Travels.dat for reading
     fp = fopen ("Travels.dat", "r");
-    if (!fp)
+    if (fp == NULL)
     {
         fprintf(stderr, "\nFile was not successfully opened \n");
         return 1;
     }
     //count the number of trips in the file to allocate memmory
-    int countOfAllTravels = 1;
-    while(fread(singleTravel, sizeof(Travel), 1, fp)){
+    int countOfAllTravels = 0;
+    while(1 == fread(singleTravel,sizeof(Travel), 1, fp)){
     	countOfAllTravels +=1;
     }
 
     rewind(fp);
-    allTravelsHead = malloc(countOfAllTravels* sizeof(Travel));
 
     printf("Loading all trips from the file! \n");
     // read file contents till end of file
-    while(fread(singleTravel, sizeof(Travel), 1, fp)){
-    	if(addTravel(&allTravelsHead,singleTravel) == 0){
+    singleTravel = malloc(sizeof(Travel));
+    while(fread(singleTravel, sizeof(Travel), 1, fp) == 1){
+    	singleTravel->next = NULL;
+    	if(addTravel(allTravelsHead,singleTravel) == 0){
     			printf("\nTravel added from file successfully !\n");
+    			smthRdScs = true;
+    	    	singleTravel = malloc(sizeof(Travel));
     	}else{
     			printf("\nAdding travel from file failed !\n");
     	}
     }
-   	free(singleTravel);
    	fclose(fp);
-	return 1;
+
+   	if(smthRdScs){
+   		return  0;
+   	}else{
+   		return 1;
+   	}
 }
 
 int saveTravelsToFile(void* socket_desc,Travel* allTravelsHead ,FILE *fp){
@@ -666,7 +689,7 @@ int saveTravelsToFile(void* socket_desc,Travel* allTravelsHead ,FILE *fp){
     // when file is opened with mode "w" the content is
     // erased and the file is threated as empty file
 
-    fp = fopen ("person.dat", "w");
+    fp = fopen ("Travels.dat", "w");
     if (!fp)
     {
         fprintf(stderr, "\nError opening file\n");
@@ -688,6 +711,7 @@ int saveTravelsToFile(void* socket_desc,Travel* allTravelsHead ,FILE *fp){
     	curr = curr->next;
     }
 
+   	fclose(fp);
    	if(successfullyWritenData){
    		writeMessageToClient(sock,"Your trips were successfully saved");
    	}else{

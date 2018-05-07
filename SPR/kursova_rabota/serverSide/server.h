@@ -23,13 +23,13 @@
 #define pi 3.14159265358979323846
 
 void* connection_handler(void *);
-int loadAllTravelsFromFile(Travel* allTravelsHead,FILE *fp);
+int loadAllTravelsFromFile(Travel** allTravelsHead,FILE *fp);
 int saveTravelsToFile(void* socket_desc,Travel* allTravelsHead ,FILE *fp);
 //delete current user travels from allTravelsStruct
 void deleteCurrentUserTravels(char* touristName, Travel** allTravelsHead);
 //get current user travels from allTravelsStruct
 void getCurrentUserTravels(char* touristName, Travel* allTravelsHead,
-                              Travel* currentTouristHead);
+								Travel** currentTouristHead);
 void sendSigleTravelInfoToClient(void* socket_desc,Travel* travelToSend);
 void getTravelsByStOrEndDate(void* socket_desc,Travel* currentTouristHead ,
                char* dateToCompare,bool isStartDate);

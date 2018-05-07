@@ -3,142 +3,6 @@
 */
 #include "client.h"
 
-void printMenu(){
-    printf("Please make your choice from the following menu! \n");
-    printf("\n\n---------MENU---------");
-    printf("\n1.Всички мои пътувания");
-    printf("\n2.Добави ново пътуване");
-    printf("\n3.Намери пътуване по дата на тръгване или пристигане");
-    printf("\n4.Изведи X най-дълги пътувания");
-    printf("\n5.Изведи X най-къси пътувания");
-    printf("\n6.Изход\n\n");
-}
- 
-void clearScreen(){
-    char c;
-    printf("\nIf you want to clear the screen press Y !");
-    c = getchar();
-    if(c == 'Y' || c == 'y'){
-        printf("\033[H\033[J");
-    }
-}
-
-void readMessageFromServer(int sock,char* server_message, int sizeOfMessage){
-    if(recv(sock , server_message ,500, 0) < 0){
-         puts("recv failed");
-    }else{
-         printf("%s\n",server_message);
-    }
-    memset(server_message, 0, 500);
-}
-
-int addNewTrip(int sock,char* server_message){
-    char place_name[50],date[12];
-    double lon,lat,averageSpeed;
-
-    //------------------------------------------
-    //BEGINING
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%lf",&lon);*/
-    lon = 23.319941;
-
-    //signal for writen input;
-    if(send(sock ,&lon , sizeof(double) , 0) < 0)
-    {
-        puts("Sending beg longitude failed");
-        return 1;
-    }
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%lf",&lat);*/
-    lat = 42.698334;
-    //signal for writen input;
-    if(send(sock ,&lat , sizeof(double) , 0) < 0)
-    {
-       puts("Sending beg latitude failed");
-       return 1;
-    }
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%s",place_name);*/
-    strcpy(place_name,"sofia");
-    //signal for writen input;
-    if(send(sock , place_name , strlen(place_name) , 0) < 0)
-    {
-       puts("Sending beg starting position name failed");
-       return 1;
-    }
-    memset(place_name, 0, 50);
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%s",date);*/
-    strcpy(date,"20/04/2018");
-
-    //signal for writen input;
-    if(send(sock ,date , strlen(date) , 0) < 0)
-    {
-       puts("Sending beg starting position date failed");
-       return 1;
-    }
-    memset(date, 0, 12);
-    //------------------------------------------
-    //DESTINATION
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%lf",&lon);*/
-    lon = 27.910543;
-    //signal for writen input;
-    if(send(sock , &lon , sizeof(double) , 0) < 0)
-    {
-        puts("Sending destination longitude failed");
-        return 1;
-    }
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%lf",&lat);*/
-    lat = 43.204666;
-    //signal for writen input;
-    if(send(sock ,&lat , sizeof(double) , 0) < 0)
-    {
-        puts("Sending destination latitude failed");
-        return 1;
-    }
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%s",place_name);*/
-    strcpy(place_name,"varna");
-    //signal for writen input;
-    if(send(sock ,place_name, strlen(place_name) , 0) < 0)
-    {
-       puts("Sending destination position name failed!\n");
-       return 1;
-    }
-    //------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%s",date);*/
-    strcpy(date,"22/04/2018");
-    //signal for writen input;
-    if(send(sock ,date , strlen(date) , 0) < 0)
-    {
-       puts("Sending arrival date failed! ");
-       return 1;
-    }
-    //-------------------------------------------
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    /*scanf("%lf", &averageSpeed);*/
-    averageSpeed = 300;
-    //signal for writen input;
-    if(send(sock ,&averageSpeed , sizeof(double) , 0) < 0)
-    {
-       puts("Sending avararage speed in km/h failed!\n");
-       return 1;
-    }
-
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-
-    return 0;
- }
 
 int main(int argc , char *argv[])
 {
@@ -224,14 +88,15 @@ int main(int argc , char *argv[])
                 }
                 break;
             case 4:
-                if(findTop_S_Distances(sock, server_message) != 0){
-                     printf("\nThere was a problem with filtering your trips \n");
-                }
+					if(findTop_L_Distances(sock, server_message) != 0){
+						printf("\nThere was a problem with filtering your trips \n");
+					}
                 break;
             case 5:
-                if(findTop_L_Distances(sock, server_message) != 0){
-                         printf("\nThere was a problem with filtering your trips \n");
-                }
+            	 if(findTop_S_Distances(sock, server_message) != 0){
+            	        printf("\nThere was a problem with filtering your trips \n");
+            	 }
+
                 break;
             case 6:
                 saveAndExit(sock, server_message);
@@ -242,10 +107,210 @@ int main(int argc , char *argv[])
         }
 
     }
-     
+
     close(sock);
     return 0;
 }
+
+void printMenu(){
+    printf("Please make your choice from the following menu! \n");
+    printf("\n\n---------MENU---------");
+    printf("\n1.Всички мои пътувания");
+    printf("\n2.Добави ново пътуване");
+    printf("\n3.Намери пътуване по дата на тръгване или пристигане");
+    printf("\n4.Изведи X най-дълги пътувания");
+    printf("\n5.Изведи X най-къси пътувания");
+    printf("\n6.Изход\n\n");
+}
+ 
+void clearScreen(){
+    char c;
+    printf("\nIf you want to clear the screen press Y !");
+    c = getchar();
+    if(c == 'Y' || c == 'y'){
+        printf("\033[H\033[J");
+    }
+}
+
+void readMessageFromServer(int sock,char* server_message, int sizeOfMessage){
+    if(recv(sock , server_message ,500, 0) < 0){
+         puts("recv failed");
+    }else{
+         printf("%s\n",server_message);
+    }
+    memset(server_message, 0, 500);
+}
+
+int addNewTrip(int sock,char* server_message){
+    char place_name[50],date[12];
+    double lon,lat,averageSpeed;
+    int signal = 0 ,read_size;
+
+    //------------------------------------------
+    //BEGINING
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lon);
+    //signal for writen input;
+    if(send(sock ,&lon , sizeof(double) , 0) < 0)
+    {
+        puts("Sending beg longitude failed");
+        return 1;
+    }
+
+    //for synchronization;
+    if((read_size = recv(sock,&signal,sizeof(int),0)) <= 0){
+        perror("Error receiving signal for recieved data!:  ");
+    }else if(signal == 0) {
+        printf("\nData not received from server:distance\n");
+    }
+    //for synchronization;
+
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lat);
+    //signal for writen input;
+    if(send(sock ,&lat , sizeof(double) , 0) < 0)
+    {
+       puts("Sending beg latitude failed");
+       return 1;
+    }
+
+    //for synchronization;
+    if((read_size = recv(sock,&signal,sizeof(int),0)) <= 0){
+        perror("Error receiving signal for recieved data!:  ");
+    }else if(signal == 0) {
+        printf("\nData not received from server:distance\n");
+    }
+    //for synchronization;
+
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",place_name);
+    //signal for writen input;
+    if(send(sock , place_name ,50, 0) < 0)
+    {
+       puts("Sending beg starting position name failed");
+       return 1;
+    }
+    memset(place_name, 0, 50);
+
+    //for synchronization;
+    if((read_size = recv(sock,&signal,sizeof(int),0)) <= 0){
+        perror("Error receiving signal for recieved data!:  ");
+    }else if(signal == 0) {
+        printf("\nData not received from server:distance\n");
+    }
+    //for synchronization;
+
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",date);
+
+    //signal for writen input;
+    if(send(sock ,date ,12, 0) < 0)
+    {
+       puts("Sending beg starting position date failed");
+       return 1;
+    }
+    memset(date, 0, 12);
+
+    //for synchronization;
+    if((read_size = recv(sock,&signal,sizeof(int),0)) <= 0){
+        perror("Error receiving signal for recieved data!:  ");
+    }else if(signal == 0) {
+        printf("\nData not received from server:distance\n");
+    }
+    //for synchronization;
+
+    //------------------------------------------
+    //DESTINATION
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lon);
+    //signal for writen input;
+    if(send(sock , &lon , sizeof(double) , 0) < 0)
+    {
+        puts("Sending destination longitude failed");
+        return 1;
+    }
+
+    //for synchronization;
+    if((read_size = recv(sock,&signal,sizeof(int),0)) <= 0){
+        perror("Error receiving signal for recieved data!:  ");
+    }else if(signal == 0) {
+        printf("\nData not received from server:distance\n");
+    }
+    //for synchronization;
+
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf",&lat);
+    //signal for writen input;
+    if(send(sock ,&lat , sizeof(double) , 0) < 0)
+    {
+        puts("Sending destination latitude failed");
+        return 1;
+    }
+
+    //for synchronization;
+    if((read_size = recv(sock,&signal,sizeof(int),0)) <= 0){
+        perror("Error receiving signal for recieved data!:  ");
+    }else if(signal == 0) {
+        printf("\nData not received from server:distance\n");
+    }
+    //for synchronization;
+
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",place_name);
+    //signal for writen input;
+    if(send(sock ,place_name,50, 0) < 0)
+    {
+       puts("Sending destination position name failed!\n");
+       return 1;
+    }
+
+    //for synchronization;
+    if((read_size = recv(sock,&signal,sizeof(int),0)) <= 0){
+        perror("Error receiving signal for recieved data!:  ");
+    }else if(signal == 0) {
+        printf("\nData not received from server:distance\n");
+    }
+    //for synchronization;
+
+
+    //------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%s",date);
+    //signal for writen input;
+    if(send(sock ,date ,12, 0) < 0)
+    {
+       puts("Sending arrival date failed! ");
+       return 1;
+    }
+
+    //for synchronization;
+    if((read_size = recv(sock,&signal,sizeof(int),0)) <= 0){
+        perror("Error receiving signal for recieved data!:  ");
+    }else if(signal == 0) {
+        printf("\nData not received from server:distance\n");
+    }
+    //for synchronization;
+
+    //-------------------------------------------
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%lf", &averageSpeed);
+    //signal for writen input;
+    if(send(sock ,&averageSpeed , sizeof(double) , 0) < 0)
+    {
+       puts("Sending avararage speed in km/h failed!\n");
+       return 1;
+    }
+
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    return 0;
+ }
 
 int printAllMyTravels(int sock,Travel* allMyTravelsHead){
 
@@ -391,27 +456,63 @@ void printTravelsList(int sock,int numberOfTravelsToPrint){
 }
 
 int findTop_S_Distances(int sock,char* server_message){
-    int numberOfTravelsToBeReceived;
+    int numberOfTravelsToSearchFor;
     int countOfMyPastTrips;
+    int read_size;
 
-
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%d", &numberOfTravelsToBeReceived);
-
-    if(numberOfTravelsToBeReceived > countOfMyPastTrips){
-        printf("Please enter number which is less or equal to the number of your past travels\n");
-        scanf("%d", &numberOfTravelsToBeReceived);
+    if((read_size = recv(sock,&countOfMyPastTrips,sizeof(int),0)) < 0){
+        printf("Error receiving count of my trips");
     }
 
-    if(send(sock ,&numberOfTravelsToBeReceived, sizeof(int) , 0) < 0)
+    //entering the amount we want to search for
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%d", &numberOfTravelsToSearchFor);
+
+    while(numberOfTravelsToSearchFor > countOfMyPastTrips){
+        printf("Please enter number which is less or equal to the ");
+        printf("number of your past travels %d \n" , countOfMyPastTrips);
+        scanf("%d", &numberOfTravelsToSearchFor);
+    }
+
+    if(send(sock ,&numberOfTravelsToSearchFor, sizeof(int) , 0) < 0)
     {
         puts("Sending number of shortest trips to be returned failed!\n");
         return 1;
     }
 
-    printTravelsList(sock,numberOfTravelsToBeReceived);
+    printTravelsList(sock,numberOfTravelsToSearchFor);
 
     return 0;
+ }
+
+ int findTop_L_Distances(int sock,char* server_message){
+
+    int numberOfTravelsToSearchFor;
+    int countOfMyPastTrips;
+    int read_size;
+
+    if((read_size = recv(sock,&countOfMyPastTrips,sizeof(int),0)) < 0){
+        printf("Error receiving count of my trips");
+    }
+
+    readMessageFromServer(sock,server_message,sizeof(server_message));
+    scanf("%d", &numberOfTravelsToSearchFor);
+
+    while(numberOfTravelsToSearchFor > countOfMyPastTrips){
+        printf("Please enter number which is less or equal");
+        printf(" to the number of your past travels %d \n" , countOfMyPastTrips);
+        scanf("%d", &numberOfTravelsToSearchFor);
+    }
+
+    if(send(sock , &numberOfTravelsToSearchFor, sizeof(int) , 0) < 0)
+    {
+        puts("Sending number of longest trips to be returned failed!\n");
+        return 1;
+    }
+
+    printTravelsList(sock,numberOfTravelsToSearchFor);
+
+    return  0;
  }
 
  int findTravelByStartEndDate(int sock,char* server_message){
@@ -453,28 +554,7 @@ int findTop_S_Distances(int sock,char* server_message){
     return 1;
  }
 
-int findTop_L_Distances(int sock,char* server_message){
-    int numberOfTravelsToBeReceived;
-    int countOfMyPastTrips;
 
-    readMessageFromServer(sock,server_message,sizeof(server_message));
-    scanf("%d", &numberOfTravelsToBeReceived);
-
-    if(numberOfTravelsToBeReceived > countOfMyPastTrips){
-        printf("Please enter number which is less or equal to the number of your past travels\n");
-        scanf("%d", &numberOfTravelsToBeReceived);
-    }
-
-    if(send(sock , &numberOfTravelsToBeReceived, sizeof(numberOfTravelsToBeReceived) , 0) < 0)
-    {
-        puts("Sending number of longest trips to be returned failed!\n");
-        return 1;
-    }
-
-     printTravelsList(sock,numberOfTravelsToBeReceived);
-
-    return  0;
- }
 
 
 void saveAndExit(int sock,char* server_message){

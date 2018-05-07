@@ -38,12 +38,15 @@ void receiveNewTravelInfo(void* socket_desc,Travel* t,char* touristName,
 void printTravelsFromHeadNode(void* socket_desc,Travel* currentTouristHead);
 int addTravel(Travel** _head,Travel* singleTravelStorage);
 void addCurrUsTravToAllTravels(Travel** allTravelsHead ,Travel* currentTouristHead);
+void findTop_L_Distances(void* socket_desc,char* messageToClient,
+         Travel* currentTouristHead,Travel** userSearchListPointer);
+void findTop_S_Distances(void* socket_desc,char* messageToClient,
+               Travel* currentTouristHead,Travel** userSearchListPointer);
 void findTravelByStartEndDate(void* socket_desc,Travel* currentTouristHead);
 void topWantedDistances(Travel* currentTouristHead,bool topShortest,
-   Travel* userSearchListPointer,int countOfTripsToReturn);
-void filteredTravelsById(Travel* userSearchListPointer,
-                   Travel* currentTouristHead, int* IDsOfWantedTrips,
-                  int countOfTripsToReturn);
+   Travel** userSearchListPointer,int countOfTripsToReturn);
+void filteredTravelsById(Travel** userSearchListPointer,Travel* currentTouristHead,
+                        int* IDsOfWantedTrips,int countOfTripsToReturn);
 void writeMessageToClient(int sock,char* messageToClient);
 int getListSize(Travel* head);
 double deg2rad(double);

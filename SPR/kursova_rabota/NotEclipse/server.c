@@ -126,7 +126,6 @@ void* connection_handler(void * socket_desc){
 	while((read_size = recv(sock,&menu_choice,sizeof(int),0)) != -1){
 		
 		switch(menu_choice){
-
 			case 1:
 				printTravelsFromHeadNode(socket_desc,currentTouristHead);
 				break;
@@ -142,30 +141,12 @@ void* connection_handler(void * socket_desc){
 				findTravelByStartEndDate(socket_desc,currentTouristHead);
 				break;
 			case 4: 
-				strcpy(messageToClient ,"Please enter number top longest travels to be returned : ");
-				write(sock, messageToClient, 500);
-				memset(messageToClient, 0, 500);
-				if((read_size = recv(sock,&numberOfTrips,sizeof(int),0)) < 0){
-					perror("Number of trips was not received !:  ");
-				}else{
-					//2cond arg : bool topShortest
-					//if false  : topLongest
-					topWantedDistances(currentTouristHead,false,userSearchListPointer,numberOfTrips);
-					printTravelsFromHeadNode(socket_desc,userSearchListPointer);
-				}
+				findTop_L_Distances(socket_desc,messageToClient,
+							currentTouristHead,&userSearchListPointer);
 				break;
 			case 5:
-				strcpy(messageToClient ,"Please enter number of top shortest trips to be returned : ");
-				write(sock, messageToClient, 500);
-				memset(messageToClient, 0, 500);
-				if((read_size = recv(sock,&numberOfTrips,sizeof(int),0)) < 0){
-					perror("Number of trips was not received !:  ");
-				}else{
-					//2cond arg : bool topShortest
-					//if false  : topLongest
-					topWantedDistances(currentTouristHead,true,userSearchListPointer,numberOfTrips);
-					printTravelsFromHeadNode(socket_desc,userSearchListPointer);
-				}
+				findTop_S_Distances(socket_desc,messageToClient,
+							currentTouristHead,&userSearchListPointer);
 				break;
 			case 6:
 				//delete current user travels from allTravelsStruct
@@ -197,6 +178,47 @@ void* connection_handler(void * socket_desc){
 	}
 }
 
+void findTop_S_Distances(void* socket_desc,char* messageToClient,Travel* currentTouristHead,Travel** userSearchListPointer){
+	int sock = *(int*) socket_desc ;
+	int read_size;
+	int numberOfTravelsToSearchFor,currentUserTravelsCount;
+
+	currentUserTravelsCount = getListSize(currentTouristHead);
+	write(sock, &currentUserTravelsCount, sizeof(int));
+
+	strcpy(messageToClient ,"Please enter number top longest travels to be returned : ");
+	write(sock, messageToClient, 500);
+	memset(messageToClient, 0, 500);
+	if((read_size = recv(sock,&numberOfTravelsToSearchFor,sizeof(int),0)) < 0){
+		perror("Number of trips was not received !:  ");
+	}else{
+		//2cond arg : bool topShortest
+		//if false  : topLongest
+		topWantedDistances(currentTouristHead,false,userSearchListPointer,numberOfTravelsToSearchFor);
+		printTravelsFromHeadNode(socket_desc, *userSearchListPointer);
+	}
+}
+
+void findTop_L_Distances(void* socket_desc,char* messageToClient,Travel* currentTouristHead,Travel** userSearchListPointer){
+	int sock = *(int*) socket_desc ;
+	int read_size;
+	int numberOfTravelsToSearchFor,currentUserTravelsCount;
+
+	currentUserTravelsCount = getListSize(currentTouristHead);
+	write(sock,&currentUserTravelsCount, sizeof(int));
+
+	strcpy(messageToClient ,"Please enter number of top shortest trips to be returned : ");
+	write(sock, messageToClient, 500);
+	memset(messageToClient, 0, 500);
+	if((read_size = recv(sock,&numberOfTravelsToSearchFor,sizeof(int),0)) < 0){
+		perror("Number of trips was not received !:  ");
+	}else{
+		//2cond arg : bool topShortest
+		//if false  : topLongest
+		topWantedDistances(currentTouristHead,true,userSearchListPointer,numberOfTravelsToSearchFor);
+		printTravelsFromHeadNode(socket_desc,*userSearchListPointer);
+	}
+}
 
 int getListSize(Travel* head){
 	int listSize;
@@ -277,7 +299,7 @@ void findTravelByStartEndDate(void* socket_desc,Travel* currentTouristHead){
 
 //if topShortest is false top longest are filtered
 void topWantedDistances(Travel* currentTouristHead,bool topShortest,
-	Travel* userSearchListPointer,int countOfTripsToReturn){
+					Travel** userSearchListPointer,int countOfTripsToReturn){
 	Travel *curr;
 
 	int listSize = getListSize(currentTouristHead);
@@ -285,14 +307,14 @@ void topWantedDistances(Travel* currentTouristHead,bool topShortest,
 		printf("List of travels is empty request cannot be fulfilled!");
 	}
 
-	int distanceArr [listSize][2];  //first column id sec column distance;
-	int i,j,swap;
+	int distanceArr [listSize][2]; //first column id sec column distance;
+	int swap [1][2];
+	int i,j;
 	int *IDsOfWantedTrips;
 
-	IDsOfWantedTrips = malloc(countOfTripsToReturn * sizeof(int));
-
+	i = 0;
 	curr = currentTouristHead;
-	while(curr->next != NULL){
+	while(curr){
 		distanceArr[i][0] = curr->id;
 		distanceArr[i][1] = curr->distance;
 		i++;
@@ -304,9 +326,14 @@ void topWantedDistances(Travel* currentTouristHead,bool topShortest,
 		for(i=0; i < listSize; i++) {
 		    for (j = i+1; j < listSize; j++) {
 		       if(distanceArr[i][1] > distanceArr[j][1]){
-		           swap = distanceArr[i][1];
+		           swap[0][0] = distanceArr[i][0];
+		           swap[0][1] = distanceArr[i][1];
+
+		           distanceArr[i][0] = distanceArr[j][0];
 		           distanceArr[i][1] = distanceArr[j][1];
-		           distanceArr[j][1] = swap;
+
+		           distanceArr[j][0] = swap[0][0];
+		           distanceArr[j][1] = swap[0][1];
 		       }
 		    }
 		 }
@@ -316,32 +343,49 @@ void topWantedDistances(Travel* currentTouristHead,bool topShortest,
 		for(i=0; i < listSize; i++) {
 		    for (j = i+1; j < listSize; j++) {
 		       if(distanceArr[i][1] < distanceArr[j][1]){
-		           swap = distanceArr[i][1];
-		           distanceArr[i][1] = distanceArr[j][1];
-		           distanceArr[j][1] = swap;
+		    	   swap[0][0] = distanceArr[i][0];
+		    	   swap[0][1] = distanceArr[i][1];
+
+		    	  distanceArr[i][0] = distanceArr[j][0];
+		    	  distanceArr[i][1] = distanceArr[j][1];
+
+		    	  distanceArr[j][0] = swap[0][0];
+		    	  distanceArr[j][1] = swap[0][1];
 		       }
 		    }
 		}
 	}
 
+	IDsOfWantedTrips = malloc(countOfTripsToReturn * sizeof(int));
+	for(i = 0; i < countOfTripsToReturn ;i++){
+		//we fill the array with the first "countOfTripsToReturn"
+		//values from the sorted 2D array
+		*(IDsOfWantedTrips + i) = distanceArr[i][0];
+	}
+
 	filteredTravelsById(userSearchListPointer,
 				currentTouristHead,IDsOfWantedTrips,countOfTripsToReturn);
-
 
 	free(IDsOfWantedTrips);
 }
 
-void filteredTravelsById(Travel* userSearchListPointer,Travel* currentTouristHead,
+void filteredTravelsById(Travel** userSearchListPointer,Travel* currentTouristHead,
 								int* IDsOfWantedTrips,int countOfTripsToReturn){
 	Travel* curr ;
-	curr = currentTouristHead;
-	while(curr->next != NULL){
-		for(int i=0 ;i < countOfTripsToReturn ;i++){
-			if( (*(IDsOfWantedTrips + i)) == curr->id  ){
-			  	addTravel(&userSearchListPointer,curr);
+	Travel* temp;
+
+	for(int i=0 ;i < countOfTripsToReturn ;i++){
+		curr = currentTouristHead;
+		while(curr){
+			if((*(IDsOfWantedTrips + i)) == curr->id){
+				temp = malloc(sizeof(Travel));
+				temp = curr;
+				temp->next = NULL;
+			  	addTravel(userSearchListPointer,temp);
+			  	break;
 			}
+			curr = curr->next;
 		}
-		curr = curr->next;
 	}
 
 }
@@ -350,12 +394,12 @@ void receiveNewTravelInfo(void* socket_desc,Travel* receivedTravel
 			,char* touristName,int* lastIdInt){
 
 	int sock = *(int*) socket_desc ;
+	int singal = 1;
+	int read_size;
 
 	char place_name[50],date[12];
-    double Lon,Lat,averageSpeed;
-
-	int read_size;
 	char* ascForInput;
+    double Lon,Lat,averageSpeed;
 
 	receivedTravel->id = (*lastIdInt) += 1;
 
@@ -375,6 +419,9 @@ void receiveNewTravelInfo(void* socket_desc,Travel* receivedTravel
     }else{
        receivedTravel->beginning.Lon = Lon;
     }
+
+    write(sock,&singal,sizeof(int)); //for synchronization;
+
 	/*ascForInput = "Please enter Latitude of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));*/
 	writeMessageToClient(sock,"Please enter Latitude of starting position:\0");
@@ -384,14 +431,18 @@ void receiveNewTravelInfo(void* socket_desc,Travel* receivedTravel
 	    receivedTravel->beginning.Lat = Lat;
 	}
 
+	write(sock,&singal,sizeof(int)); //for synchronization;
+
 	ascForInput = "Please enter name of starting position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,place_name,50,0)) < 0){
-    perror("Error reading start pos name!:  ");
+    	perror("Error reading start pos name!:  ");
   	}else{
     	strcpy(receivedTravel->beginning.name,place_name);
   	}
   	memset(place_name, 0, 50);
+
+  	write(sock,&singal,sizeof(int)); //for synchronization;
 
 	ascForInput = "Please enter date of departure like dd/mm/yyyy:\0";
 	write(sock, ascForInput,strlen(ascForInput));
@@ -402,26 +453,30 @@ void receiveNewTravelInfo(void* socket_desc,Travel* receivedTravel
   	}
   	memset(place_name, 0, 12);
 
+  	write(sock,&singal,sizeof(int)); //for synchronization;
 	//=============================
 	//DESTINATION
 	//=============================
 	ascForInput = "Please enter Longitude of destination:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
+	if((read_size = recv(sock,&Lon,sizeof(double),0)) < 0){
     	perror("Error reading destination Longitude!:  ");
     }else{
-       receivedTravel->destination.Lat = Lat;
+       receivedTravel->destination.Lon = Lon;
     }
+
+    write(sock,&singal,sizeof(int)); //for synchronization;
  	
 	ascForInput = "Please enter Latitude of destination:\0";
 	write(sock, ascForInput,strlen(ascForInput));
-	if((read_size = recv(sock,place_name,50,0)) < 0){
+	if((read_size = recv(sock,&Lat,sizeof(double),0)) < 0){
    		perror("Error reading destination latitude failed!:  ");
   	}else{
-    	strcpy(receivedTravel->destination.name,place_name);
+    	receivedTravel->destination.Lat = Lat ;
   	}
   	memset(place_name, 0, 50);
 
+  	write(sock,&singal,sizeof(int)); //for synchronization;
 
 	ascForInput = "Please enter name of destination position:\0";
 	write(sock, ascForInput,strlen(ascForInput));
@@ -432,6 +487,8 @@ void receiveNewTravelInfo(void* socket_desc,Travel* receivedTravel
     }
   	memset(place_name, 0, 50);
 
+  	write(sock,&singal,sizeof(int)); //for synchronization;
+
 	ascForInput = "Please enter date of arrival like dd/mm/yyyy:\0";
 	write(sock, ascForInput,strlen(ascForInput));
 	if((read_size = recv(sock,date,12,0)) < 0){
@@ -440,6 +497,8 @@ void receiveNewTravelInfo(void* socket_desc,Travel* receivedTravel
     	strcpy(receivedTravel->destination.date, date);
  	}
     memset(date, 0, 12);
+
+    write(sock,&singal,sizeof(int)); //for synchronization;
 
 	ascForInput = "Please enter average speed in km/h: \0";
 	write(sock, ascForInput,strlen(ascForInput));

@@ -11,3 +11,28 @@ kill 9078
 /-----------------------
 
 fuser -k 8889/tcp 
+
+
+moscow lon = 37.617300
+	lat = 55.755826
+
+sofia lat = 42.697708
+	lon = 23.321868
+
+varna lat = 43.697708
+	lon = 27.914733
+
+NY lat = 40.712775
+	lon = -74.005973
+
+London lat = 51.507351
+	lon = -0.127758
+
+Kansas lat = 39.099727
+	lon = -94.578567
+
+Sindey lat = -33.868820
+	lon = 151.209296
+
+Hollywood lat = 34.092809
+	lon = -118.328661
